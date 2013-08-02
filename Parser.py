@@ -19,7 +19,6 @@ def p_statement(p):
 					| IF expression THEN GOTO expression ELSE GOTO expression
 					|'''
 
-
 # Production rules for expressions
 def p_expression(p):
 	'''p_expression	: LOAD LPAREN expression RPAREN
@@ -63,4 +62,6 @@ def p_value(p):
 
 def parse(tokens):
 	parser = yacc.yacc()
-	parser.parse(tokens, tracking=True)
+	p = parser.parse(tokens, tracking=True)
+
+	print(p)

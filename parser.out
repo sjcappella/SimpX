@@ -1,0 +1,93 @@
+Created by PLY version 3.4 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> p_program
+Rule 1     p_program -> statement_list
+Rule 2     p_statement_list -> statement_list statement
+Rule 3     p_statement_list -> statement
+Rule 4     p_statement -> VAR ASSIGN expression
+Rule 5     p_statement -> STORE LPAREN expression COMMA expression RPAREN
+Rule 6     p_statement -> GOTO expression
+Rule 7     p_statement -> ASSERT expression
+Rule 8     p_statement -> IF expression THEN GOTO expression ELSE GOTO expression
+Rule 9     p_statement -> <empty>
+Rule 10    p_expression -> LOAD LPAREN expression RPAREN
+Rule 11    p_expression -> expression binary_op expression
+Rule 12    p_expression -> unary_op expression
+Rule 13    p_expression -> GET_INPUT LPAREN RPAREN
+Rule 14    p_expression -> PRINT_OUTPUT LPAREN expression RPAREN
+Rule 15    p_expression -> value
+Rule 16    binary_op -> PLUS
+Rule 17    binary_op -> MINUS
+Rule 18    binary_op -> MULTIPLY
+Rule 19    binary_op -> DIVIDE
+Rule 20    binary_op -> MODULO
+Rule 21    binary_op -> XOR
+Rule 22    binary_op -> INCLUSIVE_OR
+Rule 23    binary_op -> LOGICAL_AND
+Rule 24    binary_op -> LOGICAL_OR
+Rule 25    binary_op -> LESS_THAN
+Rule 26    binary_op -> GREATER_THAN
+Rule 27    binary_op -> LESS_THAN_EQ
+Rule 28    binary_op -> GREATER_THAN_EQ
+Rule 29    binary_op -> INEQUALITY
+Rule 30    binary_op -> EQUALITY
+Rule 31    unary_op -> PLUS
+Rule 32    unary_op -> MINUS
+Rule 33    unary_op -> INCREMENT
+Rule 34    unary_op -> DECREMENT
+Rule 35    unary_op -> ADDRESS
+Rule 36    value -> 32_BIT_USIGN_INT
+Rule 37    value -> VAR
+
+Terminals, with rules where they appear
+
+32_BIT_USIGN_INT     : 36
+ADDRESS              : 35
+ASSERT               : 7
+ASSIGN               : 4
+COMMA                : 5
+DECREMENT            : 34
+DIVIDE               : 19
+ELSE                 : 8
+EQUALITY             : 30
+GET_INPUT            : 13
+GOTO                 : 6 8 8
+GREATER_THAN         : 26
+GREATER_THAN_EQ      : 28
+IF                   : 8
+INCLUSIVE_OR         : 22
+INCREMENT            : 33
+INEQUALITY           : 29
+LESS_THAN            : 25
+LESS_THAN_EQ         : 27
+LOAD                 : 10
+LOGICAL_AND          : 23
+LOGICAL_OR           : 24
+LPAREN               : 5 10 13 14
+MINUS                : 17 32
+MODULO               : 20
+MULTIPLY             : 18
+PLUS                 : 16 31
+PRINT_OUTPUT         : 14
+RPAREN               : 5 10 13 14
+STORE                : 5
+THEN                 : 8
+VAR                  : 4 37
+XOR                  : 21
+error                : 
+
+Nonterminals, with rules where they appear
+
+binary_op            : 11
+expression           : 4 5 5 6 7 8 8 8 10 11 11 12 14
+p_expression         : 
+p_program            : 0
+p_statement          : 
+p_statement_list     : 
+statement            : 2 3
+statement_list       : 1 2
+unary_op             : 12
+value                : 15
+

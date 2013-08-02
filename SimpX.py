@@ -8,14 +8,14 @@ def callLexer(file_path):
    file_data = ""
    while 1:
       line = file.readline()
-   if not line:
-      break
-   pass
-   file_data += line
+      if not line:
+         break
+      else:
+         file_data += line
 
    print(file_data)
-   #Lexer.lexInput(file_data)
-   Parser.parse(file_data)
+   Lexer.lexInput(file_data)
+   Parser.parse(Lexer.tokens)
 
 
 
