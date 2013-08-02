@@ -1,18 +1,22 @@
 import sys
 import Lexer as Lexer
+import Parser as Parser
 
 def callLexer(file_path):
-	file = open(file_path)
-   	file_data = ""
-   	while 1:
-   		line = file.readline()
-   		if not line:
-   			break
-   		pass
-   		file_data += line
+   file = open(file_path)
 
-   	print(file_data)
-   	Lexer.lexInput(file_data)
+   file_data = ""
+   while 1:
+      line = file.readline()
+   if not line:
+      break
+   pass
+   file_data += line
+
+   print(file_data)
+   #Lexer.lexInput(file_data)
+   Parser.parse(file_data)
+
 
 
 def main(argv):
