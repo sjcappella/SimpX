@@ -3,16 +3,16 @@ import yacc as yacc
 
 # Production rule for program
 def p_program(p):
-	'''p_program	: statement_list'''
+	'''program	: statement_list'''
 
 # Production rules for statement lists
 def p_statement_list(p):
-	'''p_statement_list	: statement_list statement
+	'''statement_list	: statement_list statement
 						| statement'''
 
 # Production rules for statements
 def p_statement(p):
-	'''p_statement	: VAR ASSIGN expression
+	'''statement	: VAR ASSIGN expression
 					| STORE LPAREN expression COMMA expression RPAREN
 					| GOTO expression
 					| ASSERT expression
@@ -21,7 +21,7 @@ def p_statement(p):
 
 # Production rules for expressions
 def p_expression(p):
-	'''p_expression	: LOAD LPAREN expression RPAREN
+	'''expression	: LOAD LPAREN expression RPAREN
 					| expression binary_op expression
 					| unary_op expression
 					| GET_INPUT LPAREN RPAREN
