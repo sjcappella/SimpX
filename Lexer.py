@@ -2,7 +2,7 @@ import lex
 
 # List of token names.   This is always required
 tokens = (
-   '32_Bit_USIGN_INT',
+   '32_BIT_USIGN_INT',
    'PLUS',            # + (also positive)
    'MINUS',           # - (also negate) 
    'MULTIPLY',        # *
@@ -67,7 +67,7 @@ t_LOGICAL_OR        = r'\|\|'
 tokens = list(tokens) + list(reserved.values())
 
 # A regular expression rule with some action code
-def t_32_Bit_USIGN_INT(t):
+def t_32_BIT_USIGN_INT(t):
     r'\d+'
     # We are going to cheat for now and just mod max 32 bit value
     if int(t.value) > 4294967295:
