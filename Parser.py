@@ -12,21 +12,37 @@ def p_statement_list(p):
 
 # Production rules for statements
 def p_statement(p):
-	'''statement	: VAR ASSIGN expression
-					| STORE LPAREN expression COMMA expression RPAREN
-					| GOTO expression
-					| ASSERT expression
-					| IF expression THEN GOTO expression ELSE GOTO expression
-					|'''
+	'''statement	: VAR ID
+					| VAR ID ASSIGN expressions
+             		| STORE LPAREN expressions COMMA expressions RPAREN
+             		| GOTO expressions 
+             		| ASSERT bool_statement
+             		| IF bool_expression THEN GOTO expressions ELSE GOTO expressions
+             		| PRINT_OUTPUT LPAREN expressions RPAREN'''
 
 # Production rules for expressions
+def p_expressions(p):
+	'''expressions 	: LOAD LPAREN expressions RPAREN 
+              		| expressions binary_op expression
+              		| unary_op expressions  
+              		| expression'''
+
+# Production rules for an expression
 def p_expression(p):
-	'''expression	: LOAD LPAREN expression RPAREN
-					| expression binary_op expression
-					| unary_op expression
-					| GET_INPUT LPAREN RPAREN
-					| PRINT_OUTPUT LPAREN expression RPAREN
-					| value'''
+	'''expression	: ID
+              		| 32_BIT_USIGN_INT 
+              		| GET_INPUT LPAREN RPAREN'''
+
+# Production rules for boolean expressions
+def p_bool_expression(p):
+	'''bool_expression 	: LPAREN bool_expression bool_op bool_statement RPAREN
+                   		| LPAREN bool_statement bool_op bool_statement RPAREN'''
+
+# Production rules for boolean statements
+def p_bool_statement(p):
+	'''bool_statement 	: expressions
+                  		| TRUE
+                  		| FALSE'''
 
 # Production rules for binary operators
 def p_binary_op(p):
@@ -35,8 +51,11 @@ def p_binary_op(p):
 					| MULTIPLY
 					| DIVIDE
 					| MODULO
-					| XOR
-					| INCLUSIVE_OR
+					| XOR'''
+
+# Production rules for boolean operators
+def p_bool_op(p): 
+	'''bool_op 		: INCLUSIVE_OR
 					| LOGICAL_AND
 					| LOGICAL_OR
 					| LESS_THAN
@@ -62,6 +81,6 @@ def p_value(p):
 
 def parse(tokens):
 	parser = yacc.yacc()
-	p = parser.parse(tokens, tracking=True)
+	p = parser.parse(tracking=True)
 
 	print(p)

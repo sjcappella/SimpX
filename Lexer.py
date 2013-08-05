@@ -3,6 +3,7 @@ import lex
 # List of token names.   This is always required
 tokens = (
    '32_BIT_USIGN_INT',
+   'ID',
    'PLUS',            # + (also positive)
    'MINUS',           # - (also negate) 
    'MULTIPLY',        # *
@@ -37,7 +38,9 @@ reserved = {
   'then' : 'THEN',
   'else' : 'ELSE',
   'get_input' : 'GET_INPUT',
-  'print_output' : 'PRINT_OUTPUT'
+  'print_output' : 'PRINT_OUTPUT',
+  'true' : 'TRUE',
+  'false' : 'FALSE'
 }
 
 # Regular expression rules for simple tokens
@@ -77,9 +80,9 @@ def t_32_BIT_USIGN_INT(t):
     return t
 
 # Define a regular expression for variables
-def t_VAR(t):
+def t_ID(t):
   r'[a-zA-Z_][a-zA-Z_0-9]*'
-  t.type = reserved.get(t.value,'VAR')    # Check for reserved words
+  t.type = reserved.get(t.value,'ID')    # Check for reserved words
   return t
 
 
