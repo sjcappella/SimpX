@@ -125,10 +125,9 @@ def p_statement(p):
              		| IF bool_expression THEN GOTO expressions ELSE GOTO expressions
              		| PRINT_OUTPUT LPAREN expressions RPAREN'''
 	print ("MESSAGE =====> Length of p = %d") % len(p)
-	print "MESSAGE =====> Parsed a statement", p[1], p[2], p[3], p[4]
-	for x in range(0, len(p)): 
-		if p[x] == 'var':
-			print ("MESSAGE =====> WE FOUND A VAR!!")
+	print "MESSAGE =====> Parsed a statement ", 
+
+		
 
 # Production rules for expressions
 def p_expressions(p):
@@ -145,8 +144,9 @@ def p_expression(p):
 
 # Production rules for boolean expressions
 def p_bool_expression(p):
-	'''bool_expression 	: LPAREN bool_expression bool_op bool_statement RPAREN
-                   		| LPAREN bool_statement bool_op bool_statement RPAREN'''
+	'''bool_expression 	: LPAREN bool_statement bool_op bool_expression RPAREN
+                   		| bool_statement'''
+
 
 # Production rules for boolean statements
 def p_bool_statement(p):
@@ -199,11 +199,15 @@ def parse(source_code):
 
   	# Give the lexer the source code
   	lexer.input(source_code)
-	
+	while True:
+		tok = lexer.token()
+		if not tok: break      # No more input
+		print tok
+
 	# Build the parser
 	parser = yacc.yacc()
 
 	# Parse the source code
-	p = parser.parse(data, debug=True, tracking=True)
+	p = parser.parse(source_code, debug=True, tracking=True)
 
 	print(p)
