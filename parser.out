@@ -2,187 +2,212 @@ Created by PLY version 3.4 (http://www.dabeaz.com/ply)
 
 Grammar
 
-Rule 0     S' -> program
-Rule 1     program -> statement_list
+Rule 0     S' -> start
+Rule 1     start -> statement_list
 Rule 2     statement_list -> statement_list statement
 Rule 3     statement_list -> statement
-Rule 4     statement -> VAR ID
-Rule 5     statement -> VAR ID ASSIGN expressions
-Rule 6     statement -> STORE LPAREN expressions COMMA expressions RPAREN
-Rule 7     statement -> GOTO expressions
-Rule 8     statement -> ASSERT bool_statement
-Rule 9     statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions
-Rule 10    statement -> PRINT_OUTPUT LPAREN expressions RPAREN
-Rule 11    expressions -> LOAD LPAREN expressions RPAREN
-Rule 12    expressions -> expressions binary_op expression
-Rule 13    expressions -> unary_op expressions
-Rule 14    expressions -> expression
-Rule 15    expression -> ID
-Rule 16    expression -> 32_BIT_USIGN_INT
-Rule 17    expression -> GET_INPUT LPAREN RPAREN
-Rule 18    bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN
-Rule 19    bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN
-Rule 20    bool_statement -> expressions
-Rule 21    bool_statement -> TRUE
-Rule 22    bool_statement -> FALSE
-Rule 23    binary_op -> PLUS
-Rule 24    binary_op -> MINUS
-Rule 25    binary_op -> MULTIPLY
-Rule 26    binary_op -> DIVIDE
-Rule 27    binary_op -> MODULO
-Rule 28    binary_op -> XOR
-Rule 29    bool_op -> INCLUSIVE_OR
-Rule 30    bool_op -> LOGICAL_AND
-Rule 31    bool_op -> LOGICAL_OR
-Rule 32    bool_op -> LESS_THAN
-Rule 33    bool_op -> GREATER_THAN
-Rule 34    bool_op -> LESS_THAN_EQ
-Rule 35    bool_op -> GREATER_THAN_EQ
-Rule 36    bool_op -> INEQUALITY
-Rule 37    bool_op -> EQUALITY
-Rule 38    unary_op -> PLUS
-Rule 39    unary_op -> MINUS
-Rule 40    unary_op -> INCREMENT
-Rule 41    unary_op -> DECREMENT
-Rule 42    unary_op -> ADDRESS
-Rule 43    value -> 32_BIT_USIGN_INT
-Rule 44    value -> VAR
+Rule 4     statement_list -> <empty>
+Rule 5     statement -> VAR ID
+Rule 6     statement -> VAR ID ASSIGN expressions
+Rule 7     statement -> ID ASSIGN expressions
+Rule 8     statement -> STORE LPAREN expressions COMMA expressions RPAREN
+Rule 9     statement -> GOTO expressions
+Rule 10    statement -> ASSERT bool_statement
+Rule 11    statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions
+Rule 12    statement -> PRINT_OUTPUT LPAREN expressions RPAREN
+Rule 13    expressions -> LOAD LPAREN expressions RPAREN
+Rule 14    expressions -> expressions binary_op expression
+Rule 15    expressions -> unary_op expressions
+Rule 16    expressions -> expression
+Rule 17    expression -> ID
+Rule 18    expression -> 32_BIT_USIGN_INT
+Rule 19    expression -> GET_INPUT LPAREN RPAREN
+Rule 20    bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN
+Rule 21    bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN
+Rule 22    bool_statement -> expressions
+Rule 23    bool_statement -> TRUE
+Rule 24    bool_statement -> FALSE
+Rule 25    binary_op -> PLUS
+Rule 26    binary_op -> MINUS
+Rule 27    binary_op -> MULTIPLY
+Rule 28    binary_op -> DIVIDE
+Rule 29    binary_op -> MODULO
+Rule 30    binary_op -> INCLUSIVE_OR
+Rule 31    binary_op -> ADDRESS
+Rule 32    binary_op -> XOR
+Rule 33    bool_op -> INCLUSIVE_OR
+Rule 34    bool_op -> LOGICAL_AND
+Rule 35    bool_op -> LOGICAL_OR
+Rule 36    bool_op -> LESS_THAN
+Rule 37    bool_op -> GREATER_THAN
+Rule 38    bool_op -> LESS_THAN_EQ
+Rule 39    bool_op -> GREATER_THAN_EQ
+Rule 40    bool_op -> INEQUALITY
+Rule 41    bool_op -> EQUALITY
+Rule 42    unary_op -> PLUS
+Rule 43    unary_op -> MINUS
+Rule 44    unary_op -> INCREMENT
+Rule 45    unary_op -> DECREMENT
+Rule 46    unary_op -> ADDRESS
+Rule 47    value -> 32_BIT_USIGN_INT
+Rule 48    value -> VAR
 
 Terminals, with rules where they appear
 
-32_BIT_USIGN_INT     : 16 43
-ADDRESS              : 42
-ASSERT               : 8
-ASSIGN               : 5
-COMMA                : 6
-DECREMENT            : 41
-DIVIDE               : 26
-ELSE                 : 9
-EQUALITY             : 37
-FALSE                : 22
-GET_INPUT            : 17
-GOTO                 : 7 9 9
-GREATER_THAN         : 33
-GREATER_THAN_EQ      : 35
-ID                   : 4 5 15
-IF                   : 9
-INCLUSIVE_OR         : 29
-INCREMENT            : 40
-INEQUALITY           : 36
-LESS_THAN            : 32
-LESS_THAN_EQ         : 34
-LOAD                 : 11
-LOGICAL_AND          : 30
-LOGICAL_OR           : 31
-LPAREN               : 6 10 11 17 18 19
-MINUS                : 24 39
-MODULO               : 27
-MULTIPLY             : 25
-PLUS                 : 23 38
-PRINT_OUTPUT         : 10
-RPAREN               : 6 10 11 17 18 19
-STORE                : 6
-THEN                 : 9
-TRUE                 : 21
-VAR                  : 4 5 44
-XOR                  : 28
+32_BIT_USIGN_INT     : 18 47
+ADDRESS              : 31 46
+ASSERT               : 10
+ASSIGN               : 6 7
+COMMA                : 8
+DECREMENT            : 45
+DIVIDE               : 28
+ELSE                 : 11
+EQUALITY             : 41
+FALSE                : 24
+GET_INPUT            : 19
+GOTO                 : 9 11 11
+GREATER_THAN         : 37
+GREATER_THAN_EQ      : 39
+ID                   : 5 6 7 17
+IF                   : 11
+INCLUSIVE_OR         : 30 33
+INCREMENT            : 44
+INEQUALITY           : 40
+LESS_THAN            : 36
+LESS_THAN_EQ         : 38
+LOAD                 : 13
+LOGICAL_AND          : 34
+LOGICAL_OR           : 35
+LPAREN               : 8 12 13 19 20 21
+MINUS                : 26 43
+MODULO               : 29
+MULTIPLY             : 27
+PLUS                 : 25 42
+PRINT_OUTPUT         : 12
+RPAREN               : 8 12 13 19 20 21
+STORE                : 8
+THEN                 : 11
+TRUE                 : 23
+VAR                  : 5 6 48
+XOR                  : 32
 error                : 
 
 Nonterminals, with rules where they appear
 
-binary_op            : 12
-bool_expression      : 9 18
-bool_op              : 18 19
-bool_statement       : 8 18 19 19
-expression           : 12 14
-expressions          : 5 6 6 7 9 9 10 11 12 13 20
-program              : 0
+binary_op            : 14
+bool_expression      : 11 20
+bool_op              : 20 21
+bool_statement       : 10 20 21 21
+expression           : 14 16
+expressions          : 6 7 8 8 9 11 11 12 13 14 15 22
+start                : 0
 statement            : 2 3
 statement_list       : 1 2
-unary_op             : 13
+unary_op             : 15
 value                : 
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . program
-    (1) program -> . statement_list
+    (0) S' -> . start
+    (1) start -> . statement_list
     (2) statement_list -> . statement_list statement
     (3) statement_list -> . statement
-    (4) statement -> . VAR ID
-    (5) statement -> . VAR ID ASSIGN expressions
-    (6) statement -> . STORE LPAREN expressions COMMA expressions RPAREN
-    (7) statement -> . GOTO expressions
-    (8) statement -> . ASSERT bool_statement
-    (9) statement -> . IF bool_expression THEN GOTO expressions ELSE GOTO expressions
-    (10) statement -> . PRINT_OUTPUT LPAREN expressions RPAREN
+    (4) statement_list -> .
+    (5) statement -> . VAR ID
+    (6) statement -> . VAR ID ASSIGN expressions
+    (7) statement -> . ID ASSIGN expressions
+    (8) statement -> . STORE LPAREN expressions COMMA expressions RPAREN
+    (9) statement -> . GOTO expressions
+    (10) statement -> . ASSERT bool_statement
+    (11) statement -> . IF bool_expression THEN GOTO expressions ELSE GOTO expressions
+    (12) statement -> . PRINT_OUTPUT LPAREN expressions RPAREN
 
-    VAR             shift and go to state 3
-    STORE           shift and go to state 8
-    GOTO            shift and go to state 9
-    ASSERT          shift and go to state 2
-    IF              shift and go to state 7
+  ! shift/reduce conflict for VAR resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for STORE resolved as shift
+  ! shift/reduce conflict for GOTO resolved as shift
+  ! shift/reduce conflict for ASSERT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for PRINT_OUTPUT resolved as shift
+    $end            reduce using rule 4 (statement_list -> .)
+    VAR             shift and go to state 7
+    ID              shift and go to state 8
+    STORE           shift and go to state 9
+    GOTO            shift and go to state 10
+    ASSERT          shift and go to state 3
+    IF              shift and go to state 2
     PRINT_OUTPUT    shift and go to state 1
 
-    program                        shift and go to state 4
+  ! VAR             [ reduce using rule 4 (statement_list -> .) ]
+  ! ID              [ reduce using rule 4 (statement_list -> .) ]
+  ! STORE           [ reduce using rule 4 (statement_list -> .) ]
+  ! GOTO            [ reduce using rule 4 (statement_list -> .) ]
+  ! ASSERT          [ reduce using rule 4 (statement_list -> .) ]
+  ! IF              [ reduce using rule 4 (statement_list -> .) ]
+  ! PRINT_OUTPUT    [ reduce using rule 4 (statement_list -> .) ]
+
+    start                          shift and go to state 4
     statement                      shift and go to state 5
     statement_list                 shift and go to state 6
 
 state 1
 
-    (10) statement -> PRINT_OUTPUT . LPAREN expressions RPAREN
+    (12) statement -> PRINT_OUTPUT . LPAREN expressions RPAREN
 
-    LPAREN          shift and go to state 10
+    LPAREN          shift and go to state 11
 
 
 state 2
 
-    (8) statement -> ASSERT . bool_statement
-    (20) bool_statement -> . expressions
-    (21) bool_statement -> . TRUE
-    (22) bool_statement -> . FALSE
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
+    (11) statement -> IF . bool_expression THEN GOTO expressions ELSE GOTO expressions
+    (20) bool_expression -> . LPAREN bool_expression bool_op bool_statement RPAREN
+    (21) bool_expression -> . LPAREN bool_statement bool_op bool_statement RPAREN
 
-    TRUE            shift and go to state 23
-    FALSE           shift and go to state 21
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
+    LPAREN          shift and go to state 12
 
-    expression                     shift and go to state 15
-    expressions                    shift and go to state 22
-    bool_statement                 shift and go to state 13
-    unary_op                       shift and go to state 19
+    bool_expression                shift and go to state 13
 
 state 3
 
-    (4) statement -> VAR . ID
-    (5) statement -> VAR . ID ASSIGN expressions
+    (10) statement -> ASSERT . bool_statement
+    (22) bool_statement -> . expressions
+    (23) bool_statement -> . TRUE
+    (24) bool_statement -> . FALSE
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    ID              shift and go to state 26
+    TRUE            shift and go to state 26
+    FALSE           shift and go to state 24
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
+    expression                     shift and go to state 18
+    expressions                    shift and go to state 25
+    bool_statement                 shift and go to state 16
+    unary_op                       shift and go to state 22
 
 state 4
 
-    (0) S' -> program .
+    (0) S' -> start .
 
 
 
@@ -191,6 +216,7 @@ state 5
     (3) statement_list -> statement .
 
     VAR             reduce using rule 3 (statement_list -> statement .)
+    ID              reduce using rule 3 (statement_list -> statement .)
     STORE           reduce using rule 3 (statement_list -> statement .)
     GOTO            reduce using rule 3 (statement_list -> statement .)
     ASSERT          reduce using rule 3 (statement_list -> statement .)
@@ -201,431 +227,488 @@ state 5
 
 state 6
 
-    (1) program -> statement_list .
+    (1) start -> statement_list .
     (2) statement_list -> statement_list . statement
-    (4) statement -> . VAR ID
-    (5) statement -> . VAR ID ASSIGN expressions
-    (6) statement -> . STORE LPAREN expressions COMMA expressions RPAREN
-    (7) statement -> . GOTO expressions
-    (8) statement -> . ASSERT bool_statement
-    (9) statement -> . IF bool_expression THEN GOTO expressions ELSE GOTO expressions
-    (10) statement -> . PRINT_OUTPUT LPAREN expressions RPAREN
+    (5) statement -> . VAR ID
+    (6) statement -> . VAR ID ASSIGN expressions
+    (7) statement -> . ID ASSIGN expressions
+    (8) statement -> . STORE LPAREN expressions COMMA expressions RPAREN
+    (9) statement -> . GOTO expressions
+    (10) statement -> . ASSERT bool_statement
+    (11) statement -> . IF bool_expression THEN GOTO expressions ELSE GOTO expressions
+    (12) statement -> . PRINT_OUTPUT LPAREN expressions RPAREN
 
-    $end            reduce using rule 1 (program -> statement_list .)
-    VAR             shift and go to state 3
-    STORE           shift and go to state 8
-    GOTO            shift and go to state 9
-    ASSERT          shift and go to state 2
-    IF              shift and go to state 7
+    $end            reduce using rule 1 (start -> statement_list .)
+    VAR             shift and go to state 7
+    ID              shift and go to state 8
+    STORE           shift and go to state 9
+    GOTO            shift and go to state 10
+    ASSERT          shift and go to state 3
+    IF              shift and go to state 2
     PRINT_OUTPUT    shift and go to state 1
 
-    statement                      shift and go to state 27
+    statement                      shift and go to state 29
 
 state 7
 
-    (9) statement -> IF . bool_expression THEN GOTO expressions ELSE GOTO expressions
-    (18) bool_expression -> . LPAREN bool_expression bool_op bool_statement RPAREN
-    (19) bool_expression -> . LPAREN bool_statement bool_op bool_statement RPAREN
+    (5) statement -> VAR . ID
+    (6) statement -> VAR . ID ASSIGN expressions
 
-    LPAREN          shift and go to state 28
+    ID              shift and go to state 30
 
-    bool_expression                shift and go to state 29
 
 state 8
 
-    (6) statement -> STORE . LPAREN expressions COMMA expressions RPAREN
+    (7) statement -> ID . ASSIGN expressions
 
-    LPAREN          shift and go to state 30
+    ASSIGN          shift and go to state 31
 
 
 state 9
 
-    (7) statement -> GOTO . expressions
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
+    (8) statement -> STORE . LPAREN expressions COMMA expressions RPAREN
 
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
+    LPAREN          shift and go to state 32
 
-    expressions                    shift and go to state 31
-    expression                     shift and go to state 15
-    unary_op                       shift and go to state 19
 
 state 10
 
-    (10) statement -> PRINT_OUTPUT LPAREN . expressions RPAREN
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
+    (9) statement -> GOTO . expressions
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
-    expressions                    shift and go to state 32
-    expression                     shift and go to state 15
-    unary_op                       shift and go to state 19
+    expressions                    shift and go to state 33
+    expression                     shift and go to state 18
+    unary_op                       shift and go to state 22
 
 state 11
 
-    (11) expressions -> LOAD . LPAREN expressions RPAREN
+    (12) statement -> PRINT_OUTPUT LPAREN . expressions RPAREN
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    LPAREN          shift and go to state 33
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
+    expressions                    shift and go to state 34
+    expression                     shift and go to state 18
+    unary_op                       shift and go to state 22
 
 state 12
 
-    (16) expression -> 32_BIT_USIGN_INT .
+    (20) bool_expression -> LPAREN . bool_expression bool_op bool_statement RPAREN
+    (21) bool_expression -> LPAREN . bool_statement bool_op bool_statement RPAREN
+    (20) bool_expression -> . LPAREN bool_expression bool_op bool_statement RPAREN
+    (21) bool_expression -> . LPAREN bool_statement bool_op bool_statement RPAREN
+    (22) bool_statement -> . expressions
+    (23) bool_statement -> . TRUE
+    (24) bool_statement -> . FALSE
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    PLUS            reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    MINUS           reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    MULTIPLY        reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    DIVIDE          reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    MODULO          reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    XOR             reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    VAR             reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    STORE           reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    GOTO            reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    ASSERT          reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    IF              reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    PRINT_OUTPUT    reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    $end            reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    RPAREN          reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    INCLUSIVE_OR    reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    LOGICAL_AND     reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    LOGICAL_OR      reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    LESS_THAN       reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    GREATER_THAN    reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    LESS_THAN_EQ    reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    GREATER_THAN_EQ reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    INEQUALITY      reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    EQUALITY        reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    COMMA           reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
-    ELSE            reduce using rule 16 (expression -> 32_BIT_USIGN_INT .)
+    LPAREN          shift and go to state 12
+    TRUE            shift and go to state 26
+    FALSE           shift and go to state 24
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
+    bool_statement                 shift and go to state 35
+    unary_op                       shift and go to state 22
+    expressions                    shift and go to state 25
+    expression                     shift and go to state 18
+    bool_expression                shift and go to state 36
 
 state 13
 
-    (8) statement -> ASSERT bool_statement .
+    (11) statement -> IF bool_expression . THEN GOTO expressions ELSE GOTO expressions
 
-    VAR             reduce using rule 8 (statement -> ASSERT bool_statement .)
-    STORE           reduce using rule 8 (statement -> ASSERT bool_statement .)
-    GOTO            reduce using rule 8 (statement -> ASSERT bool_statement .)
-    ASSERT          reduce using rule 8 (statement -> ASSERT bool_statement .)
-    IF              reduce using rule 8 (statement -> ASSERT bool_statement .)
-    PRINT_OUTPUT    reduce using rule 8 (statement -> ASSERT bool_statement .)
-    $end            reduce using rule 8 (statement -> ASSERT bool_statement .)
+    THEN            shift and go to state 37
 
 
 state 14
 
-    (40) unary_op -> INCREMENT .
+    (13) expressions -> LOAD . LPAREN expressions RPAREN
 
-    LOAD            reduce using rule 40 (unary_op -> INCREMENT .)
-    PLUS            reduce using rule 40 (unary_op -> INCREMENT .)
-    MINUS           reduce using rule 40 (unary_op -> INCREMENT .)
-    INCREMENT       reduce using rule 40 (unary_op -> INCREMENT .)
-    DECREMENT       reduce using rule 40 (unary_op -> INCREMENT .)
-    ADDRESS         reduce using rule 40 (unary_op -> INCREMENT .)
-    ID              reduce using rule 40 (unary_op -> INCREMENT .)
-    32_BIT_USIGN_INT reduce using rule 40 (unary_op -> INCREMENT .)
-    GET_INPUT       reduce using rule 40 (unary_op -> INCREMENT .)
+    LPAREN          shift and go to state 38
 
 
 state 15
 
-    (14) expressions -> expression .
+    (18) expression -> 32_BIT_USIGN_INT .
 
-    PLUS            reduce using rule 14 (expressions -> expression .)
-    MINUS           reduce using rule 14 (expressions -> expression .)
-    MULTIPLY        reduce using rule 14 (expressions -> expression .)
-    DIVIDE          reduce using rule 14 (expressions -> expression .)
-    MODULO          reduce using rule 14 (expressions -> expression .)
-    XOR             reduce using rule 14 (expressions -> expression .)
-    VAR             reduce using rule 14 (expressions -> expression .)
-    STORE           reduce using rule 14 (expressions -> expression .)
-    GOTO            reduce using rule 14 (expressions -> expression .)
-    ASSERT          reduce using rule 14 (expressions -> expression .)
-    IF              reduce using rule 14 (expressions -> expression .)
-    PRINT_OUTPUT    reduce using rule 14 (expressions -> expression .)
-    $end            reduce using rule 14 (expressions -> expression .)
-    RPAREN          reduce using rule 14 (expressions -> expression .)
-    INCLUSIVE_OR    reduce using rule 14 (expressions -> expression .)
-    LOGICAL_AND     reduce using rule 14 (expressions -> expression .)
-    LOGICAL_OR      reduce using rule 14 (expressions -> expression .)
-    LESS_THAN       reduce using rule 14 (expressions -> expression .)
-    GREATER_THAN    reduce using rule 14 (expressions -> expression .)
-    LESS_THAN_EQ    reduce using rule 14 (expressions -> expression .)
-    GREATER_THAN_EQ reduce using rule 14 (expressions -> expression .)
-    INEQUALITY      reduce using rule 14 (expressions -> expression .)
-    EQUALITY        reduce using rule 14 (expressions -> expression .)
-    COMMA           reduce using rule 14 (expressions -> expression .)
-    ELSE            reduce using rule 14 (expressions -> expression .)
+    PLUS            reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    MINUS           reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    MULTIPLY        reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    DIVIDE          reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    MODULO          reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    INCLUSIVE_OR    reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    ADDRESS         reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    XOR             reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    VAR             reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    ID              reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    STORE           reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    GOTO            reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    ASSERT          reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    IF              reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    PRINT_OUTPUT    reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    $end            reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    ELSE            reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    RPAREN          reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    LOGICAL_AND     reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    LOGICAL_OR      reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    LESS_THAN       reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    GREATER_THAN    reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    LESS_THAN_EQ    reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    GREATER_THAN_EQ reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    INEQUALITY      reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    EQUALITY        reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
+    COMMA           reduce using rule 18 (expression -> 32_BIT_USIGN_INT .)
 
 
 state 16
 
-    (41) unary_op -> DECREMENT .
+    (10) statement -> ASSERT bool_statement .
 
-    LOAD            reduce using rule 41 (unary_op -> DECREMENT .)
-    PLUS            reduce using rule 41 (unary_op -> DECREMENT .)
-    MINUS           reduce using rule 41 (unary_op -> DECREMENT .)
-    INCREMENT       reduce using rule 41 (unary_op -> DECREMENT .)
-    DECREMENT       reduce using rule 41 (unary_op -> DECREMENT .)
-    ADDRESS         reduce using rule 41 (unary_op -> DECREMENT .)
-    ID              reduce using rule 41 (unary_op -> DECREMENT .)
-    32_BIT_USIGN_INT reduce using rule 41 (unary_op -> DECREMENT .)
-    GET_INPUT       reduce using rule 41 (unary_op -> DECREMENT .)
+    VAR             reduce using rule 10 (statement -> ASSERT bool_statement .)
+    ID              reduce using rule 10 (statement -> ASSERT bool_statement .)
+    STORE           reduce using rule 10 (statement -> ASSERT bool_statement .)
+    GOTO            reduce using rule 10 (statement -> ASSERT bool_statement .)
+    ASSERT          reduce using rule 10 (statement -> ASSERT bool_statement .)
+    IF              reduce using rule 10 (statement -> ASSERT bool_statement .)
+    PRINT_OUTPUT    reduce using rule 10 (statement -> ASSERT bool_statement .)
+    $end            reduce using rule 10 (statement -> ASSERT bool_statement .)
 
 
 state 17
 
-    (15) expression -> ID .
+    (44) unary_op -> INCREMENT .
 
-    PLUS            reduce using rule 15 (expression -> ID .)
-    MINUS           reduce using rule 15 (expression -> ID .)
-    MULTIPLY        reduce using rule 15 (expression -> ID .)
-    DIVIDE          reduce using rule 15 (expression -> ID .)
-    MODULO          reduce using rule 15 (expression -> ID .)
-    XOR             reduce using rule 15 (expression -> ID .)
-    VAR             reduce using rule 15 (expression -> ID .)
-    STORE           reduce using rule 15 (expression -> ID .)
-    GOTO            reduce using rule 15 (expression -> ID .)
-    ASSERT          reduce using rule 15 (expression -> ID .)
-    IF              reduce using rule 15 (expression -> ID .)
-    PRINT_OUTPUT    reduce using rule 15 (expression -> ID .)
-    $end            reduce using rule 15 (expression -> ID .)
-    RPAREN          reduce using rule 15 (expression -> ID .)
-    INCLUSIVE_OR    reduce using rule 15 (expression -> ID .)
-    LOGICAL_AND     reduce using rule 15 (expression -> ID .)
-    LOGICAL_OR      reduce using rule 15 (expression -> ID .)
-    LESS_THAN       reduce using rule 15 (expression -> ID .)
-    GREATER_THAN    reduce using rule 15 (expression -> ID .)
-    LESS_THAN_EQ    reduce using rule 15 (expression -> ID .)
-    GREATER_THAN_EQ reduce using rule 15 (expression -> ID .)
-    INEQUALITY      reduce using rule 15 (expression -> ID .)
-    EQUALITY        reduce using rule 15 (expression -> ID .)
-    COMMA           reduce using rule 15 (expression -> ID .)
-    ELSE            reduce using rule 15 (expression -> ID .)
+    LOAD            reduce using rule 44 (unary_op -> INCREMENT .)
+    PLUS            reduce using rule 44 (unary_op -> INCREMENT .)
+    MINUS           reduce using rule 44 (unary_op -> INCREMENT .)
+    INCREMENT       reduce using rule 44 (unary_op -> INCREMENT .)
+    DECREMENT       reduce using rule 44 (unary_op -> INCREMENT .)
+    ADDRESS         reduce using rule 44 (unary_op -> INCREMENT .)
+    ID              reduce using rule 44 (unary_op -> INCREMENT .)
+    32_BIT_USIGN_INT reduce using rule 44 (unary_op -> INCREMENT .)
+    GET_INPUT       reduce using rule 44 (unary_op -> INCREMENT .)
 
 
 state 18
 
-    (38) unary_op -> PLUS .
+    (16) expressions -> expression .
 
-    LOAD            reduce using rule 38 (unary_op -> PLUS .)
-    PLUS            reduce using rule 38 (unary_op -> PLUS .)
-    MINUS           reduce using rule 38 (unary_op -> PLUS .)
-    INCREMENT       reduce using rule 38 (unary_op -> PLUS .)
-    DECREMENT       reduce using rule 38 (unary_op -> PLUS .)
-    ADDRESS         reduce using rule 38 (unary_op -> PLUS .)
-    ID              reduce using rule 38 (unary_op -> PLUS .)
-    32_BIT_USIGN_INT reduce using rule 38 (unary_op -> PLUS .)
-    GET_INPUT       reduce using rule 38 (unary_op -> PLUS .)
+    COMMA           reduce using rule 16 (expressions -> expression .)
+    PLUS            reduce using rule 16 (expressions -> expression .)
+    MINUS           reduce using rule 16 (expressions -> expression .)
+    MULTIPLY        reduce using rule 16 (expressions -> expression .)
+    DIVIDE          reduce using rule 16 (expressions -> expression .)
+    MODULO          reduce using rule 16 (expressions -> expression .)
+    INCLUSIVE_OR    reduce using rule 16 (expressions -> expression .)
+    ADDRESS         reduce using rule 16 (expressions -> expression .)
+    XOR             reduce using rule 16 (expressions -> expression .)
+    VAR             reduce using rule 16 (expressions -> expression .)
+    ID              reduce using rule 16 (expressions -> expression .)
+    STORE           reduce using rule 16 (expressions -> expression .)
+    GOTO            reduce using rule 16 (expressions -> expression .)
+    ASSERT          reduce using rule 16 (expressions -> expression .)
+    IF              reduce using rule 16 (expressions -> expression .)
+    PRINT_OUTPUT    reduce using rule 16 (expressions -> expression .)
+    $end            reduce using rule 16 (expressions -> expression .)
+    RPAREN          reduce using rule 16 (expressions -> expression .)
+    LOGICAL_AND     reduce using rule 16 (expressions -> expression .)
+    LOGICAL_OR      reduce using rule 16 (expressions -> expression .)
+    LESS_THAN       reduce using rule 16 (expressions -> expression .)
+    GREATER_THAN    reduce using rule 16 (expressions -> expression .)
+    LESS_THAN_EQ    reduce using rule 16 (expressions -> expression .)
+    GREATER_THAN_EQ reduce using rule 16 (expressions -> expression .)
+    INEQUALITY      reduce using rule 16 (expressions -> expression .)
+    EQUALITY        reduce using rule 16 (expressions -> expression .)
+    ELSE            reduce using rule 16 (expressions -> expression .)
 
 
 state 19
 
-    (13) expressions -> unary_op . expressions
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
+    (45) unary_op -> DECREMENT .
 
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
+    LOAD            reduce using rule 45 (unary_op -> DECREMENT .)
+    PLUS            reduce using rule 45 (unary_op -> DECREMENT .)
+    MINUS           reduce using rule 45 (unary_op -> DECREMENT .)
+    INCREMENT       reduce using rule 45 (unary_op -> DECREMENT .)
+    DECREMENT       reduce using rule 45 (unary_op -> DECREMENT .)
+    ADDRESS         reduce using rule 45 (unary_op -> DECREMENT .)
+    ID              reduce using rule 45 (unary_op -> DECREMENT .)
+    32_BIT_USIGN_INT reduce using rule 45 (unary_op -> DECREMENT .)
+    GET_INPUT       reduce using rule 45 (unary_op -> DECREMENT .)
 
-    expression                     shift and go to state 15
-    expressions                    shift and go to state 34
-    unary_op                       shift and go to state 19
 
 state 20
 
-    (42) unary_op -> ADDRESS .
+    (17) expression -> ID .
 
-    LOAD            reduce using rule 42 (unary_op -> ADDRESS .)
-    PLUS            reduce using rule 42 (unary_op -> ADDRESS .)
-    MINUS           reduce using rule 42 (unary_op -> ADDRESS .)
-    INCREMENT       reduce using rule 42 (unary_op -> ADDRESS .)
-    DECREMENT       reduce using rule 42 (unary_op -> ADDRESS .)
-    ADDRESS         reduce using rule 42 (unary_op -> ADDRESS .)
-    ID              reduce using rule 42 (unary_op -> ADDRESS .)
-    32_BIT_USIGN_INT reduce using rule 42 (unary_op -> ADDRESS .)
-    GET_INPUT       reduce using rule 42 (unary_op -> ADDRESS .)
+    PLUS            reduce using rule 17 (expression -> ID .)
+    MINUS           reduce using rule 17 (expression -> ID .)
+    MULTIPLY        reduce using rule 17 (expression -> ID .)
+    DIVIDE          reduce using rule 17 (expression -> ID .)
+    MODULO          reduce using rule 17 (expression -> ID .)
+    INCLUSIVE_OR    reduce using rule 17 (expression -> ID .)
+    ADDRESS         reduce using rule 17 (expression -> ID .)
+    XOR             reduce using rule 17 (expression -> ID .)
+    VAR             reduce using rule 17 (expression -> ID .)
+    ID              reduce using rule 17 (expression -> ID .)
+    STORE           reduce using rule 17 (expression -> ID .)
+    GOTO            reduce using rule 17 (expression -> ID .)
+    ASSERT          reduce using rule 17 (expression -> ID .)
+    IF              reduce using rule 17 (expression -> ID .)
+    PRINT_OUTPUT    reduce using rule 17 (expression -> ID .)
+    $end            reduce using rule 17 (expression -> ID .)
+    ELSE            reduce using rule 17 (expression -> ID .)
+    RPAREN          reduce using rule 17 (expression -> ID .)
+    LOGICAL_AND     reduce using rule 17 (expression -> ID .)
+    LOGICAL_OR      reduce using rule 17 (expression -> ID .)
+    LESS_THAN       reduce using rule 17 (expression -> ID .)
+    GREATER_THAN    reduce using rule 17 (expression -> ID .)
+    LESS_THAN_EQ    reduce using rule 17 (expression -> ID .)
+    GREATER_THAN_EQ reduce using rule 17 (expression -> ID .)
+    INEQUALITY      reduce using rule 17 (expression -> ID .)
+    EQUALITY        reduce using rule 17 (expression -> ID .)
+    COMMA           reduce using rule 17 (expression -> ID .)
 
 
 state 21
 
-    (22) bool_statement -> FALSE .
+    (42) unary_op -> PLUS .
 
-    INCLUSIVE_OR    reduce using rule 22 (bool_statement -> FALSE .)
-    LOGICAL_AND     reduce using rule 22 (bool_statement -> FALSE .)
-    LOGICAL_OR      reduce using rule 22 (bool_statement -> FALSE .)
-    LESS_THAN       reduce using rule 22 (bool_statement -> FALSE .)
-    GREATER_THAN    reduce using rule 22 (bool_statement -> FALSE .)
-    LESS_THAN_EQ    reduce using rule 22 (bool_statement -> FALSE .)
-    GREATER_THAN_EQ reduce using rule 22 (bool_statement -> FALSE .)
-    INEQUALITY      reduce using rule 22 (bool_statement -> FALSE .)
-    EQUALITY        reduce using rule 22 (bool_statement -> FALSE .)
-    RPAREN          reduce using rule 22 (bool_statement -> FALSE .)
-    VAR             reduce using rule 22 (bool_statement -> FALSE .)
-    STORE           reduce using rule 22 (bool_statement -> FALSE .)
-    GOTO            reduce using rule 22 (bool_statement -> FALSE .)
-    ASSERT          reduce using rule 22 (bool_statement -> FALSE .)
-    IF              reduce using rule 22 (bool_statement -> FALSE .)
-    PRINT_OUTPUT    reduce using rule 22 (bool_statement -> FALSE .)
-    $end            reduce using rule 22 (bool_statement -> FALSE .)
+    LOAD            reduce using rule 42 (unary_op -> PLUS .)
+    PLUS            reduce using rule 42 (unary_op -> PLUS .)
+    MINUS           reduce using rule 42 (unary_op -> PLUS .)
+    INCREMENT       reduce using rule 42 (unary_op -> PLUS .)
+    DECREMENT       reduce using rule 42 (unary_op -> PLUS .)
+    ADDRESS         reduce using rule 42 (unary_op -> PLUS .)
+    ID              reduce using rule 42 (unary_op -> PLUS .)
+    32_BIT_USIGN_INT reduce using rule 42 (unary_op -> PLUS .)
+    GET_INPUT       reduce using rule 42 (unary_op -> PLUS .)
 
 
 state 22
 
-    (20) bool_statement -> expressions .
-    (12) expressions -> expressions . binary_op expression
-    (23) binary_op -> . PLUS
-    (24) binary_op -> . MINUS
-    (25) binary_op -> . MULTIPLY
-    (26) binary_op -> . DIVIDE
-    (27) binary_op -> . MODULO
-    (28) binary_op -> . XOR
+    (15) expressions -> unary_op . expressions
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    INCLUSIVE_OR    reduce using rule 20 (bool_statement -> expressions .)
-    LOGICAL_AND     reduce using rule 20 (bool_statement -> expressions .)
-    LOGICAL_OR      reduce using rule 20 (bool_statement -> expressions .)
-    LESS_THAN       reduce using rule 20 (bool_statement -> expressions .)
-    GREATER_THAN    reduce using rule 20 (bool_statement -> expressions .)
-    LESS_THAN_EQ    reduce using rule 20 (bool_statement -> expressions .)
-    GREATER_THAN_EQ reduce using rule 20 (bool_statement -> expressions .)
-    INEQUALITY      reduce using rule 20 (bool_statement -> expressions .)
-    EQUALITY        reduce using rule 20 (bool_statement -> expressions .)
-    RPAREN          reduce using rule 20 (bool_statement -> expressions .)
-    VAR             reduce using rule 20 (bool_statement -> expressions .)
-    STORE           reduce using rule 20 (bool_statement -> expressions .)
-    GOTO            reduce using rule 20 (bool_statement -> expressions .)
-    ASSERT          reduce using rule 20 (bool_statement -> expressions .)
-    IF              reduce using rule 20 (bool_statement -> expressions .)
-    PRINT_OUTPUT    reduce using rule 20 (bool_statement -> expressions .)
-    $end            reduce using rule 20 (bool_statement -> expressions .)
-    PLUS            shift and go to state 38
-    MINUS           shift and go to state 41
-    MULTIPLY        shift and go to state 39
-    DIVIDE          shift and go to state 36
-    MODULO          shift and go to state 35
-    XOR             shift and go to state 40
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
-    binary_op                      shift and go to state 37
+    expression                     shift and go to state 18
+    expressions                    shift and go to state 39
+    unary_op                       shift and go to state 22
 
 state 23
 
-    (21) bool_statement -> TRUE .
+    (46) unary_op -> ADDRESS .
 
-    INCLUSIVE_OR    reduce using rule 21 (bool_statement -> TRUE .)
-    LOGICAL_AND     reduce using rule 21 (bool_statement -> TRUE .)
-    LOGICAL_OR      reduce using rule 21 (bool_statement -> TRUE .)
-    LESS_THAN       reduce using rule 21 (bool_statement -> TRUE .)
-    GREATER_THAN    reduce using rule 21 (bool_statement -> TRUE .)
-    LESS_THAN_EQ    reduce using rule 21 (bool_statement -> TRUE .)
-    GREATER_THAN_EQ reduce using rule 21 (bool_statement -> TRUE .)
-    INEQUALITY      reduce using rule 21 (bool_statement -> TRUE .)
-    EQUALITY        reduce using rule 21 (bool_statement -> TRUE .)
-    RPAREN          reduce using rule 21 (bool_statement -> TRUE .)
-    VAR             reduce using rule 21 (bool_statement -> TRUE .)
-    STORE           reduce using rule 21 (bool_statement -> TRUE .)
-    GOTO            reduce using rule 21 (bool_statement -> TRUE .)
-    ASSERT          reduce using rule 21 (bool_statement -> TRUE .)
-    IF              reduce using rule 21 (bool_statement -> TRUE .)
-    PRINT_OUTPUT    reduce using rule 21 (bool_statement -> TRUE .)
-    $end            reduce using rule 21 (bool_statement -> TRUE .)
+    LOAD            reduce using rule 46 (unary_op -> ADDRESS .)
+    PLUS            reduce using rule 46 (unary_op -> ADDRESS .)
+    MINUS           reduce using rule 46 (unary_op -> ADDRESS .)
+    INCREMENT       reduce using rule 46 (unary_op -> ADDRESS .)
+    DECREMENT       reduce using rule 46 (unary_op -> ADDRESS .)
+    ADDRESS         reduce using rule 46 (unary_op -> ADDRESS .)
+    ID              reduce using rule 46 (unary_op -> ADDRESS .)
+    32_BIT_USIGN_INT reduce using rule 46 (unary_op -> ADDRESS .)
+    GET_INPUT       reduce using rule 46 (unary_op -> ADDRESS .)
 
 
 state 24
 
-    (39) unary_op -> MINUS .
+    (24) bool_statement -> FALSE .
 
-    LOAD            reduce using rule 39 (unary_op -> MINUS .)
-    PLUS            reduce using rule 39 (unary_op -> MINUS .)
-    MINUS           reduce using rule 39 (unary_op -> MINUS .)
-    INCREMENT       reduce using rule 39 (unary_op -> MINUS .)
-    DECREMENT       reduce using rule 39 (unary_op -> MINUS .)
-    ADDRESS         reduce using rule 39 (unary_op -> MINUS .)
-    ID              reduce using rule 39 (unary_op -> MINUS .)
-    32_BIT_USIGN_INT reduce using rule 39 (unary_op -> MINUS .)
-    GET_INPUT       reduce using rule 39 (unary_op -> MINUS .)
+    RPAREN          reduce using rule 24 (bool_statement -> FALSE .)
+    INCLUSIVE_OR    reduce using rule 24 (bool_statement -> FALSE .)
+    LOGICAL_AND     reduce using rule 24 (bool_statement -> FALSE .)
+    LOGICAL_OR      reduce using rule 24 (bool_statement -> FALSE .)
+    LESS_THAN       reduce using rule 24 (bool_statement -> FALSE .)
+    GREATER_THAN    reduce using rule 24 (bool_statement -> FALSE .)
+    LESS_THAN_EQ    reduce using rule 24 (bool_statement -> FALSE .)
+    GREATER_THAN_EQ reduce using rule 24 (bool_statement -> FALSE .)
+    INEQUALITY      reduce using rule 24 (bool_statement -> FALSE .)
+    EQUALITY        reduce using rule 24 (bool_statement -> FALSE .)
+    VAR             reduce using rule 24 (bool_statement -> FALSE .)
+    ID              reduce using rule 24 (bool_statement -> FALSE .)
+    STORE           reduce using rule 24 (bool_statement -> FALSE .)
+    GOTO            reduce using rule 24 (bool_statement -> FALSE .)
+    ASSERT          reduce using rule 24 (bool_statement -> FALSE .)
+    IF              reduce using rule 24 (bool_statement -> FALSE .)
+    PRINT_OUTPUT    reduce using rule 24 (bool_statement -> FALSE .)
+    $end            reduce using rule 24 (bool_statement -> FALSE .)
 
 
 state 25
 
-    (17) expression -> GET_INPUT . LPAREN RPAREN
+    (22) bool_statement -> expressions .
+    (14) expressions -> expressions . binary_op expression
+    (25) binary_op -> . PLUS
+    (26) binary_op -> . MINUS
+    (27) binary_op -> . MULTIPLY
+    (28) binary_op -> . DIVIDE
+    (29) binary_op -> . MODULO
+    (30) binary_op -> . INCLUSIVE_OR
+    (31) binary_op -> . ADDRESS
+    (32) binary_op -> . XOR
 
-    LPAREN          shift and go to state 42
+  ! shift/reduce conflict for INCLUSIVE_OR resolved as shift
+    RPAREN          reduce using rule 22 (bool_statement -> expressions .)
+    LOGICAL_AND     reduce using rule 22 (bool_statement -> expressions .)
+    LOGICAL_OR      reduce using rule 22 (bool_statement -> expressions .)
+    LESS_THAN       reduce using rule 22 (bool_statement -> expressions .)
+    GREATER_THAN    reduce using rule 22 (bool_statement -> expressions .)
+    LESS_THAN_EQ    reduce using rule 22 (bool_statement -> expressions .)
+    GREATER_THAN_EQ reduce using rule 22 (bool_statement -> expressions .)
+    INEQUALITY      reduce using rule 22 (bool_statement -> expressions .)
+    EQUALITY        reduce using rule 22 (bool_statement -> expressions .)
+    VAR             reduce using rule 22 (bool_statement -> expressions .)
+    ID              reduce using rule 22 (bool_statement -> expressions .)
+    STORE           reduce using rule 22 (bool_statement -> expressions .)
+    GOTO            reduce using rule 22 (bool_statement -> expressions .)
+    ASSERT          reduce using rule 22 (bool_statement -> expressions .)
+    IF              reduce using rule 22 (bool_statement -> expressions .)
+    PRINT_OUTPUT    reduce using rule 22 (bool_statement -> expressions .)
+    $end            reduce using rule 22 (bool_statement -> expressions .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 48
+    MULTIPLY        shift and go to state 46
+    DIVIDE          shift and go to state 41
+    MODULO          shift and go to state 40
+    INCLUSIVE_OR    shift and go to state 43
+    ADDRESS         shift and go to state 45
+    XOR             shift and go to state 47
 
+  ! INCLUSIVE_OR    [ reduce using rule 22 (bool_statement -> expressions .) ]
+
+    binary_op                      shift and go to state 42
 
 state 26
 
-    (4) statement -> VAR ID .
-    (5) statement -> VAR ID . ASSIGN expressions
+    (23) bool_statement -> TRUE .
 
-    VAR             reduce using rule 4 (statement -> VAR ID .)
-    STORE           reduce using rule 4 (statement -> VAR ID .)
-    GOTO            reduce using rule 4 (statement -> VAR ID .)
-    ASSERT          reduce using rule 4 (statement -> VAR ID .)
-    IF              reduce using rule 4 (statement -> VAR ID .)
-    PRINT_OUTPUT    reduce using rule 4 (statement -> VAR ID .)
-    $end            reduce using rule 4 (statement -> VAR ID .)
-    ASSIGN          shift and go to state 43
+    RPAREN          reduce using rule 23 (bool_statement -> TRUE .)
+    INCLUSIVE_OR    reduce using rule 23 (bool_statement -> TRUE .)
+    LOGICAL_AND     reduce using rule 23 (bool_statement -> TRUE .)
+    LOGICAL_OR      reduce using rule 23 (bool_statement -> TRUE .)
+    LESS_THAN       reduce using rule 23 (bool_statement -> TRUE .)
+    GREATER_THAN    reduce using rule 23 (bool_statement -> TRUE .)
+    LESS_THAN_EQ    reduce using rule 23 (bool_statement -> TRUE .)
+    GREATER_THAN_EQ reduce using rule 23 (bool_statement -> TRUE .)
+    INEQUALITY      reduce using rule 23 (bool_statement -> TRUE .)
+    EQUALITY        reduce using rule 23 (bool_statement -> TRUE .)
+    VAR             reduce using rule 23 (bool_statement -> TRUE .)
+    ID              reduce using rule 23 (bool_statement -> TRUE .)
+    STORE           reduce using rule 23 (bool_statement -> TRUE .)
+    GOTO            reduce using rule 23 (bool_statement -> TRUE .)
+    ASSERT          reduce using rule 23 (bool_statement -> TRUE .)
+    IF              reduce using rule 23 (bool_statement -> TRUE .)
+    PRINT_OUTPUT    reduce using rule 23 (bool_statement -> TRUE .)
+    $end            reduce using rule 23 (bool_statement -> TRUE .)
 
 
 state 27
 
+    (43) unary_op -> MINUS .
+
+    LOAD            reduce using rule 43 (unary_op -> MINUS .)
+    PLUS            reduce using rule 43 (unary_op -> MINUS .)
+    MINUS           reduce using rule 43 (unary_op -> MINUS .)
+    INCREMENT       reduce using rule 43 (unary_op -> MINUS .)
+    DECREMENT       reduce using rule 43 (unary_op -> MINUS .)
+    ADDRESS         reduce using rule 43 (unary_op -> MINUS .)
+    ID              reduce using rule 43 (unary_op -> MINUS .)
+    32_BIT_USIGN_INT reduce using rule 43 (unary_op -> MINUS .)
+    GET_INPUT       reduce using rule 43 (unary_op -> MINUS .)
+
+
+state 28
+
+    (19) expression -> GET_INPUT . LPAREN RPAREN
+
+    LPAREN          shift and go to state 49
+
+
+state 29
+
     (2) statement_list -> statement_list statement .
 
     VAR             reduce using rule 2 (statement_list -> statement_list statement .)
+    ID              reduce using rule 2 (statement_list -> statement_list statement .)
     STORE           reduce using rule 2 (statement_list -> statement_list statement .)
     GOTO            reduce using rule 2 (statement_list -> statement_list statement .)
     ASSERT          reduce using rule 2 (statement_list -> statement_list statement .)
@@ -634,1005 +717,1114 @@ state 27
     $end            reduce using rule 2 (statement_list -> statement_list statement .)
 
 
-state 28
-
-    (18) bool_expression -> LPAREN . bool_expression bool_op bool_statement RPAREN
-    (19) bool_expression -> LPAREN . bool_statement bool_op bool_statement RPAREN
-    (18) bool_expression -> . LPAREN bool_expression bool_op bool_statement RPAREN
-    (19) bool_expression -> . LPAREN bool_statement bool_op bool_statement RPAREN
-    (20) bool_statement -> . expressions
-    (21) bool_statement -> . TRUE
-    (22) bool_statement -> . FALSE
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
-
-    LPAREN          shift and go to state 28
-    TRUE            shift and go to state 23
-    FALSE           shift and go to state 21
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
-
-    bool_statement                 shift and go to state 44
-    unary_op                       shift and go to state 19
-    expressions                    shift and go to state 22
-    expression                     shift and go to state 15
-    bool_expression                shift and go to state 45
-
-state 29
-
-    (9) statement -> IF bool_expression . THEN GOTO expressions ELSE GOTO expressions
-
-    THEN            shift and go to state 46
-
-
 state 30
 
-    (6) statement -> STORE LPAREN . expressions COMMA expressions RPAREN
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
+    (5) statement -> VAR ID .
+    (6) statement -> VAR ID . ASSIGN expressions
 
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
+    VAR             reduce using rule 5 (statement -> VAR ID .)
+    ID              reduce using rule 5 (statement -> VAR ID .)
+    STORE           reduce using rule 5 (statement -> VAR ID .)
+    GOTO            reduce using rule 5 (statement -> VAR ID .)
+    ASSERT          reduce using rule 5 (statement -> VAR ID .)
+    IF              reduce using rule 5 (statement -> VAR ID .)
+    PRINT_OUTPUT    reduce using rule 5 (statement -> VAR ID .)
+    $end            reduce using rule 5 (statement -> VAR ID .)
+    ASSIGN          shift and go to state 50
 
-    expressions                    shift and go to state 47
-    expression                     shift and go to state 15
-    unary_op                       shift and go to state 19
 
 state 31
 
-    (7) statement -> GOTO expressions .
-    (12) expressions -> expressions . binary_op expression
-    (23) binary_op -> . PLUS
-    (24) binary_op -> . MINUS
-    (25) binary_op -> . MULTIPLY
-    (26) binary_op -> . DIVIDE
-    (27) binary_op -> . MODULO
-    (28) binary_op -> . XOR
+    (7) statement -> ID ASSIGN . expressions
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    VAR             reduce using rule 7 (statement -> GOTO expressions .)
-    STORE           reduce using rule 7 (statement -> GOTO expressions .)
-    GOTO            reduce using rule 7 (statement -> GOTO expressions .)
-    ASSERT          reduce using rule 7 (statement -> GOTO expressions .)
-    IF              reduce using rule 7 (statement -> GOTO expressions .)
-    PRINT_OUTPUT    reduce using rule 7 (statement -> GOTO expressions .)
-    $end            reduce using rule 7 (statement -> GOTO expressions .)
-    PLUS            shift and go to state 38
-    MINUS           shift and go to state 41
-    MULTIPLY        shift and go to state 39
-    DIVIDE          shift and go to state 36
-    MODULO          shift and go to state 35
-    XOR             shift and go to state 40
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
-    binary_op                      shift and go to state 37
+    expressions                    shift and go to state 51
+    expression                     shift and go to state 18
+    unary_op                       shift and go to state 22
 
 state 32
 
-    (10) statement -> PRINT_OUTPUT LPAREN expressions . RPAREN
-    (12) expressions -> expressions . binary_op expression
-    (23) binary_op -> . PLUS
-    (24) binary_op -> . MINUS
-    (25) binary_op -> . MULTIPLY
-    (26) binary_op -> . DIVIDE
-    (27) binary_op -> . MODULO
-    (28) binary_op -> . XOR
+    (8) statement -> STORE LPAREN . expressions COMMA expressions RPAREN
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    RPAREN          shift and go to state 48
-    PLUS            shift and go to state 38
-    MINUS           shift and go to state 41
-    MULTIPLY        shift and go to state 39
-    DIVIDE          shift and go to state 36
-    MODULO          shift and go to state 35
-    XOR             shift and go to state 40
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
-    binary_op                      shift and go to state 37
+    expressions                    shift and go to state 52
+    expression                     shift and go to state 18
+    unary_op                       shift and go to state 22
 
 state 33
 
-    (11) expressions -> LOAD LPAREN . expressions RPAREN
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
+    (9) statement -> GOTO expressions .
+    (14) expressions -> expressions . binary_op expression
+    (25) binary_op -> . PLUS
+    (26) binary_op -> . MINUS
+    (27) binary_op -> . MULTIPLY
+    (28) binary_op -> . DIVIDE
+    (29) binary_op -> . MODULO
+    (30) binary_op -> . INCLUSIVE_OR
+    (31) binary_op -> . ADDRESS
+    (32) binary_op -> . XOR
 
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
+    VAR             reduce using rule 9 (statement -> GOTO expressions .)
+    ID              reduce using rule 9 (statement -> GOTO expressions .)
+    STORE           reduce using rule 9 (statement -> GOTO expressions .)
+    GOTO            reduce using rule 9 (statement -> GOTO expressions .)
+    ASSERT          reduce using rule 9 (statement -> GOTO expressions .)
+    IF              reduce using rule 9 (statement -> GOTO expressions .)
+    PRINT_OUTPUT    reduce using rule 9 (statement -> GOTO expressions .)
+    $end            reduce using rule 9 (statement -> GOTO expressions .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 48
+    MULTIPLY        shift and go to state 46
+    DIVIDE          shift and go to state 41
+    MODULO          shift and go to state 40
+    INCLUSIVE_OR    shift and go to state 43
+    ADDRESS         shift and go to state 45
+    XOR             shift and go to state 47
 
-    expressions                    shift and go to state 49
-    expression                     shift and go to state 15
-    unary_op                       shift and go to state 19
+    binary_op                      shift and go to state 42
 
 state 34
 
-    (13) expressions -> unary_op expressions .
-    (12) expressions -> expressions . binary_op expression
-    (23) binary_op -> . PLUS
-    (24) binary_op -> . MINUS
-    (25) binary_op -> . MULTIPLY
-    (26) binary_op -> . DIVIDE
-    (27) binary_op -> . MODULO
-    (28) binary_op -> . XOR
+    (12) statement -> PRINT_OUTPUT LPAREN expressions . RPAREN
+    (14) expressions -> expressions . binary_op expression
+    (25) binary_op -> . PLUS
+    (26) binary_op -> . MINUS
+    (27) binary_op -> . MULTIPLY
+    (28) binary_op -> . DIVIDE
+    (29) binary_op -> . MODULO
+    (30) binary_op -> . INCLUSIVE_OR
+    (31) binary_op -> . ADDRESS
+    (32) binary_op -> . XOR
+
+    RPAREN          shift and go to state 53
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 48
+    MULTIPLY        shift and go to state 46
+    DIVIDE          shift and go to state 41
+    MODULO          shift and go to state 40
+    INCLUSIVE_OR    shift and go to state 43
+    ADDRESS         shift and go to state 45
+    XOR             shift and go to state 47
+
+    binary_op                      shift and go to state 42
+
+state 35
+
+    (21) bool_expression -> LPAREN bool_statement . bool_op bool_statement RPAREN
+    (33) bool_op -> . INCLUSIVE_OR
+    (34) bool_op -> . LOGICAL_AND
+    (35) bool_op -> . LOGICAL_OR
+    (36) bool_op -> . LESS_THAN
+    (37) bool_op -> . GREATER_THAN
+    (38) bool_op -> . LESS_THAN_EQ
+    (39) bool_op -> . GREATER_THAN_EQ
+    (40) bool_op -> . INEQUALITY
+    (41) bool_op -> . EQUALITY
+
+    INCLUSIVE_OR    shift and go to state 55
+    LOGICAL_AND     shift and go to state 59
+    LOGICAL_OR      shift and go to state 54
+    LESS_THAN       shift and go to state 61
+    GREATER_THAN    shift and go to state 60
+    LESS_THAN_EQ    shift and go to state 62
+    GREATER_THAN_EQ shift and go to state 63
+    INEQUALITY      shift and go to state 58
+    EQUALITY        shift and go to state 56
+
+    bool_op                        shift and go to state 57
+
+state 36
+
+    (20) bool_expression -> LPAREN bool_expression . bool_op bool_statement RPAREN
+    (33) bool_op -> . INCLUSIVE_OR
+    (34) bool_op -> . LOGICAL_AND
+    (35) bool_op -> . LOGICAL_OR
+    (36) bool_op -> . LESS_THAN
+    (37) bool_op -> . GREATER_THAN
+    (38) bool_op -> . LESS_THAN_EQ
+    (39) bool_op -> . GREATER_THAN_EQ
+    (40) bool_op -> . INEQUALITY
+    (41) bool_op -> . EQUALITY
+
+    INCLUSIVE_OR    shift and go to state 55
+    LOGICAL_AND     shift and go to state 59
+    LOGICAL_OR      shift and go to state 54
+    LESS_THAN       shift and go to state 61
+    GREATER_THAN    shift and go to state 60
+    LESS_THAN_EQ    shift and go to state 62
+    GREATER_THAN_EQ shift and go to state 63
+    INEQUALITY      shift and go to state 58
+    EQUALITY        shift and go to state 56
+
+    bool_op                        shift and go to state 64
+
+state 37
+
+    (11) statement -> IF bool_expression THEN . GOTO expressions ELSE GOTO expressions
+
+    GOTO            shift and go to state 65
+
+
+state 38
+
+    (13) expressions -> LOAD LPAREN . expressions RPAREN
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
+
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
+
+    expressions                    shift and go to state 66
+    expression                     shift and go to state 18
+    unary_op                       shift and go to state 22
+
+state 39
+
+    (15) expressions -> unary_op expressions .
+    (14) expressions -> expressions . binary_op expression
+    (25) binary_op -> . PLUS
+    (26) binary_op -> . MINUS
+    (27) binary_op -> . MULTIPLY
+    (28) binary_op -> . DIVIDE
+    (29) binary_op -> . MODULO
+    (30) binary_op -> . INCLUSIVE_OR
+    (31) binary_op -> . ADDRESS
+    (32) binary_op -> . XOR
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
   ! shift/reduce conflict for MULTIPLY resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for MODULO resolved as shift
+  ! shift/reduce conflict for INCLUSIVE_OR resolved as shift
+  ! shift/reduce conflict for ADDRESS resolved as shift
   ! shift/reduce conflict for XOR resolved as shift
-    VAR             reduce using rule 13 (expressions -> unary_op expressions .)
-    STORE           reduce using rule 13 (expressions -> unary_op expressions .)
-    GOTO            reduce using rule 13 (expressions -> unary_op expressions .)
-    ASSERT          reduce using rule 13 (expressions -> unary_op expressions .)
-    IF              reduce using rule 13 (expressions -> unary_op expressions .)
-    PRINT_OUTPUT    reduce using rule 13 (expressions -> unary_op expressions .)
-    $end            reduce using rule 13 (expressions -> unary_op expressions .)
-    RPAREN          reduce using rule 13 (expressions -> unary_op expressions .)
-    INCLUSIVE_OR    reduce using rule 13 (expressions -> unary_op expressions .)
-    LOGICAL_AND     reduce using rule 13 (expressions -> unary_op expressions .)
-    LOGICAL_OR      reduce using rule 13 (expressions -> unary_op expressions .)
-    LESS_THAN       reduce using rule 13 (expressions -> unary_op expressions .)
-    GREATER_THAN    reduce using rule 13 (expressions -> unary_op expressions .)
-    LESS_THAN_EQ    reduce using rule 13 (expressions -> unary_op expressions .)
-    GREATER_THAN_EQ reduce using rule 13 (expressions -> unary_op expressions .)
-    INEQUALITY      reduce using rule 13 (expressions -> unary_op expressions .)
-    EQUALITY        reduce using rule 13 (expressions -> unary_op expressions .)
-    COMMA           reduce using rule 13 (expressions -> unary_op expressions .)
-    ELSE            reduce using rule 13 (expressions -> unary_op expressions .)
-    PLUS            shift and go to state 38
-    MINUS           shift and go to state 41
-    MULTIPLY        shift and go to state 39
-    DIVIDE          shift and go to state 36
-    MODULO          shift and go to state 35
-    XOR             shift and go to state 40
+    COMMA           reduce using rule 15 (expressions -> unary_op expressions .)
+    VAR             reduce using rule 15 (expressions -> unary_op expressions .)
+    ID              reduce using rule 15 (expressions -> unary_op expressions .)
+    STORE           reduce using rule 15 (expressions -> unary_op expressions .)
+    GOTO            reduce using rule 15 (expressions -> unary_op expressions .)
+    ASSERT          reduce using rule 15 (expressions -> unary_op expressions .)
+    IF              reduce using rule 15 (expressions -> unary_op expressions .)
+    PRINT_OUTPUT    reduce using rule 15 (expressions -> unary_op expressions .)
+    $end            reduce using rule 15 (expressions -> unary_op expressions .)
+    RPAREN          reduce using rule 15 (expressions -> unary_op expressions .)
+    LOGICAL_AND     reduce using rule 15 (expressions -> unary_op expressions .)
+    LOGICAL_OR      reduce using rule 15 (expressions -> unary_op expressions .)
+    LESS_THAN       reduce using rule 15 (expressions -> unary_op expressions .)
+    GREATER_THAN    reduce using rule 15 (expressions -> unary_op expressions .)
+    LESS_THAN_EQ    reduce using rule 15 (expressions -> unary_op expressions .)
+    GREATER_THAN_EQ reduce using rule 15 (expressions -> unary_op expressions .)
+    INEQUALITY      reduce using rule 15 (expressions -> unary_op expressions .)
+    EQUALITY        reduce using rule 15 (expressions -> unary_op expressions .)
+    ELSE            reduce using rule 15 (expressions -> unary_op expressions .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 48
+    MULTIPLY        shift and go to state 46
+    DIVIDE          shift and go to state 41
+    MODULO          shift and go to state 40
+    INCLUSIVE_OR    shift and go to state 43
+    ADDRESS         shift and go to state 45
+    XOR             shift and go to state 47
 
-  ! PLUS            [ reduce using rule 13 (expressions -> unary_op expressions .) ]
-  ! MINUS           [ reduce using rule 13 (expressions -> unary_op expressions .) ]
-  ! MULTIPLY        [ reduce using rule 13 (expressions -> unary_op expressions .) ]
-  ! DIVIDE          [ reduce using rule 13 (expressions -> unary_op expressions .) ]
-  ! MODULO          [ reduce using rule 13 (expressions -> unary_op expressions .) ]
-  ! XOR             [ reduce using rule 13 (expressions -> unary_op expressions .) ]
+  ! PLUS            [ reduce using rule 15 (expressions -> unary_op expressions .) ]
+  ! MINUS           [ reduce using rule 15 (expressions -> unary_op expressions .) ]
+  ! MULTIPLY        [ reduce using rule 15 (expressions -> unary_op expressions .) ]
+  ! DIVIDE          [ reduce using rule 15 (expressions -> unary_op expressions .) ]
+  ! MODULO          [ reduce using rule 15 (expressions -> unary_op expressions .) ]
+  ! INCLUSIVE_OR    [ reduce using rule 15 (expressions -> unary_op expressions .) ]
+  ! ADDRESS         [ reduce using rule 15 (expressions -> unary_op expressions .) ]
+  ! XOR             [ reduce using rule 15 (expressions -> unary_op expressions .) ]
 
-    binary_op                      shift and go to state 37
-
-state 35
-
-    (27) binary_op -> MODULO .
-
-    ID              reduce using rule 27 (binary_op -> MODULO .)
-    32_BIT_USIGN_INT reduce using rule 27 (binary_op -> MODULO .)
-    GET_INPUT       reduce using rule 27 (binary_op -> MODULO .)
-
-
-state 36
-
-    (26) binary_op -> DIVIDE .
-
-    ID              reduce using rule 26 (binary_op -> DIVIDE .)
-    32_BIT_USIGN_INT reduce using rule 26 (binary_op -> DIVIDE .)
-    GET_INPUT       reduce using rule 26 (binary_op -> DIVIDE .)
-
-
-state 37
-
-    (12) expressions -> expressions binary_op . expression
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
-
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
-
-    expression                     shift and go to state 50
-
-state 38
-
-    (23) binary_op -> PLUS .
-
-    ID              reduce using rule 23 (binary_op -> PLUS .)
-    32_BIT_USIGN_INT reduce using rule 23 (binary_op -> PLUS .)
-    GET_INPUT       reduce using rule 23 (binary_op -> PLUS .)
-
-
-state 39
-
-    (25) binary_op -> MULTIPLY .
-
-    ID              reduce using rule 25 (binary_op -> MULTIPLY .)
-    32_BIT_USIGN_INT reduce using rule 25 (binary_op -> MULTIPLY .)
-    GET_INPUT       reduce using rule 25 (binary_op -> MULTIPLY .)
-
+    binary_op                      shift and go to state 42
 
 state 40
 
-    (28) binary_op -> XOR .
+    (29) binary_op -> MODULO .
 
-    ID              reduce using rule 28 (binary_op -> XOR .)
-    32_BIT_USIGN_INT reduce using rule 28 (binary_op -> XOR .)
-    GET_INPUT       reduce using rule 28 (binary_op -> XOR .)
+    ID              reduce using rule 29 (binary_op -> MODULO .)
+    32_BIT_USIGN_INT reduce using rule 29 (binary_op -> MODULO .)
+    GET_INPUT       reduce using rule 29 (binary_op -> MODULO .)
 
 
 state 41
 
-    (24) binary_op -> MINUS .
+    (28) binary_op -> DIVIDE .
 
-    ID              reduce using rule 24 (binary_op -> MINUS .)
-    32_BIT_USIGN_INT reduce using rule 24 (binary_op -> MINUS .)
-    GET_INPUT       reduce using rule 24 (binary_op -> MINUS .)
+    ID              reduce using rule 28 (binary_op -> DIVIDE .)
+    32_BIT_USIGN_INT reduce using rule 28 (binary_op -> DIVIDE .)
+    GET_INPUT       reduce using rule 28 (binary_op -> DIVIDE .)
 
 
 state 42
 
-    (17) expression -> GET_INPUT LPAREN . RPAREN
+    (14) expressions -> expressions binary_op . expression
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    RPAREN          shift and go to state 51
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
+    expression                     shift and go to state 67
 
 state 43
 
-    (5) statement -> VAR ID ASSIGN . expressions
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
+    (30) binary_op -> INCLUSIVE_OR .
 
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
+    ID              reduce using rule 30 (binary_op -> INCLUSIVE_OR .)
+    32_BIT_USIGN_INT reduce using rule 30 (binary_op -> INCLUSIVE_OR .)
+    GET_INPUT       reduce using rule 30 (binary_op -> INCLUSIVE_OR .)
 
-    expressions                    shift and go to state 52
-    expression                     shift and go to state 15
-    unary_op                       shift and go to state 19
 
 state 44
 
-    (19) bool_expression -> LPAREN bool_statement . bool_op bool_statement RPAREN
-    (29) bool_op -> . INCLUSIVE_OR
-    (30) bool_op -> . LOGICAL_AND
-    (31) bool_op -> . LOGICAL_OR
-    (32) bool_op -> . LESS_THAN
-    (33) bool_op -> . GREATER_THAN
-    (34) bool_op -> . LESS_THAN_EQ
-    (35) bool_op -> . GREATER_THAN_EQ
-    (36) bool_op -> . INEQUALITY
-    (37) bool_op -> . EQUALITY
+    (25) binary_op -> PLUS .
 
-    INCLUSIVE_OR    shift and go to state 54
-    LOGICAL_AND     shift and go to state 58
-    LOGICAL_OR      shift and go to state 53
-    LESS_THAN       shift and go to state 60
-    GREATER_THAN    shift and go to state 59
-    LESS_THAN_EQ    shift and go to state 61
-    GREATER_THAN_EQ shift and go to state 62
-    INEQUALITY      shift and go to state 57
-    EQUALITY        shift and go to state 55
+    ID              reduce using rule 25 (binary_op -> PLUS .)
+    32_BIT_USIGN_INT reduce using rule 25 (binary_op -> PLUS .)
+    GET_INPUT       reduce using rule 25 (binary_op -> PLUS .)
 
-    bool_op                        shift and go to state 56
 
 state 45
 
-    (18) bool_expression -> LPAREN bool_expression . bool_op bool_statement RPAREN
-    (29) bool_op -> . INCLUSIVE_OR
-    (30) bool_op -> . LOGICAL_AND
-    (31) bool_op -> . LOGICAL_OR
-    (32) bool_op -> . LESS_THAN
-    (33) bool_op -> . GREATER_THAN
-    (34) bool_op -> . LESS_THAN_EQ
-    (35) bool_op -> . GREATER_THAN_EQ
-    (36) bool_op -> . INEQUALITY
-    (37) bool_op -> . EQUALITY
+    (31) binary_op -> ADDRESS .
 
-    INCLUSIVE_OR    shift and go to state 54
-    LOGICAL_AND     shift and go to state 58
-    LOGICAL_OR      shift and go to state 53
-    LESS_THAN       shift and go to state 60
-    GREATER_THAN    shift and go to state 59
-    LESS_THAN_EQ    shift and go to state 61
-    GREATER_THAN_EQ shift and go to state 62
-    INEQUALITY      shift and go to state 57
-    EQUALITY        shift and go to state 55
+    ID              reduce using rule 31 (binary_op -> ADDRESS .)
+    32_BIT_USIGN_INT reduce using rule 31 (binary_op -> ADDRESS .)
+    GET_INPUT       reduce using rule 31 (binary_op -> ADDRESS .)
 
-    bool_op                        shift and go to state 63
 
 state 46
 
-    (9) statement -> IF bool_expression THEN . GOTO expressions ELSE GOTO expressions
+    (27) binary_op -> MULTIPLY .
 
-    GOTO            shift and go to state 64
+    ID              reduce using rule 27 (binary_op -> MULTIPLY .)
+    32_BIT_USIGN_INT reduce using rule 27 (binary_op -> MULTIPLY .)
+    GET_INPUT       reduce using rule 27 (binary_op -> MULTIPLY .)
 
 
 state 47
 
-    (6) statement -> STORE LPAREN expressions . COMMA expressions RPAREN
-    (12) expressions -> expressions . binary_op expression
-    (23) binary_op -> . PLUS
-    (24) binary_op -> . MINUS
-    (25) binary_op -> . MULTIPLY
-    (26) binary_op -> . DIVIDE
-    (27) binary_op -> . MODULO
-    (28) binary_op -> . XOR
+    (32) binary_op -> XOR .
 
-    COMMA           shift and go to state 65
-    PLUS            shift and go to state 38
-    MINUS           shift and go to state 41
-    MULTIPLY        shift and go to state 39
-    DIVIDE          shift and go to state 36
-    MODULO          shift and go to state 35
-    XOR             shift and go to state 40
+    ID              reduce using rule 32 (binary_op -> XOR .)
+    32_BIT_USIGN_INT reduce using rule 32 (binary_op -> XOR .)
+    GET_INPUT       reduce using rule 32 (binary_op -> XOR .)
 
-    binary_op                      shift and go to state 37
 
 state 48
 
-    (10) statement -> PRINT_OUTPUT LPAREN expressions RPAREN .
+    (26) binary_op -> MINUS .
 
-    VAR             reduce using rule 10 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
-    STORE           reduce using rule 10 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
-    GOTO            reduce using rule 10 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
-    ASSERT          reduce using rule 10 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
-    IF              reduce using rule 10 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
-    PRINT_OUTPUT    reduce using rule 10 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
-    $end            reduce using rule 10 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
+    ID              reduce using rule 26 (binary_op -> MINUS .)
+    32_BIT_USIGN_INT reduce using rule 26 (binary_op -> MINUS .)
+    GET_INPUT       reduce using rule 26 (binary_op -> MINUS .)
 
 
 state 49
 
-    (11) expressions -> LOAD LPAREN expressions . RPAREN
-    (12) expressions -> expressions . binary_op expression
-    (23) binary_op -> . PLUS
-    (24) binary_op -> . MINUS
-    (25) binary_op -> . MULTIPLY
-    (26) binary_op -> . DIVIDE
-    (27) binary_op -> . MODULO
-    (28) binary_op -> . XOR
+    (19) expression -> GET_INPUT LPAREN . RPAREN
 
-    RPAREN          shift and go to state 66
-    PLUS            shift and go to state 38
-    MINUS           shift and go to state 41
-    MULTIPLY        shift and go to state 39
-    DIVIDE          shift and go to state 36
-    MODULO          shift and go to state 35
-    XOR             shift and go to state 40
+    RPAREN          shift and go to state 68
 
-    binary_op                      shift and go to state 37
 
 state 50
 
-    (12) expressions -> expressions binary_op expression .
+    (6) statement -> VAR ID ASSIGN . expressions
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    PLUS            reduce using rule 12 (expressions -> expressions binary_op expression .)
-    MINUS           reduce using rule 12 (expressions -> expressions binary_op expression .)
-    MULTIPLY        reduce using rule 12 (expressions -> expressions binary_op expression .)
-    DIVIDE          reduce using rule 12 (expressions -> expressions binary_op expression .)
-    MODULO          reduce using rule 12 (expressions -> expressions binary_op expression .)
-    XOR             reduce using rule 12 (expressions -> expressions binary_op expression .)
-    VAR             reduce using rule 12 (expressions -> expressions binary_op expression .)
-    STORE           reduce using rule 12 (expressions -> expressions binary_op expression .)
-    GOTO            reduce using rule 12 (expressions -> expressions binary_op expression .)
-    ASSERT          reduce using rule 12 (expressions -> expressions binary_op expression .)
-    IF              reduce using rule 12 (expressions -> expressions binary_op expression .)
-    PRINT_OUTPUT    reduce using rule 12 (expressions -> expressions binary_op expression .)
-    $end            reduce using rule 12 (expressions -> expressions binary_op expression .)
-    RPAREN          reduce using rule 12 (expressions -> expressions binary_op expression .)
-    INCLUSIVE_OR    reduce using rule 12 (expressions -> expressions binary_op expression .)
-    LOGICAL_AND     reduce using rule 12 (expressions -> expressions binary_op expression .)
-    LOGICAL_OR      reduce using rule 12 (expressions -> expressions binary_op expression .)
-    LESS_THAN       reduce using rule 12 (expressions -> expressions binary_op expression .)
-    GREATER_THAN    reduce using rule 12 (expressions -> expressions binary_op expression .)
-    LESS_THAN_EQ    reduce using rule 12 (expressions -> expressions binary_op expression .)
-    GREATER_THAN_EQ reduce using rule 12 (expressions -> expressions binary_op expression .)
-    INEQUALITY      reduce using rule 12 (expressions -> expressions binary_op expression .)
-    EQUALITY        reduce using rule 12 (expressions -> expressions binary_op expression .)
-    COMMA           reduce using rule 12 (expressions -> expressions binary_op expression .)
-    ELSE            reduce using rule 12 (expressions -> expressions binary_op expression .)
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
+    expressions                    shift and go to state 69
+    expression                     shift and go to state 18
+    unary_op                       shift and go to state 22
 
 state 51
 
-    (17) expression -> GET_INPUT LPAREN RPAREN .
+    (7) statement -> ID ASSIGN expressions .
+    (14) expressions -> expressions . binary_op expression
+    (25) binary_op -> . PLUS
+    (26) binary_op -> . MINUS
+    (27) binary_op -> . MULTIPLY
+    (28) binary_op -> . DIVIDE
+    (29) binary_op -> . MODULO
+    (30) binary_op -> . INCLUSIVE_OR
+    (31) binary_op -> . ADDRESS
+    (32) binary_op -> . XOR
 
-    PLUS            reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    MINUS           reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    MULTIPLY        reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    DIVIDE          reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    MODULO          reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    XOR             reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    VAR             reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    STORE           reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    GOTO            reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    ASSERT          reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    IF              reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    PRINT_OUTPUT    reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    $end            reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    RPAREN          reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    INCLUSIVE_OR    reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    LOGICAL_AND     reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    LOGICAL_OR      reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    LESS_THAN       reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    GREATER_THAN    reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    LESS_THAN_EQ    reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    GREATER_THAN_EQ reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    INEQUALITY      reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    EQUALITY        reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    COMMA           reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
-    ELSE            reduce using rule 17 (expression -> GET_INPUT LPAREN RPAREN .)
+    VAR             reduce using rule 7 (statement -> ID ASSIGN expressions .)
+    ID              reduce using rule 7 (statement -> ID ASSIGN expressions .)
+    STORE           reduce using rule 7 (statement -> ID ASSIGN expressions .)
+    GOTO            reduce using rule 7 (statement -> ID ASSIGN expressions .)
+    ASSERT          reduce using rule 7 (statement -> ID ASSIGN expressions .)
+    IF              reduce using rule 7 (statement -> ID ASSIGN expressions .)
+    PRINT_OUTPUT    reduce using rule 7 (statement -> ID ASSIGN expressions .)
+    $end            reduce using rule 7 (statement -> ID ASSIGN expressions .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 48
+    MULTIPLY        shift and go to state 46
+    DIVIDE          shift and go to state 41
+    MODULO          shift and go to state 40
+    INCLUSIVE_OR    shift and go to state 43
+    ADDRESS         shift and go to state 45
+    XOR             shift and go to state 47
 
+    binary_op                      shift and go to state 42
 
 state 52
 
-    (5) statement -> VAR ID ASSIGN expressions .
-    (12) expressions -> expressions . binary_op expression
-    (23) binary_op -> . PLUS
-    (24) binary_op -> . MINUS
-    (25) binary_op -> . MULTIPLY
-    (26) binary_op -> . DIVIDE
-    (27) binary_op -> . MODULO
-    (28) binary_op -> . XOR
+    (8) statement -> STORE LPAREN expressions . COMMA expressions RPAREN
+    (14) expressions -> expressions . binary_op expression
+    (25) binary_op -> . PLUS
+    (26) binary_op -> . MINUS
+    (27) binary_op -> . MULTIPLY
+    (28) binary_op -> . DIVIDE
+    (29) binary_op -> . MODULO
+    (30) binary_op -> . INCLUSIVE_OR
+    (31) binary_op -> . ADDRESS
+    (32) binary_op -> . XOR
 
-    VAR             reduce using rule 5 (statement -> VAR ID ASSIGN expressions .)
-    STORE           reduce using rule 5 (statement -> VAR ID ASSIGN expressions .)
-    GOTO            reduce using rule 5 (statement -> VAR ID ASSIGN expressions .)
-    ASSERT          reduce using rule 5 (statement -> VAR ID ASSIGN expressions .)
-    IF              reduce using rule 5 (statement -> VAR ID ASSIGN expressions .)
-    PRINT_OUTPUT    reduce using rule 5 (statement -> VAR ID ASSIGN expressions .)
-    $end            reduce using rule 5 (statement -> VAR ID ASSIGN expressions .)
-    PLUS            shift and go to state 38
-    MINUS           shift and go to state 41
-    MULTIPLY        shift and go to state 39
-    DIVIDE          shift and go to state 36
-    MODULO          shift and go to state 35
-    XOR             shift and go to state 40
+    COMMA           shift and go to state 70
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 48
+    MULTIPLY        shift and go to state 46
+    DIVIDE          shift and go to state 41
+    MODULO          shift and go to state 40
+    INCLUSIVE_OR    shift and go to state 43
+    ADDRESS         shift and go to state 45
+    XOR             shift and go to state 47
 
-    binary_op                      shift and go to state 37
+    binary_op                      shift and go to state 42
 
 state 53
 
-    (31) bool_op -> LOGICAL_OR .
+    (12) statement -> PRINT_OUTPUT LPAREN expressions RPAREN .
 
-    TRUE            reduce using rule 31 (bool_op -> LOGICAL_OR .)
-    FALSE           reduce using rule 31 (bool_op -> LOGICAL_OR .)
-    LOAD            reduce using rule 31 (bool_op -> LOGICAL_OR .)
-    PLUS            reduce using rule 31 (bool_op -> LOGICAL_OR .)
-    MINUS           reduce using rule 31 (bool_op -> LOGICAL_OR .)
-    INCREMENT       reduce using rule 31 (bool_op -> LOGICAL_OR .)
-    DECREMENT       reduce using rule 31 (bool_op -> LOGICAL_OR .)
-    ADDRESS         reduce using rule 31 (bool_op -> LOGICAL_OR .)
-    ID              reduce using rule 31 (bool_op -> LOGICAL_OR .)
-    32_BIT_USIGN_INT reduce using rule 31 (bool_op -> LOGICAL_OR .)
-    GET_INPUT       reduce using rule 31 (bool_op -> LOGICAL_OR .)
+    VAR             reduce using rule 12 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
+    ID              reduce using rule 12 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
+    STORE           reduce using rule 12 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
+    GOTO            reduce using rule 12 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
+    ASSERT          reduce using rule 12 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
+    IF              reduce using rule 12 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
+    PRINT_OUTPUT    reduce using rule 12 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
+    $end            reduce using rule 12 (statement -> PRINT_OUTPUT LPAREN expressions RPAREN .)
 
 
 state 54
 
-    (29) bool_op -> INCLUSIVE_OR .
+    (35) bool_op -> LOGICAL_OR .
 
-    TRUE            reduce using rule 29 (bool_op -> INCLUSIVE_OR .)
-    FALSE           reduce using rule 29 (bool_op -> INCLUSIVE_OR .)
-    LOAD            reduce using rule 29 (bool_op -> INCLUSIVE_OR .)
-    PLUS            reduce using rule 29 (bool_op -> INCLUSIVE_OR .)
-    MINUS           reduce using rule 29 (bool_op -> INCLUSIVE_OR .)
-    INCREMENT       reduce using rule 29 (bool_op -> INCLUSIVE_OR .)
-    DECREMENT       reduce using rule 29 (bool_op -> INCLUSIVE_OR .)
-    ADDRESS         reduce using rule 29 (bool_op -> INCLUSIVE_OR .)
-    ID              reduce using rule 29 (bool_op -> INCLUSIVE_OR .)
-    32_BIT_USIGN_INT reduce using rule 29 (bool_op -> INCLUSIVE_OR .)
-    GET_INPUT       reduce using rule 29 (bool_op -> INCLUSIVE_OR .)
+    TRUE            reduce using rule 35 (bool_op -> LOGICAL_OR .)
+    FALSE           reduce using rule 35 (bool_op -> LOGICAL_OR .)
+    LOAD            reduce using rule 35 (bool_op -> LOGICAL_OR .)
+    PLUS            reduce using rule 35 (bool_op -> LOGICAL_OR .)
+    MINUS           reduce using rule 35 (bool_op -> LOGICAL_OR .)
+    INCREMENT       reduce using rule 35 (bool_op -> LOGICAL_OR .)
+    DECREMENT       reduce using rule 35 (bool_op -> LOGICAL_OR .)
+    ADDRESS         reduce using rule 35 (bool_op -> LOGICAL_OR .)
+    ID              reduce using rule 35 (bool_op -> LOGICAL_OR .)
+    32_BIT_USIGN_INT reduce using rule 35 (bool_op -> LOGICAL_OR .)
+    GET_INPUT       reduce using rule 35 (bool_op -> LOGICAL_OR .)
 
 
 state 55
 
-    (37) bool_op -> EQUALITY .
+    (33) bool_op -> INCLUSIVE_OR .
 
-    TRUE            reduce using rule 37 (bool_op -> EQUALITY .)
-    FALSE           reduce using rule 37 (bool_op -> EQUALITY .)
-    LOAD            reduce using rule 37 (bool_op -> EQUALITY .)
-    PLUS            reduce using rule 37 (bool_op -> EQUALITY .)
-    MINUS           reduce using rule 37 (bool_op -> EQUALITY .)
-    INCREMENT       reduce using rule 37 (bool_op -> EQUALITY .)
-    DECREMENT       reduce using rule 37 (bool_op -> EQUALITY .)
-    ADDRESS         reduce using rule 37 (bool_op -> EQUALITY .)
-    ID              reduce using rule 37 (bool_op -> EQUALITY .)
-    32_BIT_USIGN_INT reduce using rule 37 (bool_op -> EQUALITY .)
-    GET_INPUT       reduce using rule 37 (bool_op -> EQUALITY .)
+    TRUE            reduce using rule 33 (bool_op -> INCLUSIVE_OR .)
+    FALSE           reduce using rule 33 (bool_op -> INCLUSIVE_OR .)
+    LOAD            reduce using rule 33 (bool_op -> INCLUSIVE_OR .)
+    PLUS            reduce using rule 33 (bool_op -> INCLUSIVE_OR .)
+    MINUS           reduce using rule 33 (bool_op -> INCLUSIVE_OR .)
+    INCREMENT       reduce using rule 33 (bool_op -> INCLUSIVE_OR .)
+    DECREMENT       reduce using rule 33 (bool_op -> INCLUSIVE_OR .)
+    ADDRESS         reduce using rule 33 (bool_op -> INCLUSIVE_OR .)
+    ID              reduce using rule 33 (bool_op -> INCLUSIVE_OR .)
+    32_BIT_USIGN_INT reduce using rule 33 (bool_op -> INCLUSIVE_OR .)
+    GET_INPUT       reduce using rule 33 (bool_op -> INCLUSIVE_OR .)
 
 
 state 56
 
-    (19) bool_expression -> LPAREN bool_statement bool_op . bool_statement RPAREN
-    (20) bool_statement -> . expressions
-    (21) bool_statement -> . TRUE
-    (22) bool_statement -> . FALSE
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
+    (41) bool_op -> EQUALITY .
 
-    TRUE            shift and go to state 23
-    FALSE           shift and go to state 21
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
+    TRUE            reduce using rule 41 (bool_op -> EQUALITY .)
+    FALSE           reduce using rule 41 (bool_op -> EQUALITY .)
+    LOAD            reduce using rule 41 (bool_op -> EQUALITY .)
+    PLUS            reduce using rule 41 (bool_op -> EQUALITY .)
+    MINUS           reduce using rule 41 (bool_op -> EQUALITY .)
+    INCREMENT       reduce using rule 41 (bool_op -> EQUALITY .)
+    DECREMENT       reduce using rule 41 (bool_op -> EQUALITY .)
+    ADDRESS         reduce using rule 41 (bool_op -> EQUALITY .)
+    ID              reduce using rule 41 (bool_op -> EQUALITY .)
+    32_BIT_USIGN_INT reduce using rule 41 (bool_op -> EQUALITY .)
+    GET_INPUT       reduce using rule 41 (bool_op -> EQUALITY .)
 
-    bool_statement                 shift and go to state 67
-    unary_op                       shift and go to state 19
-    expressions                    shift and go to state 22
-    expression                     shift and go to state 15
 
 state 57
 
-    (36) bool_op -> INEQUALITY .
+    (21) bool_expression -> LPAREN bool_statement bool_op . bool_statement RPAREN
+    (22) bool_statement -> . expressions
+    (23) bool_statement -> . TRUE
+    (24) bool_statement -> . FALSE
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    TRUE            reduce using rule 36 (bool_op -> INEQUALITY .)
-    FALSE           reduce using rule 36 (bool_op -> INEQUALITY .)
-    LOAD            reduce using rule 36 (bool_op -> INEQUALITY .)
-    PLUS            reduce using rule 36 (bool_op -> INEQUALITY .)
-    MINUS           reduce using rule 36 (bool_op -> INEQUALITY .)
-    INCREMENT       reduce using rule 36 (bool_op -> INEQUALITY .)
-    DECREMENT       reduce using rule 36 (bool_op -> INEQUALITY .)
-    ADDRESS         reduce using rule 36 (bool_op -> INEQUALITY .)
-    ID              reduce using rule 36 (bool_op -> INEQUALITY .)
-    32_BIT_USIGN_INT reduce using rule 36 (bool_op -> INEQUALITY .)
-    GET_INPUT       reduce using rule 36 (bool_op -> INEQUALITY .)
+    TRUE            shift and go to state 26
+    FALSE           shift and go to state 24
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
+    bool_statement                 shift and go to state 71
+    unary_op                       shift and go to state 22
+    expressions                    shift and go to state 25
+    expression                     shift and go to state 18
 
 state 58
 
-    (30) bool_op -> LOGICAL_AND .
+    (40) bool_op -> INEQUALITY .
 
-    TRUE            reduce using rule 30 (bool_op -> LOGICAL_AND .)
-    FALSE           reduce using rule 30 (bool_op -> LOGICAL_AND .)
-    LOAD            reduce using rule 30 (bool_op -> LOGICAL_AND .)
-    PLUS            reduce using rule 30 (bool_op -> LOGICAL_AND .)
-    MINUS           reduce using rule 30 (bool_op -> LOGICAL_AND .)
-    INCREMENT       reduce using rule 30 (bool_op -> LOGICAL_AND .)
-    DECREMENT       reduce using rule 30 (bool_op -> LOGICAL_AND .)
-    ADDRESS         reduce using rule 30 (bool_op -> LOGICAL_AND .)
-    ID              reduce using rule 30 (bool_op -> LOGICAL_AND .)
-    32_BIT_USIGN_INT reduce using rule 30 (bool_op -> LOGICAL_AND .)
-    GET_INPUT       reduce using rule 30 (bool_op -> LOGICAL_AND .)
+    TRUE            reduce using rule 40 (bool_op -> INEQUALITY .)
+    FALSE           reduce using rule 40 (bool_op -> INEQUALITY .)
+    LOAD            reduce using rule 40 (bool_op -> INEQUALITY .)
+    PLUS            reduce using rule 40 (bool_op -> INEQUALITY .)
+    MINUS           reduce using rule 40 (bool_op -> INEQUALITY .)
+    INCREMENT       reduce using rule 40 (bool_op -> INEQUALITY .)
+    DECREMENT       reduce using rule 40 (bool_op -> INEQUALITY .)
+    ADDRESS         reduce using rule 40 (bool_op -> INEQUALITY .)
+    ID              reduce using rule 40 (bool_op -> INEQUALITY .)
+    32_BIT_USIGN_INT reduce using rule 40 (bool_op -> INEQUALITY .)
+    GET_INPUT       reduce using rule 40 (bool_op -> INEQUALITY .)
 
 
 state 59
 
-    (33) bool_op -> GREATER_THAN .
+    (34) bool_op -> LOGICAL_AND .
 
-    TRUE            reduce using rule 33 (bool_op -> GREATER_THAN .)
-    FALSE           reduce using rule 33 (bool_op -> GREATER_THAN .)
-    LOAD            reduce using rule 33 (bool_op -> GREATER_THAN .)
-    PLUS            reduce using rule 33 (bool_op -> GREATER_THAN .)
-    MINUS           reduce using rule 33 (bool_op -> GREATER_THAN .)
-    INCREMENT       reduce using rule 33 (bool_op -> GREATER_THAN .)
-    DECREMENT       reduce using rule 33 (bool_op -> GREATER_THAN .)
-    ADDRESS         reduce using rule 33 (bool_op -> GREATER_THAN .)
-    ID              reduce using rule 33 (bool_op -> GREATER_THAN .)
-    32_BIT_USIGN_INT reduce using rule 33 (bool_op -> GREATER_THAN .)
-    GET_INPUT       reduce using rule 33 (bool_op -> GREATER_THAN .)
+    TRUE            reduce using rule 34 (bool_op -> LOGICAL_AND .)
+    FALSE           reduce using rule 34 (bool_op -> LOGICAL_AND .)
+    LOAD            reduce using rule 34 (bool_op -> LOGICAL_AND .)
+    PLUS            reduce using rule 34 (bool_op -> LOGICAL_AND .)
+    MINUS           reduce using rule 34 (bool_op -> LOGICAL_AND .)
+    INCREMENT       reduce using rule 34 (bool_op -> LOGICAL_AND .)
+    DECREMENT       reduce using rule 34 (bool_op -> LOGICAL_AND .)
+    ADDRESS         reduce using rule 34 (bool_op -> LOGICAL_AND .)
+    ID              reduce using rule 34 (bool_op -> LOGICAL_AND .)
+    32_BIT_USIGN_INT reduce using rule 34 (bool_op -> LOGICAL_AND .)
+    GET_INPUT       reduce using rule 34 (bool_op -> LOGICAL_AND .)
 
 
 state 60
 
-    (32) bool_op -> LESS_THAN .
+    (37) bool_op -> GREATER_THAN .
 
-    TRUE            reduce using rule 32 (bool_op -> LESS_THAN .)
-    FALSE           reduce using rule 32 (bool_op -> LESS_THAN .)
-    LOAD            reduce using rule 32 (bool_op -> LESS_THAN .)
-    PLUS            reduce using rule 32 (bool_op -> LESS_THAN .)
-    MINUS           reduce using rule 32 (bool_op -> LESS_THAN .)
-    INCREMENT       reduce using rule 32 (bool_op -> LESS_THAN .)
-    DECREMENT       reduce using rule 32 (bool_op -> LESS_THAN .)
-    ADDRESS         reduce using rule 32 (bool_op -> LESS_THAN .)
-    ID              reduce using rule 32 (bool_op -> LESS_THAN .)
-    32_BIT_USIGN_INT reduce using rule 32 (bool_op -> LESS_THAN .)
-    GET_INPUT       reduce using rule 32 (bool_op -> LESS_THAN .)
+    TRUE            reduce using rule 37 (bool_op -> GREATER_THAN .)
+    FALSE           reduce using rule 37 (bool_op -> GREATER_THAN .)
+    LOAD            reduce using rule 37 (bool_op -> GREATER_THAN .)
+    PLUS            reduce using rule 37 (bool_op -> GREATER_THAN .)
+    MINUS           reduce using rule 37 (bool_op -> GREATER_THAN .)
+    INCREMENT       reduce using rule 37 (bool_op -> GREATER_THAN .)
+    DECREMENT       reduce using rule 37 (bool_op -> GREATER_THAN .)
+    ADDRESS         reduce using rule 37 (bool_op -> GREATER_THAN .)
+    ID              reduce using rule 37 (bool_op -> GREATER_THAN .)
+    32_BIT_USIGN_INT reduce using rule 37 (bool_op -> GREATER_THAN .)
+    GET_INPUT       reduce using rule 37 (bool_op -> GREATER_THAN .)
 
 
 state 61
 
-    (34) bool_op -> LESS_THAN_EQ .
+    (36) bool_op -> LESS_THAN .
 
-    TRUE            reduce using rule 34 (bool_op -> LESS_THAN_EQ .)
-    FALSE           reduce using rule 34 (bool_op -> LESS_THAN_EQ .)
-    LOAD            reduce using rule 34 (bool_op -> LESS_THAN_EQ .)
-    PLUS            reduce using rule 34 (bool_op -> LESS_THAN_EQ .)
-    MINUS           reduce using rule 34 (bool_op -> LESS_THAN_EQ .)
-    INCREMENT       reduce using rule 34 (bool_op -> LESS_THAN_EQ .)
-    DECREMENT       reduce using rule 34 (bool_op -> LESS_THAN_EQ .)
-    ADDRESS         reduce using rule 34 (bool_op -> LESS_THAN_EQ .)
-    ID              reduce using rule 34 (bool_op -> LESS_THAN_EQ .)
-    32_BIT_USIGN_INT reduce using rule 34 (bool_op -> LESS_THAN_EQ .)
-    GET_INPUT       reduce using rule 34 (bool_op -> LESS_THAN_EQ .)
+    TRUE            reduce using rule 36 (bool_op -> LESS_THAN .)
+    FALSE           reduce using rule 36 (bool_op -> LESS_THAN .)
+    LOAD            reduce using rule 36 (bool_op -> LESS_THAN .)
+    PLUS            reduce using rule 36 (bool_op -> LESS_THAN .)
+    MINUS           reduce using rule 36 (bool_op -> LESS_THAN .)
+    INCREMENT       reduce using rule 36 (bool_op -> LESS_THAN .)
+    DECREMENT       reduce using rule 36 (bool_op -> LESS_THAN .)
+    ADDRESS         reduce using rule 36 (bool_op -> LESS_THAN .)
+    ID              reduce using rule 36 (bool_op -> LESS_THAN .)
+    32_BIT_USIGN_INT reduce using rule 36 (bool_op -> LESS_THAN .)
+    GET_INPUT       reduce using rule 36 (bool_op -> LESS_THAN .)
 
 
 state 62
 
-    (35) bool_op -> GREATER_THAN_EQ .
+    (38) bool_op -> LESS_THAN_EQ .
 
-    TRUE            reduce using rule 35 (bool_op -> GREATER_THAN_EQ .)
-    FALSE           reduce using rule 35 (bool_op -> GREATER_THAN_EQ .)
-    LOAD            reduce using rule 35 (bool_op -> GREATER_THAN_EQ .)
-    PLUS            reduce using rule 35 (bool_op -> GREATER_THAN_EQ .)
-    MINUS           reduce using rule 35 (bool_op -> GREATER_THAN_EQ .)
-    INCREMENT       reduce using rule 35 (bool_op -> GREATER_THAN_EQ .)
-    DECREMENT       reduce using rule 35 (bool_op -> GREATER_THAN_EQ .)
-    ADDRESS         reduce using rule 35 (bool_op -> GREATER_THAN_EQ .)
-    ID              reduce using rule 35 (bool_op -> GREATER_THAN_EQ .)
-    32_BIT_USIGN_INT reduce using rule 35 (bool_op -> GREATER_THAN_EQ .)
-    GET_INPUT       reduce using rule 35 (bool_op -> GREATER_THAN_EQ .)
+    TRUE            reduce using rule 38 (bool_op -> LESS_THAN_EQ .)
+    FALSE           reduce using rule 38 (bool_op -> LESS_THAN_EQ .)
+    LOAD            reduce using rule 38 (bool_op -> LESS_THAN_EQ .)
+    PLUS            reduce using rule 38 (bool_op -> LESS_THAN_EQ .)
+    MINUS           reduce using rule 38 (bool_op -> LESS_THAN_EQ .)
+    INCREMENT       reduce using rule 38 (bool_op -> LESS_THAN_EQ .)
+    DECREMENT       reduce using rule 38 (bool_op -> LESS_THAN_EQ .)
+    ADDRESS         reduce using rule 38 (bool_op -> LESS_THAN_EQ .)
+    ID              reduce using rule 38 (bool_op -> LESS_THAN_EQ .)
+    32_BIT_USIGN_INT reduce using rule 38 (bool_op -> LESS_THAN_EQ .)
+    GET_INPUT       reduce using rule 38 (bool_op -> LESS_THAN_EQ .)
 
 
 state 63
 
-    (18) bool_expression -> LPAREN bool_expression bool_op . bool_statement RPAREN
-    (20) bool_statement -> . expressions
-    (21) bool_statement -> . TRUE
-    (22) bool_statement -> . FALSE
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
+    (39) bool_op -> GREATER_THAN_EQ .
 
-    TRUE            shift and go to state 23
-    FALSE           shift and go to state 21
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
+    TRUE            reduce using rule 39 (bool_op -> GREATER_THAN_EQ .)
+    FALSE           reduce using rule 39 (bool_op -> GREATER_THAN_EQ .)
+    LOAD            reduce using rule 39 (bool_op -> GREATER_THAN_EQ .)
+    PLUS            reduce using rule 39 (bool_op -> GREATER_THAN_EQ .)
+    MINUS           reduce using rule 39 (bool_op -> GREATER_THAN_EQ .)
+    INCREMENT       reduce using rule 39 (bool_op -> GREATER_THAN_EQ .)
+    DECREMENT       reduce using rule 39 (bool_op -> GREATER_THAN_EQ .)
+    ADDRESS         reduce using rule 39 (bool_op -> GREATER_THAN_EQ .)
+    ID              reduce using rule 39 (bool_op -> GREATER_THAN_EQ .)
+    32_BIT_USIGN_INT reduce using rule 39 (bool_op -> GREATER_THAN_EQ .)
+    GET_INPUT       reduce using rule 39 (bool_op -> GREATER_THAN_EQ .)
 
-    bool_statement                 shift and go to state 68
-    unary_op                       shift and go to state 19
-    expressions                    shift and go to state 22
-    expression                     shift and go to state 15
 
 state 64
 
-    (9) statement -> IF bool_expression THEN GOTO . expressions ELSE GOTO expressions
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
+    (20) bool_expression -> LPAREN bool_expression bool_op . bool_statement RPAREN
+    (22) bool_statement -> . expressions
+    (23) bool_statement -> . TRUE
+    (24) bool_statement -> . FALSE
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
+    TRUE            shift and go to state 26
+    FALSE           shift and go to state 24
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
-    expressions                    shift and go to state 69
-    expression                     shift and go to state 15
-    unary_op                       shift and go to state 19
+    bool_statement                 shift and go to state 72
+    unary_op                       shift and go to state 22
+    expressions                    shift and go to state 25
+    expression                     shift and go to state 18
 
 state 65
 
-    (6) statement -> STORE LPAREN expressions COMMA . expressions RPAREN
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
+    (11) statement -> IF bool_expression THEN GOTO . expressions ELSE GOTO expressions
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
-    expressions                    shift and go to state 70
-    expression                     shift and go to state 15
-    unary_op                       shift and go to state 19
+    expressions                    shift and go to state 73
+    expression                     shift and go to state 18
+    unary_op                       shift and go to state 22
 
 state 66
 
-    (11) expressions -> LOAD LPAREN expressions RPAREN .
+    (13) expressions -> LOAD LPAREN expressions . RPAREN
+    (14) expressions -> expressions . binary_op expression
+    (25) binary_op -> . PLUS
+    (26) binary_op -> . MINUS
+    (27) binary_op -> . MULTIPLY
+    (28) binary_op -> . DIVIDE
+    (29) binary_op -> . MODULO
+    (30) binary_op -> . INCLUSIVE_OR
+    (31) binary_op -> . ADDRESS
+    (32) binary_op -> . XOR
 
-    PLUS            reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    MINUS           reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    MULTIPLY        reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    DIVIDE          reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    MODULO          reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    XOR             reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    VAR             reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    STORE           reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    GOTO            reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    ASSERT          reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    IF              reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    PRINT_OUTPUT    reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    $end            reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    RPAREN          reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    INCLUSIVE_OR    reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    LOGICAL_AND     reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    LOGICAL_OR      reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    LESS_THAN       reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    GREATER_THAN    reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    LESS_THAN_EQ    reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    GREATER_THAN_EQ reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    INEQUALITY      reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    EQUALITY        reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    COMMA           reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
-    ELSE            reduce using rule 11 (expressions -> LOAD LPAREN expressions RPAREN .)
+    RPAREN          shift and go to state 74
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 48
+    MULTIPLY        shift and go to state 46
+    DIVIDE          shift and go to state 41
+    MODULO          shift and go to state 40
+    INCLUSIVE_OR    shift and go to state 43
+    ADDRESS         shift and go to state 45
+    XOR             shift and go to state 47
 
+    binary_op                      shift and go to state 42
 
 state 67
 
-    (19) bool_expression -> LPAREN bool_statement bool_op bool_statement . RPAREN
+    (14) expressions -> expressions binary_op expression .
 
-    RPAREN          shift and go to state 71
+    COMMA           reduce using rule 14 (expressions -> expressions binary_op expression .)
+    PLUS            reduce using rule 14 (expressions -> expressions binary_op expression .)
+    MINUS           reduce using rule 14 (expressions -> expressions binary_op expression .)
+    MULTIPLY        reduce using rule 14 (expressions -> expressions binary_op expression .)
+    DIVIDE          reduce using rule 14 (expressions -> expressions binary_op expression .)
+    MODULO          reduce using rule 14 (expressions -> expressions binary_op expression .)
+    INCLUSIVE_OR    reduce using rule 14 (expressions -> expressions binary_op expression .)
+    ADDRESS         reduce using rule 14 (expressions -> expressions binary_op expression .)
+    XOR             reduce using rule 14 (expressions -> expressions binary_op expression .)
+    VAR             reduce using rule 14 (expressions -> expressions binary_op expression .)
+    ID              reduce using rule 14 (expressions -> expressions binary_op expression .)
+    STORE           reduce using rule 14 (expressions -> expressions binary_op expression .)
+    GOTO            reduce using rule 14 (expressions -> expressions binary_op expression .)
+    ASSERT          reduce using rule 14 (expressions -> expressions binary_op expression .)
+    IF              reduce using rule 14 (expressions -> expressions binary_op expression .)
+    PRINT_OUTPUT    reduce using rule 14 (expressions -> expressions binary_op expression .)
+    $end            reduce using rule 14 (expressions -> expressions binary_op expression .)
+    RPAREN          reduce using rule 14 (expressions -> expressions binary_op expression .)
+    LOGICAL_AND     reduce using rule 14 (expressions -> expressions binary_op expression .)
+    LOGICAL_OR      reduce using rule 14 (expressions -> expressions binary_op expression .)
+    LESS_THAN       reduce using rule 14 (expressions -> expressions binary_op expression .)
+    GREATER_THAN    reduce using rule 14 (expressions -> expressions binary_op expression .)
+    LESS_THAN_EQ    reduce using rule 14 (expressions -> expressions binary_op expression .)
+    GREATER_THAN_EQ reduce using rule 14 (expressions -> expressions binary_op expression .)
+    INEQUALITY      reduce using rule 14 (expressions -> expressions binary_op expression .)
+    EQUALITY        reduce using rule 14 (expressions -> expressions binary_op expression .)
+    ELSE            reduce using rule 14 (expressions -> expressions binary_op expression .)
 
 
 state 68
 
-    (18) bool_expression -> LPAREN bool_expression bool_op bool_statement . RPAREN
+    (19) expression -> GET_INPUT LPAREN RPAREN .
 
-    RPAREN          shift and go to state 72
+    PLUS            reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    MINUS           reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    MULTIPLY        reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    DIVIDE          reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    MODULO          reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    INCLUSIVE_OR    reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    ADDRESS         reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    XOR             reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    VAR             reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    ID              reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    STORE           reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    GOTO            reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    ASSERT          reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    IF              reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    PRINT_OUTPUT    reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    $end            reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    ELSE            reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    RPAREN          reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    LOGICAL_AND     reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    LOGICAL_OR      reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    LESS_THAN       reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    GREATER_THAN    reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    LESS_THAN_EQ    reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    GREATER_THAN_EQ reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    INEQUALITY      reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    EQUALITY        reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
+    COMMA           reduce using rule 19 (expression -> GET_INPUT LPAREN RPAREN .)
 
 
 state 69
 
-    (9) statement -> IF bool_expression THEN GOTO expressions . ELSE GOTO expressions
-    (12) expressions -> expressions . binary_op expression
-    (23) binary_op -> . PLUS
-    (24) binary_op -> . MINUS
-    (25) binary_op -> . MULTIPLY
-    (26) binary_op -> . DIVIDE
-    (27) binary_op -> . MODULO
-    (28) binary_op -> . XOR
+    (6) statement -> VAR ID ASSIGN expressions .
+    (14) expressions -> expressions . binary_op expression
+    (25) binary_op -> . PLUS
+    (26) binary_op -> . MINUS
+    (27) binary_op -> . MULTIPLY
+    (28) binary_op -> . DIVIDE
+    (29) binary_op -> . MODULO
+    (30) binary_op -> . INCLUSIVE_OR
+    (31) binary_op -> . ADDRESS
+    (32) binary_op -> . XOR
 
-    ELSE            shift and go to state 73
-    PLUS            shift and go to state 38
-    MINUS           shift and go to state 41
-    MULTIPLY        shift and go to state 39
-    DIVIDE          shift and go to state 36
-    MODULO          shift and go to state 35
-    XOR             shift and go to state 40
+    VAR             reduce using rule 6 (statement -> VAR ID ASSIGN expressions .)
+    ID              reduce using rule 6 (statement -> VAR ID ASSIGN expressions .)
+    STORE           reduce using rule 6 (statement -> VAR ID ASSIGN expressions .)
+    GOTO            reduce using rule 6 (statement -> VAR ID ASSIGN expressions .)
+    ASSERT          reduce using rule 6 (statement -> VAR ID ASSIGN expressions .)
+    IF              reduce using rule 6 (statement -> VAR ID ASSIGN expressions .)
+    PRINT_OUTPUT    reduce using rule 6 (statement -> VAR ID ASSIGN expressions .)
+    $end            reduce using rule 6 (statement -> VAR ID ASSIGN expressions .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 48
+    MULTIPLY        shift and go to state 46
+    DIVIDE          shift and go to state 41
+    MODULO          shift and go to state 40
+    INCLUSIVE_OR    shift and go to state 43
+    ADDRESS         shift and go to state 45
+    XOR             shift and go to state 47
 
-    binary_op                      shift and go to state 37
+    binary_op                      shift and go to state 42
 
 state 70
 
-    (6) statement -> STORE LPAREN expressions COMMA expressions . RPAREN
-    (12) expressions -> expressions . binary_op expression
-    (23) binary_op -> . PLUS
-    (24) binary_op -> . MINUS
-    (25) binary_op -> . MULTIPLY
-    (26) binary_op -> . DIVIDE
-    (27) binary_op -> . MODULO
-    (28) binary_op -> . XOR
+    (8) statement -> STORE LPAREN expressions COMMA . expressions RPAREN
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
 
-    RPAREN          shift and go to state 74
-    PLUS            shift and go to state 38
-    MINUS           shift and go to state 41
-    MULTIPLY        shift and go to state 39
-    DIVIDE          shift and go to state 36
-    MODULO          shift and go to state 35
-    XOR             shift and go to state 40
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
 
-    binary_op                      shift and go to state 37
+    expressions                    shift and go to state 75
+    expression                     shift and go to state 18
+    unary_op                       shift and go to state 22
 
 state 71
 
-    (19) bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .
+    (21) bool_expression -> LPAREN bool_statement bool_op bool_statement . RPAREN
 
-    INCLUSIVE_OR    reduce using rule 19 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
-    LOGICAL_AND     reduce using rule 19 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
-    LOGICAL_OR      reduce using rule 19 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
-    LESS_THAN       reduce using rule 19 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
-    GREATER_THAN    reduce using rule 19 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
-    LESS_THAN_EQ    reduce using rule 19 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
-    GREATER_THAN_EQ reduce using rule 19 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
-    INEQUALITY      reduce using rule 19 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
-    EQUALITY        reduce using rule 19 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
-    THEN            reduce using rule 19 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
+    RPAREN          shift and go to state 76
 
 
 state 72
 
-    (18) bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .
+    (20) bool_expression -> LPAREN bool_expression bool_op bool_statement . RPAREN
 
-    INCLUSIVE_OR    reduce using rule 18 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
-    LOGICAL_AND     reduce using rule 18 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
-    LOGICAL_OR      reduce using rule 18 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
-    LESS_THAN       reduce using rule 18 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
-    GREATER_THAN    reduce using rule 18 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
-    LESS_THAN_EQ    reduce using rule 18 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
-    GREATER_THAN_EQ reduce using rule 18 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
-    INEQUALITY      reduce using rule 18 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
-    EQUALITY        reduce using rule 18 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
-    THEN            reduce using rule 18 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
+    RPAREN          shift and go to state 77
 
 
 state 73
 
-    (9) statement -> IF bool_expression THEN GOTO expressions ELSE . GOTO expressions
+    (11) statement -> IF bool_expression THEN GOTO expressions . ELSE GOTO expressions
+    (14) expressions -> expressions . binary_op expression
+    (25) binary_op -> . PLUS
+    (26) binary_op -> . MINUS
+    (27) binary_op -> . MULTIPLY
+    (28) binary_op -> . DIVIDE
+    (29) binary_op -> . MODULO
+    (30) binary_op -> . INCLUSIVE_OR
+    (31) binary_op -> . ADDRESS
+    (32) binary_op -> . XOR
 
-    GOTO            shift and go to state 75
+    ELSE            shift and go to state 78
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 48
+    MULTIPLY        shift and go to state 46
+    DIVIDE          shift and go to state 41
+    MODULO          shift and go to state 40
+    INCLUSIVE_OR    shift and go to state 43
+    ADDRESS         shift and go to state 45
+    XOR             shift and go to state 47
 
+    binary_op                      shift and go to state 42
 
 state 74
 
-    (6) statement -> STORE LPAREN expressions COMMA expressions RPAREN .
+    (13) expressions -> LOAD LPAREN expressions RPAREN .
 
-    VAR             reduce using rule 6 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
-    STORE           reduce using rule 6 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
-    GOTO            reduce using rule 6 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
-    ASSERT          reduce using rule 6 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
-    IF              reduce using rule 6 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
-    PRINT_OUTPUT    reduce using rule 6 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
-    $end            reduce using rule 6 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
+    COMMA           reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    PLUS            reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    MINUS           reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    MULTIPLY        reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    DIVIDE          reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    MODULO          reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    INCLUSIVE_OR    reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    ADDRESS         reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    XOR             reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    VAR             reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    ID              reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    STORE           reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    GOTO            reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    ASSERT          reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    IF              reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    PRINT_OUTPUT    reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    $end            reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    RPAREN          reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    LOGICAL_AND     reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    LOGICAL_OR      reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    LESS_THAN       reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    GREATER_THAN    reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    LESS_THAN_EQ    reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    GREATER_THAN_EQ reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    INEQUALITY      reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    EQUALITY        reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
+    ELSE            reduce using rule 13 (expressions -> LOAD LPAREN expressions RPAREN .)
 
 
 state 75
 
-    (9) statement -> IF bool_expression THEN GOTO expressions ELSE GOTO . expressions
-    (11) expressions -> . LOAD LPAREN expressions RPAREN
-    (12) expressions -> . expressions binary_op expression
-    (13) expressions -> . unary_op expressions
-    (14) expressions -> . expression
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-    (15) expression -> . ID
-    (16) expression -> . 32_BIT_USIGN_INT
-    (17) expression -> . GET_INPUT LPAREN RPAREN
+    (8) statement -> STORE LPAREN expressions COMMA expressions . RPAREN
+    (14) expressions -> expressions . binary_op expression
+    (25) binary_op -> . PLUS
+    (26) binary_op -> . MINUS
+    (27) binary_op -> . MULTIPLY
+    (28) binary_op -> . DIVIDE
+    (29) binary_op -> . MODULO
+    (30) binary_op -> . INCLUSIVE_OR
+    (31) binary_op -> . ADDRESS
+    (32) binary_op -> . XOR
 
-    LOAD            shift and go to state 11
-    PLUS            shift and go to state 18
-    MINUS           shift and go to state 24
-    INCREMENT       shift and go to state 14
-    DECREMENT       shift and go to state 16
-    ADDRESS         shift and go to state 20
-    ID              shift and go to state 17
-    32_BIT_USIGN_INT shift and go to state 12
-    GET_INPUT       shift and go to state 25
+    RPAREN          shift and go to state 79
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 48
+    MULTIPLY        shift and go to state 46
+    DIVIDE          shift and go to state 41
+    MODULO          shift and go to state 40
+    INCLUSIVE_OR    shift and go to state 43
+    ADDRESS         shift and go to state 45
+    XOR             shift and go to state 47
 
-    expressions                    shift and go to state 76
-    expression                     shift and go to state 15
-    unary_op                       shift and go to state 19
+    binary_op                      shift and go to state 42
 
 state 76
 
-    (9) statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .
-    (12) expressions -> expressions . binary_op expression
-    (23) binary_op -> . PLUS
-    (24) binary_op -> . MINUS
-    (25) binary_op -> . MULTIPLY
-    (26) binary_op -> . DIVIDE
-    (27) binary_op -> . MODULO
-    (28) binary_op -> . XOR
+    (21) bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .
 
-    VAR             reduce using rule 9 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
-    STORE           reduce using rule 9 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
-    GOTO            reduce using rule 9 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
-    ASSERT          reduce using rule 9 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
-    IF              reduce using rule 9 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
-    PRINT_OUTPUT    reduce using rule 9 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
-    $end            reduce using rule 9 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
-    PLUS            shift and go to state 38
-    MINUS           shift and go to state 41
-    MULTIPLY        shift and go to state 39
-    DIVIDE          shift and go to state 36
-    MODULO          shift and go to state 35
-    XOR             shift and go to state 40
+    THEN            reduce using rule 21 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
+    INCLUSIVE_OR    reduce using rule 21 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
+    LOGICAL_AND     reduce using rule 21 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
+    LOGICAL_OR      reduce using rule 21 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
+    LESS_THAN       reduce using rule 21 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
+    GREATER_THAN    reduce using rule 21 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
+    LESS_THAN_EQ    reduce using rule 21 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
+    GREATER_THAN_EQ reduce using rule 21 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
+    INEQUALITY      reduce using rule 21 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
+    EQUALITY        reduce using rule 21 (bool_expression -> LPAREN bool_statement bool_op bool_statement RPAREN .)
 
-    binary_op                      shift and go to state 37
+
+state 77
+
+    (20) bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .
+
+    THEN            reduce using rule 20 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
+    INCLUSIVE_OR    reduce using rule 20 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
+    LOGICAL_AND     reduce using rule 20 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
+    LOGICAL_OR      reduce using rule 20 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
+    LESS_THAN       reduce using rule 20 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
+    GREATER_THAN    reduce using rule 20 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
+    LESS_THAN_EQ    reduce using rule 20 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
+    GREATER_THAN_EQ reduce using rule 20 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
+    INEQUALITY      reduce using rule 20 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
+    EQUALITY        reduce using rule 20 (bool_expression -> LPAREN bool_expression bool_op bool_statement RPAREN .)
+
+
+state 78
+
+    (11) statement -> IF bool_expression THEN GOTO expressions ELSE . GOTO expressions
+
+    GOTO            shift and go to state 80
+
+
+state 79
+
+    (8) statement -> STORE LPAREN expressions COMMA expressions RPAREN .
+
+    VAR             reduce using rule 8 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
+    ID              reduce using rule 8 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
+    STORE           reduce using rule 8 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
+    GOTO            reduce using rule 8 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
+    ASSERT          reduce using rule 8 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
+    IF              reduce using rule 8 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
+    PRINT_OUTPUT    reduce using rule 8 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
+    $end            reduce using rule 8 (statement -> STORE LPAREN expressions COMMA expressions RPAREN .)
+
+
+state 80
+
+    (11) statement -> IF bool_expression THEN GOTO expressions ELSE GOTO . expressions
+    (13) expressions -> . LOAD LPAREN expressions RPAREN
+    (14) expressions -> . expressions binary_op expression
+    (15) expressions -> . unary_op expressions
+    (16) expressions -> . expression
+    (42) unary_op -> . PLUS
+    (43) unary_op -> . MINUS
+    (44) unary_op -> . INCREMENT
+    (45) unary_op -> . DECREMENT
+    (46) unary_op -> . ADDRESS
+    (17) expression -> . ID
+    (18) expression -> . 32_BIT_USIGN_INT
+    (19) expression -> . GET_INPUT LPAREN RPAREN
+
+    LOAD            shift and go to state 14
+    PLUS            shift and go to state 21
+    MINUS           shift and go to state 27
+    INCREMENT       shift and go to state 17
+    DECREMENT       shift and go to state 19
+    ADDRESS         shift and go to state 23
+    ID              shift and go to state 20
+    32_BIT_USIGN_INT shift and go to state 15
+    GET_INPUT       shift and go to state 28
+
+    expressions                    shift and go to state 81
+    expression                     shift and go to state 18
+    unary_op                       shift and go to state 22
+
+state 81
+
+    (11) statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .
+    (14) expressions -> expressions . binary_op expression
+    (25) binary_op -> . PLUS
+    (26) binary_op -> . MINUS
+    (27) binary_op -> . MULTIPLY
+    (28) binary_op -> . DIVIDE
+    (29) binary_op -> . MODULO
+    (30) binary_op -> . INCLUSIVE_OR
+    (31) binary_op -> . ADDRESS
+    (32) binary_op -> . XOR
+
+    VAR             reduce using rule 11 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
+    ID              reduce using rule 11 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
+    STORE           reduce using rule 11 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
+    GOTO            reduce using rule 11 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
+    ASSERT          reduce using rule 11 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
+    IF              reduce using rule 11 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
+    PRINT_OUTPUT    reduce using rule 11 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
+    $end            reduce using rule 11 (statement -> IF bool_expression THEN GOTO expressions ELSE GOTO expressions .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 48
+    MULTIPLY        shift and go to state 46
+    DIVIDE          shift and go to state 41
+    MODULO          shift and go to state 40
+    INCLUSIVE_OR    shift and go to state 43
+    ADDRESS         shift and go to state 45
+    XOR             shift and go to state 47
+
+    binary_op                      shift and go to state 42
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for PLUS in state 34 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 34 resolved as shift
-WARNING: shift/reduce conflict for MULTIPLY in state 34 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 34 resolved as shift
-WARNING: shift/reduce conflict for MODULO in state 34 resolved as shift
-WARNING: shift/reduce conflict for XOR in state 34 resolved as shift
+WARNING: shift/reduce conflict for VAR in state 0 resolved as shift
+WARNING: shift/reduce conflict for ID in state 0 resolved as shift
+WARNING: shift/reduce conflict for STORE in state 0 resolved as shift
+WARNING: shift/reduce conflict for GOTO in state 0 resolved as shift
+WARNING: shift/reduce conflict for ASSERT in state 0 resolved as shift
+WARNING: shift/reduce conflict for IF in state 0 resolved as shift
+WARNING: shift/reduce conflict for PRINT_OUTPUT in state 0 resolved as shift
+WARNING: shift/reduce conflict for INCLUSIVE_OR in state 25 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 39 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 39 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 39 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 39 resolved as shift
+WARNING: shift/reduce conflict for MODULO in state 39 resolved as shift
+WARNING: shift/reduce conflict for INCLUSIVE_OR in state 39 resolved as shift
+WARNING: shift/reduce conflict for ADDRESS in state 39 resolved as shift
+WARNING: shift/reduce conflict for XOR in state 39 resolved as shift

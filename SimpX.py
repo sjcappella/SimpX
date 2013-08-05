@@ -15,7 +15,12 @@ def callLexer(file_path):
 
    print(file_data)
    Lexer.lexInput(file_data)
-   Parser.parse(Lexer.tokens)
+   #print("Testing something here..")
+   #print(Lexer.tokens[0])
+   #Parser.parse(Lexer.tokens)
+   Parser.parse(file_data)
+
+
 
 
 
