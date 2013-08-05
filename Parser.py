@@ -124,6 +124,11 @@ def p_statement(p):
              		| ASSERT bool_statement
              		| IF bool_expression THEN GOTO expressions ELSE GOTO expressions
              		| PRINT_OUTPUT LPAREN expressions RPAREN'''
+	print ("MESSAGE =====> Length of p = %d") % len(p)
+	print "MESSAGE =====> Parsed a statement", p[1], p[2], p[3], p[4]
+	for x in range(0, len(p)): 
+		if p[x] == 'var':
+			print ("MESSAGE =====> WE FOUND A VAR!!")
 
 # Production rules for expressions
 def p_expressions(p):
@@ -159,6 +164,7 @@ def p_binary_op(p):
 					| INCLUSIVE_OR
 					| ADDRESS
 					| XOR'''
+	
 
 # Production rules for boolean operators
 def p_bool_op(p): 
@@ -179,6 +185,7 @@ def p_unary_op(p):
 					| INCREMENT 
 					| DECREMENT 
 					| ADDRESS'''
+	
 
 
 # Production rules for 32 bit usigned integers and variables
@@ -187,8 +194,7 @@ def p_value(p):
 				| VAR'''
 
 def parse(data):
-	#lexer = lex.lex()
-	#lexer.input(data)
+	
 	parser = yacc.yacc()
 	p = parser.parse(data, debug=True, tracking=True)
 
