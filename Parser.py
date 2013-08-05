@@ -193,9 +193,17 @@ def p_value(p):
 	'''value 	: 32_BIT_USIGN_INT
 				| VAR'''
 
-def parse(data):
+def parse(source_code):
+	# Build the lexer
+  	lexer = lex.lex()
+
+  	# Give the lexer the source code
+  	lexer.input(source_code)
 	
+	# Build the parser
 	parser = yacc.yacc()
+
+	# Parse the source code
 	p = parser.parse(data, debug=True, tracking=True)
 
 	print(p)

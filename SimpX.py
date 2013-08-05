@@ -1,27 +1,26 @@
 import sys
-import Lexer as Lexer
 import Parser as Parser
 
-def callLexer(file_path):
-   file = open(file_path)
-
-   file_data = ""
+# Function to perform lexical analysis and parsing of source code
+def lexAndParse(source_path):
+   # Open source code file
+   file = open(source_path)
+   
+   # Read in source code line by line
+   source_code = ""
    while 1:
       line = file.readline()
       if not line:
          break
       else:
-         file_data += line
+         source_code += line
 
-   print(file_data)
-   Lexer.lexInput(file_data)
-   #print("Testing something here..")
-   #print(Lexer.tokens[0])
-   #Parser.parse(Lexer.tokens)
-   Parser.parse(file_data)
+   # Print out the original source code
+   print("Source Code to execute and analyze:")
+   print(source_code)
 
-
-
+   # Send source code for lexical analysis and parsing
+   Parser.parse(source_code)
 
 
 def main(argv):
@@ -30,7 +29,7 @@ def main(argv):
    	print("No input file given. Quitting.")
    	exit()
    else:
-   	callLexer(argv[1])
+   	lexAndParse(argv[1])
    
    
 
