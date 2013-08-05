@@ -72,8 +72,8 @@ ID = {Letter}({Letter}|{Digit})*
               | 32_USIGN 
               | GET_INPUT LEFT_PAREN RIGHT_PAREN
               
-<bool_expression> ::= LEFT_PAREN <bool_expression> <BOOL_OP> <bool_statement> RIGHT_PAREN
-                   | LEFT_PAREN <bool_statement> <BOOL_OP> <bool_statement> RIGHT_PAREN
+<bool_expression> ::= LEFT_PAREN <bool_statement> <BOOL_OP> <bool_expression> RIGHT_PAREN
+                   | <bool_statement>
                    
 <bool_statement> ::= <expressions>
                   | TRUE
