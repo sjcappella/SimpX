@@ -109,6 +109,8 @@ def t_error(t):
 import yacc as yacc
 import ASTNode 
 
+line_number = -1
+
 # Production rule for program
 def p_start(p):
 	'''start	: statement_list'''
@@ -119,7 +121,7 @@ def p_statement_list(p):
 						| statement
 						|'''
 
-# Production rules for statements
+# Production rules for statements (may need to add a special rule for ID to keep track of it)
 def p_statement(p):
 	'''statement	: VAR ID
 					| VAR ID ASSIGN expression
@@ -251,16 +253,22 @@ def p_rel_op(p):
 					| GREATER_THAN_EQ'''
 	if p[1] == '==':
 		print("Equality check.")
+		p[0] = ASTNode.RelopNode(line_number, '==')
 	if p[1] == "!=":
 		print("Inquality check.")
+		p[0] = ASTNode.RelopNode(line_number, '!=')
 	if p[1] == '<':
 		print("Less than check.")
+		p[0] = ASTNode.RelopNode(line_number, '<')
 	if p[1] == '>':
 		print("Greater than check.")
+		p[0] = ASTNode.RelopNode(line_number, '>')
 	if p[1] == '<=':
 		print("Less than or equal check.")
+		p[0] = ASTNode.RelopNode(line_number, '<=')
 	if p[1] == '>=':
 		print("Greater than or equal check.")
+		p[0] = ASTNode.RelopNode(line_number, '>=')
 
 # Production rules for unary operators
 def p_unary_op(p):
@@ -271,17 +279,25 @@ def p_unary_op(p):
 					| ADDRESS'''
 	if p[1] == '+':
 		print("Positive.")
+		p[0] = ASTNode.UnaryNode(line_number, '+')
 	if p[1] == '-':
 		print("Negate.")
+		p[0] = ASTNode.UnaryNode(line_number, '-')
 	if p[1] == '++':
 		print("Increment.")
+		p[0] = ASTNode.UnaryNode(line_number, '++')
 	if p[1] == '--':
 		print("Decrement.")
+		p[0] = ASTNode.UnaryNode(line_number, '--')
 	if p[1] == '&':
 		print("Get value at address.")
+		p[0] = ASTNode.UnaryNode(line_number, '&')
 
 # Lex and parse the source code
-def parse(source_code):
+def parse(source_code, line):
+	global line_number 
+	line_number = line
+
 	# Build the lexer
   	lexer = lex.lex()
 

@@ -7,20 +7,22 @@ def lexAndParse(source_path):
    file = open(source_path)
    
    # Read in source code line by line
-   source_code = ""
+   source_code = []
    while 1:
       line = file.readline()
       if not line:
          break
       else:
-         source_code += line
+         source_code.append(line)
 
    # Print out the original source code
    print("Source Code to execute and analyze:")
-   print(source_code)
+   for x in range(len(source_code)):
+      print(source_code[x])
 
    # Send source code for lexical analysis and parsing
-   Parser.parse(source_code)
+   for x in range(len(source_code)):
+      Parser.parse(source_code[x], x+1)
 
 
 def main(argv):
