@@ -107,6 +107,7 @@ def t_error(t):
 
 
 import yacc as yacc
+import ASTNode 
 
 # Production rule for program
 def p_start(p):
@@ -129,7 +130,12 @@ def p_statement(p):
              		| IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO expression
              		| PRINT_OUTPUT LPAREN expression RPAREN'''
 	print ("MESSAGE =====> Length of p = %d") % len(p)
-	print "MESSAGE =====> Parsed a statement ", 
+	for x in range(0, len(p)):
+		print("==================================: X = %d") % (x)
+		print(str(p[x]))
+		#for attr in dir(p[x]):
+			#print "p[%d].%s = %s" % (x, attr, getattr(p[x], attr))
+
 
 		
 
@@ -137,17 +143,32 @@ def p_statement(p):
 def p_expression(p):
 	'''expression 	: expression add_op term
 					| term'''
+	if len(p) == 4:
+		p[0] = p[1],p[2],p[3]
+	if len(p) == 2:
+		p[0] = p[1]
+	
 
 # Production rules for addition operations
 def p_add_op(p):
 	'''add_op 		: PLUS
 					| MINUS'''
+	p[0] = p[1]
+	
 
 # Prodution rules for factor operations. We are giving the
 # logical operations the same precedence as factors
 def p_term(p):
 	'''term 		: term mulop factor
 					| factor'''
+	if len(p) == 4:
+		p[0] = p[1],p[2],p[3]
+	if len(p) == 2:
+		p[0] = p[1]
+	print ("MESSAGE =====> Length of p = %d") % len(p)
+	for x in range(0, len(p)):
+		print("==================================: X = %d") % (x)
+		print(str(p[x]))
 
 # Production rules for the factor operators
 def p_mulop(p):
@@ -157,6 +178,7 @@ def p_mulop(p):
 					| XOR
 					| INCLUSIVE_OR
 					| ADDRESS'''
+	p[0] = p[1]
 
 # Production rules for factos
 def p_factor(p):
@@ -166,6 +188,12 @@ def p_factor(p):
 					| ID
 					| GET_INPUT LPAREN RPAREN
 					| LOAD LPAREN expression RPAREN'''
+	print ("MESSAGE =====> Length of p = %d") % len(p)
+	for x in range(0, len(p)):
+		print("==================================: X = %d") % (x)
+		print(str(p[x]))
+	p[0] = p[1]
+
 
 # Production rules for boolean expressions
 def p_bool_expression(p):
@@ -179,6 +207,7 @@ def p_rel_op(p):
 					| GREATER_THAN
 					| LESS_THAN_EQ
 					| GREATER_THAN_EQ'''
+	p[0] = p[1]
 
 # Production rules for unary operators
 def p_unary_op(p):
@@ -187,6 +216,7 @@ def p_unary_op(p):
 					| INCREMENT 
 					| DECREMENT 
 					| ADDRESS'''
+	p[0] = p[1]
 
 # Lex and parse the source code
 def parse(source_code):
@@ -207,3 +237,5 @@ def parse(source_code):
 	p = parser.parse(source_code, debug=True, tracking=True)
 
 	print(p)
+	#tokens = parser.tokens()
+	ast_node = ASTNode.ASTNode()
