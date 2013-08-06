@@ -44,13 +44,14 @@ COMMA = ','
           
 ID = {Letter}({Letter}|{Digit})*
 32_USIGN = {Digit}{Digit}*
-<UNARY_OP> ::= ADD_OP | SUB_UP | INCREMENT | DECREMENT | ADDRESS
+<UNARY_OP> ::= ADD_OP | SUB_OP | INCREMENT | DECREMENT | ADDRESS
 <BINARY_OP> ::= ADD_OP | SUB_OP | MULT_OP | DIV_OP | ADDRESS | MODULO | XOR | INCLUSIVE_OR
 <BOOL_OP> ::= LESS_THAN | LESS_THAN_EQUAL | GREATER_THAN | GREATER_THAN_EQUAL | IS_EQUAL | NOT_EQUAL | LOGICAL_AND | LOGICAL_OR 
       
     
      
 <program> ::= <statement-list>  
+           
 <statement-list> ::= <statement-list> <statement> 
                   | <statement>
                   
@@ -63,10 +64,24 @@ ID = {Letter}({Letter}|{Digit})*
              | IF <bool_expression> THEN GOTO <expressions> ELSE GOTO <expressions>
              | <console_out>
              
-<expressions> ::= LOAD LEFT_PAREN <expressions> RIGHT_PAREN 
-              | <expressions> <BINARY_OP> <expression>
-              | <UNARY_OP> <expressions>  
-              | <expression>
+<expressions> ::= <expressions> <add_op> <term> 
+               | <term>
+
+
+<add_op> ::= ADD_OP 
+          | SUB_OP      
+
+<term> ::= <term> <mulop> <factor> 
+        | <factor>
+
+<mulop> ::= MULT_OP | DIV_OP | ADDRESS | MODULO | XOR | INCLUSIVE_OR
+
+<factor> ::= <UNARY_OP> <factor>
+          | LEFT_PAREN <expressions> RIGHT_PAREN 
+          | 32_USIGN 
+          | ID
+          | GET_INPUT LEFT_PAREN RIGHT_PAREN 
+          | LOAD LEFT_PAREN <expression> RIGHT_PAREN
               
 <expression> ::= ID
               | 32_USIGN 
