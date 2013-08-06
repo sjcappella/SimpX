@@ -238,4 +238,5 @@ def parse(source_code):
 
 	print(p)
 	#tokens = parser.tokens()
-	ast_node = ASTNode.ASTNode()
+	ast_node = ASTNode.ASTNode(3, "ROOT", p)
+	statement_node = ASTNode.StatementNode(3, "ROOT", p)
