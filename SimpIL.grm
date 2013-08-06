@@ -45,7 +45,7 @@ COMMA = ','
 ID = {Letter}({Letter}|{Digit})*
 32_USIGN = {Digit}{Digit}*
 <UNARY_OP> ::= ADD_OP | SUB_OP | INCREMENT | DECREMENT | ADDRESS
-<BINARY_OP> ::= ADD_OP | SUB_OP | MULT_OP | DIV_OP | ADDRESS | MODULO | XOR | INCLUSIVE_OR
+!--- <BINARY_OP> ::= ADD_OP | SUB_OP | MULT_OP | DIV_OP | ADDRESS | MODULO | XOR | INCLUSIVE_OR
 <BOOL_OP> ::= LESS_THAN | LESS_THAN_EQUAL | GREATER_THAN | GREATER_THAN_EQUAL | IS_EQUAL | NOT_EQUAL | LOGICAL_AND | LOGICAL_OR 
       
     
@@ -56,16 +56,16 @@ ID = {Letter}({Letter}|{Digit})*
                   | <statement>
                   
 <statement> ::= VAR ID
-             | VAR ID ASSIGN_OP <expressions> 
-             | ID ASSIGN_OP <expressions>
-             | STORE LEFT_PAREN <expressions> COMMA <expressions> RIGHT_PAREN
-             | GOTO <expressions> 
+             | VAR ID ASSIGN_OP <expression> 
+             | ID ASSIGN_OP <expression>
+             | STORE LEFT_PAREN <expression> COMMA <expression> RIGHT_PAREN
+             | GOTO <expression> 
              | ASSERT <bool_statement>
-             | IF <bool_expression> THEN GOTO <expressions> ELSE GOTO <expressions>
-             | <console_out>
+             | IF <bool_expression> THEN GOTO <expression> ELSE GOTO <expression>
+             | PRINT_OUTPUT LEFT_PAREN <expression> RIGHT_PAREN
              
-<expressions> ::= <expressions> <add_op> <term> 
-               | <term>
+<expression> ::= <expression> <add_op> <term> 
+              | <term>
 
 
 <add_op> ::= ADD_OP 
@@ -77,23 +77,21 @@ ID = {Letter}({Letter}|{Digit})*
 <mulop> ::= MULT_OP | DIV_OP | ADDRESS | MODULO | XOR | INCLUSIVE_OR
 
 <factor> ::= <UNARY_OP> <factor>
-          | LEFT_PAREN <expressions> RIGHT_PAREN 
+          | LEFT_PAREN <expression> RIGHT_PAREN 
           | 32_USIGN 
           | ID
           | GET_INPUT LEFT_PAREN RIGHT_PAREN 
           | LOAD LEFT_PAREN <expression> RIGHT_PAREN
               
-<expression> ::= ID
-              | 32_USIGN 
-              | GET_INPUT LEFT_PAREN RIGHT_PAREN
+
               
-<bool_expression> ::= LEFT_PAREN <bool_statement> <BOOL_OP> <bool_expression> RIGHT_PAREN
+<bool_expression> ::= <bool_expression> <BOOL_OP> <bool_statement> 
                    | <bool_statement>
                    
-<bool_statement> ::= <expressions>
+<bool_statement> ::= LEFT_PAREN <bool_expression> RIGHT_PAREN 
+                  | LEFT_PAREN <expression> RIGHT_PAREN
                   | TRUE
                   | FALSE
-              
-<console_out> ::= PRINT_OUTPUT LEFT_PAREN <expression> RIGHT_PAREN
+               
 
 
