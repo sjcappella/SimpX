@@ -7,8 +7,8 @@ Rule 1     start -> statement_list
 Rule 2     statement_list -> statement_list statement
 Rule 3     statement_list -> statement
 Rule 4     statement_list -> <empty>
-Rule 5     statement -> VAR ID
-Rule 6     statement -> VAR ID ASSIGN expression
+Rule 5     statement -> VAR id
+Rule 6     statement -> VAR id ASSIGN expression
 Rule 7     statement -> ID ASSIGN expression
 Rule 8     statement -> STORE LPAREN expression COMMA expression RPAREN
 Rule 9     statement -> GOTO expression
@@ -33,47 +33,48 @@ Rule 27    factor -> 32_BIT_USIGN_INT
 Rule 28    factor -> ID
 Rule 29    factor -> GET_INPUT LPAREN RPAREN
 Rule 30    factor -> LOAD LPAREN expression RPAREN
-Rule 31    bool_expression -> expression rel_op expression
-Rule 32    rel_op -> EQUALITY
-Rule 33    rel_op -> INEQUALITY
-Rule 34    rel_op -> LESS_THAN
-Rule 35    rel_op -> GREATER_THAN
-Rule 36    rel_op -> LESS_THAN_EQ
-Rule 37    rel_op -> GREATER_THAN_EQ
-Rule 38    unary_op -> PLUS
-Rule 39    unary_op -> MINUS
-Rule 40    unary_op -> INCREMENT
-Rule 41    unary_op -> DECREMENT
-Rule 42    unary_op -> ADDRESS
+Rule 31    id -> ID
+Rule 32    bool_expression -> expression rel_op expression
+Rule 33    rel_op -> EQUALITY
+Rule 34    rel_op -> INEQUALITY
+Rule 35    rel_op -> LESS_THAN
+Rule 36    rel_op -> GREATER_THAN
+Rule 37    rel_op -> LESS_THAN_EQ
+Rule 38    rel_op -> GREATER_THAN_EQ
+Rule 39    unary_op -> PLUS
+Rule 40    unary_op -> MINUS
+Rule 41    unary_op -> INCREMENT
+Rule 42    unary_op -> DECREMENT
+Rule 43    unary_op -> ADDRESS
 
 Terminals, with rules where they appear
 
 32_BIT_USIGN_INT     : 27
-ADDRESS              : 24 42
+ADDRESS              : 24 43
 ASSERT               : 10
 ASSIGN               : 6 7
 COMMA                : 8
-DECREMENT            : 41
+DECREMENT            : 42
 DIVIDE               : 20
 ELSE                 : 11
-EQUALITY             : 32
+EQUALITY             : 33
 GET_INPUT            : 29
 GOTO                 : 9 11 11
-GREATER_THAN         : 35
-GREATER_THAN_EQ      : 37
-ID                   : 5 6 7 28
+GREATER_THAN         : 36
+GREATER_THAN_EQ      : 38
+ID                   : 7 28 31
 IF                   : 11
 INCLUSIVE_OR         : 23
-INCREMENT            : 40
-INEQUALITY           : 33
-LESS_THAN            : 34
-LESS_THAN_EQ         : 36
+INCREMENT            : 41
+INEQUALITY           : 34
+LESS_THAN            : 35
+LESS_THAN_EQ         : 37
 LOAD                 : 30
 LPAREN               : 8 11 12 26 29 30
-MINUS                : 16 39
+MINUS                : 16 40
 MODULO               : 21
 MULTIPLY             : 19
-PLUS                 : 15 38
+PLUS                 : 15 39
 PRINT_OUTPUT         : 12
 RPAREN               : 8 11 12 26 29 30
 STORE                : 8
@@ -86,10 +87,11 @@ Nonterminals, with rules where they appear
 
 add_op               : 13
 bool_expression      : 10 11
-expression           : 6 7 8 8 9 11 11 12 13 26 30 31 31
+expression           : 6 7 8 8 9 11 11 12 13 26 30 32 32
 factor               : 17 18 25
+id                   : 5 6
 mulop                : 17
-rel_op               : 31
+rel_op               : 32
 start                : 0
 statement            : 2 3
 statement_list       : 1 2
@@ -105,8 +107,8 @@ state 0
     (2) statement_list -> . statement_list statement
     (3) statement_list -> . statement
     (4) statement_list -> .
-    (5) statement -> . VAR ID
-    (6) statement -> . VAR ID ASSIGN expression
+    (5) statement -> . VAR id
+    (6) statement -> . VAR id ASSIGN expression
     (7) statement -> . ID ASSIGN expression
     (8) statement -> . STORE LPAREN expression COMMA expression RPAREN
     (9) statement -> . GOTO expression
@@ -122,8 +124,8 @@ state 0
   ! shift/reduce conflict for IF resolved as shift
   ! shift/reduce conflict for PRINT_OUTPUT resolved as shift
     $end            reduce using rule 4 (statement_list -> .)
-    VAR             shift and go to state 7
-    ID              shift and go to state 8
+    VAR             shift and go to state 8
+    ID              shift and go to state 7
     STORE           shift and go to state 9
     GOTO            shift and go to state 10
     ASSERT          shift and go to state 3
@@ -138,9 +140,9 @@ state 0
   ! IF              [ reduce using rule 4 (statement_list -> .) ]
   ! PRINT_OUTPUT    [ reduce using rule 4 (statement_list -> .) ]
 
-    statement_list                 shift and go to state 6
     start                          shift and go to state 4
     statement                      shift and go to state 5
+    statement_list                 shift and go to state 6
 
 state 1
 
@@ -159,7 +161,7 @@ state 2
 state 3
 
     (10) statement -> ASSERT . bool_expression
-    (31) bool_expression -> . expression rel_op expression
+    (32) bool_expression -> . expression rel_op expression
     (13) expression -> . expression add_op term
     (14) expression -> . term
     (17) term -> . term mulop factor
@@ -170,11 +172,11 @@ state 3
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -217,8 +219,8 @@ state 6
 
     (1) start -> statement_list .
     (2) statement_list -> statement_list . statement
-    (5) statement -> . VAR ID
-    (6) statement -> . VAR ID ASSIGN expression
+    (5) statement -> . VAR id
+    (6) statement -> . VAR id ASSIGN expression
     (7) statement -> . ID ASSIGN expression
     (8) statement -> . STORE LPAREN expression COMMA expression RPAREN
     (9) statement -> . GOTO expression
@@ -227,8 +229,8 @@ state 6
     (12) statement -> . PRINT_OUTPUT LPAREN expression RPAREN
 
     $end            reduce using rule 1 (start -> statement_list .)
-    VAR             shift and go to state 7
-    ID              shift and go to state 8
+    VAR             shift and go to state 8
+    ID              shift and go to state 7
     STORE           shift and go to state 9
     GOTO            shift and go to state 10
     ASSERT          shift and go to state 3
@@ -239,24 +241,26 @@ state 6
 
 state 7
 
-    (5) statement -> VAR . ID
-    (6) statement -> VAR . ID ASSIGN expression
+    (7) statement -> ID . ASSIGN expression
 
-    ID              shift and go to state 29
+    ASSIGN          shift and go to state 29
 
 
 state 8
 
-    (7) statement -> ID . ASSIGN expression
+    (5) statement -> VAR . id
+    (6) statement -> VAR . id ASSIGN expression
+    (31) id -> . ID
 
-    ASSIGN          shift and go to state 30
+    ID              shift and go to state 30
 
+    id                             shift and go to state 31
 
 state 9
 
     (8) statement -> STORE . LPAREN expression COMMA expression RPAREN
 
-    LPAREN          shift and go to state 31
+    LPAREN          shift and go to state 32
 
 
 state 10
@@ -272,46 +276,11 @@ state 10
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
-
-    LPAREN          shift and go to state 16
-    32_BIT_USIGN_INT shift and go to state 20
-    ID              shift and go to state 26
-    GET_INPUT       shift and go to state 18
-    LOAD            shift and go to state 13
-    PLUS            shift and go to state 22
-    MINUS           shift and go to state 21
-    INCREMENT       shift and go to state 15
-    DECREMENT       shift and go to state 24
-    ADDRESS         shift and go to state 17
-
-    term                           shift and go to state 14
-    unary_op                       shift and go to state 23
-    factor                         shift and go to state 19
-    expression                     shift and go to state 32
-
-state 11
-
-    (12) statement -> PRINT_OUTPUT LPAREN . expression RPAREN
-    (13) expression -> . expression add_op term
-    (14) expression -> . term
-    (17) term -> . term mulop factor
-    (18) term -> . factor
-    (25) factor -> . unary_op factor
-    (26) factor -> . LPAREN expression RPAREN
-    (27) factor -> . 32_BIT_USIGN_INT
-    (28) factor -> . ID
-    (29) factor -> . GET_INPUT LPAREN RPAREN
-    (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -329,10 +298,9 @@ state 11
     factor                         shift and go to state 19
     expression                     shift and go to state 33
 
-state 12
+state 11
 
-    (11) statement -> IF LPAREN . bool_expression RPAREN THEN GOTO expression ELSE GOTO expression
-    (31) bool_expression -> . expression rel_op expression
+    (12) statement -> PRINT_OUTPUT LPAREN . expression RPAREN
     (13) expression -> . expression add_op term
     (14) expression -> . term
     (17) term -> . term mulop factor
@@ -343,11 +311,47 @@ state 12
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
+
+    LPAREN          shift and go to state 16
+    32_BIT_USIGN_INT shift and go to state 20
+    ID              shift and go to state 26
+    GET_INPUT       shift and go to state 18
+    LOAD            shift and go to state 13
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 21
+    INCREMENT       shift and go to state 15
+    DECREMENT       shift and go to state 24
+    ADDRESS         shift and go to state 17
+
+    term                           shift and go to state 14
+    unary_op                       shift and go to state 23
+    factor                         shift and go to state 19
+    expression                     shift and go to state 34
+
+state 12
+
+    (11) statement -> IF LPAREN . bool_expression RPAREN THEN GOTO expression ELSE GOTO expression
+    (32) bool_expression -> . expression rel_op expression
+    (13) expression -> . expression add_op term
+    (14) expression -> . term
+    (17) term -> . term mulop factor
+    (18) term -> . factor
+    (25) factor -> . unary_op factor
+    (26) factor -> . LPAREN expression RPAREN
+    (27) factor -> . 32_BIT_USIGN_INT
+    (28) factor -> . ID
+    (29) factor -> . GET_INPUT LPAREN RPAREN
+    (30) factor -> . LOAD LPAREN expression RPAREN
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -364,13 +368,13 @@ state 12
     factor                         shift and go to state 19
     unary_op                       shift and go to state 23
     expression                     shift and go to state 25
-    bool_expression                shift and go to state 34
+    bool_expression                shift and go to state 35
 
 state 13
 
     (30) factor -> LOAD . LPAREN expression RPAREN
 
-    LPAREN          shift and go to state 35
+    LPAREN          shift and go to state 36
 
 
 state 14
@@ -384,17 +388,15 @@ state 14
     (23) mulop -> . INCLUSIVE_OR
     (24) mulop -> . ADDRESS
 
-    COMMA           reduce using rule 14 (expression -> term .)
-    PLUS            reduce using rule 14 (expression -> term .)
-    MINUS           reduce using rule 14 (expression -> term .)
     EQUALITY        reduce using rule 14 (expression -> term .)
     INEQUALITY      reduce using rule 14 (expression -> term .)
     LESS_THAN       reduce using rule 14 (expression -> term .)
     GREATER_THAN    reduce using rule 14 (expression -> term .)
     LESS_THAN_EQ    reduce using rule 14 (expression -> term .)
     GREATER_THAN_EQ reduce using rule 14 (expression -> term .)
-    RPAREN          reduce using rule 14 (expression -> term .)
-    ELSE            reduce using rule 14 (expression -> term .)
+    PLUS            reduce using rule 14 (expression -> term .)
+    MINUS           reduce using rule 14 (expression -> term .)
+    COMMA           reduce using rule 14 (expression -> term .)
     VAR             reduce using rule 14 (expression -> term .)
     ID              reduce using rule 14 (expression -> term .)
     STORE           reduce using rule 14 (expression -> term .)
@@ -403,29 +405,31 @@ state 14
     IF              reduce using rule 14 (expression -> term .)
     PRINT_OUTPUT    reduce using rule 14 (expression -> term .)
     $end            reduce using rule 14 (expression -> term .)
-    MULTIPLY        shift and go to state 41
-    DIVIDE          shift and go to state 37
-    MODULO          shift and go to state 36
-    XOR             shift and go to state 42
-    INCLUSIVE_OR    shift and go to state 39
-    ADDRESS         shift and go to state 38
+    RPAREN          reduce using rule 14 (expression -> term .)
+    ELSE            reduce using rule 14 (expression -> term .)
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 38
+    MODULO          shift and go to state 37
+    XOR             shift and go to state 43
+    INCLUSIVE_OR    shift and go to state 40
+    ADDRESS         shift and go to state 39
 
-    mulop                          shift and go to state 40
+    mulop                          shift and go to state 41
 
 state 15
 
-    (40) unary_op -> INCREMENT .
+    (41) unary_op -> INCREMENT .
 
-    LPAREN          reduce using rule 40 (unary_op -> INCREMENT .)
-    32_BIT_USIGN_INT reduce using rule 40 (unary_op -> INCREMENT .)
-    ID              reduce using rule 40 (unary_op -> INCREMENT .)
-    GET_INPUT       reduce using rule 40 (unary_op -> INCREMENT .)
-    LOAD            reduce using rule 40 (unary_op -> INCREMENT .)
-    PLUS            reduce using rule 40 (unary_op -> INCREMENT .)
-    MINUS           reduce using rule 40 (unary_op -> INCREMENT .)
-    INCREMENT       reduce using rule 40 (unary_op -> INCREMENT .)
-    DECREMENT       reduce using rule 40 (unary_op -> INCREMENT .)
-    ADDRESS         reduce using rule 40 (unary_op -> INCREMENT .)
+    LPAREN          reduce using rule 41 (unary_op -> INCREMENT .)
+    32_BIT_USIGN_INT reduce using rule 41 (unary_op -> INCREMENT .)
+    ID              reduce using rule 41 (unary_op -> INCREMENT .)
+    GET_INPUT       reduce using rule 41 (unary_op -> INCREMENT .)
+    LOAD            reduce using rule 41 (unary_op -> INCREMENT .)
+    PLUS            reduce using rule 41 (unary_op -> INCREMENT .)
+    MINUS           reduce using rule 41 (unary_op -> INCREMENT .)
+    INCREMENT       reduce using rule 41 (unary_op -> INCREMENT .)
+    DECREMENT       reduce using rule 41 (unary_op -> INCREMENT .)
+    ADDRESS         reduce using rule 41 (unary_op -> INCREMENT .)
 
 
 state 16
@@ -441,11 +445,11 @@ state 16
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -461,29 +465,29 @@ state 16
     term                           shift and go to state 14
     unary_op                       shift and go to state 23
     factor                         shift and go to state 19
-    expression                     shift and go to state 43
+    expression                     shift and go to state 44
 
 state 17
 
-    (42) unary_op -> ADDRESS .
+    (43) unary_op -> ADDRESS .
 
-    LPAREN          reduce using rule 42 (unary_op -> ADDRESS .)
-    32_BIT_USIGN_INT reduce using rule 42 (unary_op -> ADDRESS .)
-    ID              reduce using rule 42 (unary_op -> ADDRESS .)
-    GET_INPUT       reduce using rule 42 (unary_op -> ADDRESS .)
-    LOAD            reduce using rule 42 (unary_op -> ADDRESS .)
-    PLUS            reduce using rule 42 (unary_op -> ADDRESS .)
-    MINUS           reduce using rule 42 (unary_op -> ADDRESS .)
-    INCREMENT       reduce using rule 42 (unary_op -> ADDRESS .)
-    DECREMENT       reduce using rule 42 (unary_op -> ADDRESS .)
-    ADDRESS         reduce using rule 42 (unary_op -> ADDRESS .)
+    LPAREN          reduce using rule 43 (unary_op -> ADDRESS .)
+    32_BIT_USIGN_INT reduce using rule 43 (unary_op -> ADDRESS .)
+    ID              reduce using rule 43 (unary_op -> ADDRESS .)
+    GET_INPUT       reduce using rule 43 (unary_op -> ADDRESS .)
+    LOAD            reduce using rule 43 (unary_op -> ADDRESS .)
+    PLUS            reduce using rule 43 (unary_op -> ADDRESS .)
+    MINUS           reduce using rule 43 (unary_op -> ADDRESS .)
+    INCREMENT       reduce using rule 43 (unary_op -> ADDRESS .)
+    DECREMENT       reduce using rule 43 (unary_op -> ADDRESS .)
+    ADDRESS         reduce using rule 43 (unary_op -> ADDRESS .)
 
 
 state 18
 
     (29) factor -> GET_INPUT . LPAREN RPAREN
 
-    LPAREN          shift and go to state 44
+    LPAREN          shift and go to state 45
 
 
 state 19
@@ -504,6 +508,7 @@ state 19
     GREATER_THAN_EQ reduce using rule 18 (term -> factor .)
     PLUS            reduce using rule 18 (term -> factor .)
     MINUS           reduce using rule 18 (term -> factor .)
+    ELSE            reduce using rule 18 (term -> factor .)
     VAR             reduce using rule 18 (term -> factor .)
     ID              reduce using rule 18 (term -> factor .)
     STORE           reduce using rule 18 (term -> factor .)
@@ -512,9 +517,8 @@ state 19
     IF              reduce using rule 18 (term -> factor .)
     PRINT_OUTPUT    reduce using rule 18 (term -> factor .)
     $end            reduce using rule 18 (term -> factor .)
-    COMMA           reduce using rule 18 (term -> factor .)
     RPAREN          reduce using rule 18 (term -> factor .)
-    ELSE            reduce using rule 18 (term -> factor .)
+    COMMA           reduce using rule 18 (term -> factor .)
 
 
 state 20
@@ -527,6 +531,12 @@ state 20
     XOR             reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
     INCLUSIVE_OR    reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
     ADDRESS         reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
+    EQUALITY        reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
+    INEQUALITY      reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
+    LESS_THAN       reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
+    GREATER_THAN    reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
+    LESS_THAN_EQ    reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
+    GREATER_THAN_EQ reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
     PLUS            reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
     MINUS           reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
     VAR             reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
@@ -538,46 +548,40 @@ state 20
     PRINT_OUTPUT    reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
     $end            reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
     RPAREN          reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
-    EQUALITY        reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
-    INEQUALITY      reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
-    LESS_THAN       reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
-    GREATER_THAN    reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
-    LESS_THAN_EQ    reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
-    GREATER_THAN_EQ reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
     COMMA           reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
     ELSE            reduce using rule 27 (factor -> 32_BIT_USIGN_INT .)
 
 
 state 21
 
-    (39) unary_op -> MINUS .
+    (40) unary_op -> MINUS .
 
-    LPAREN          reduce using rule 39 (unary_op -> MINUS .)
-    32_BIT_USIGN_INT reduce using rule 39 (unary_op -> MINUS .)
-    ID              reduce using rule 39 (unary_op -> MINUS .)
-    GET_INPUT       reduce using rule 39 (unary_op -> MINUS .)
-    LOAD            reduce using rule 39 (unary_op -> MINUS .)
-    PLUS            reduce using rule 39 (unary_op -> MINUS .)
-    MINUS           reduce using rule 39 (unary_op -> MINUS .)
-    INCREMENT       reduce using rule 39 (unary_op -> MINUS .)
-    DECREMENT       reduce using rule 39 (unary_op -> MINUS .)
-    ADDRESS         reduce using rule 39 (unary_op -> MINUS .)
+    LPAREN          reduce using rule 40 (unary_op -> MINUS .)
+    32_BIT_USIGN_INT reduce using rule 40 (unary_op -> MINUS .)
+    ID              reduce using rule 40 (unary_op -> MINUS .)
+    GET_INPUT       reduce using rule 40 (unary_op -> MINUS .)
+    LOAD            reduce using rule 40 (unary_op -> MINUS .)
+    PLUS            reduce using rule 40 (unary_op -> MINUS .)
+    MINUS           reduce using rule 40 (unary_op -> MINUS .)
+    INCREMENT       reduce using rule 40 (unary_op -> MINUS .)
+    DECREMENT       reduce using rule 40 (unary_op -> MINUS .)
+    ADDRESS         reduce using rule 40 (unary_op -> MINUS .)
 
 
 state 22
 
-    (38) unary_op -> PLUS .
+    (39) unary_op -> PLUS .
 
-    LPAREN          reduce using rule 38 (unary_op -> PLUS .)
-    32_BIT_USIGN_INT reduce using rule 38 (unary_op -> PLUS .)
-    ID              reduce using rule 38 (unary_op -> PLUS .)
-    GET_INPUT       reduce using rule 38 (unary_op -> PLUS .)
-    LOAD            reduce using rule 38 (unary_op -> PLUS .)
-    PLUS            reduce using rule 38 (unary_op -> PLUS .)
-    MINUS           reduce using rule 38 (unary_op -> PLUS .)
-    INCREMENT       reduce using rule 38 (unary_op -> PLUS .)
-    DECREMENT       reduce using rule 38 (unary_op -> PLUS .)
-    ADDRESS         reduce using rule 38 (unary_op -> PLUS .)
+    LPAREN          reduce using rule 39 (unary_op -> PLUS .)
+    32_BIT_USIGN_INT reduce using rule 39 (unary_op -> PLUS .)
+    ID              reduce using rule 39 (unary_op -> PLUS .)
+    GET_INPUT       reduce using rule 39 (unary_op -> PLUS .)
+    LOAD            reduce using rule 39 (unary_op -> PLUS .)
+    PLUS            reduce using rule 39 (unary_op -> PLUS .)
+    MINUS           reduce using rule 39 (unary_op -> PLUS .)
+    INCREMENT       reduce using rule 39 (unary_op -> PLUS .)
+    DECREMENT       reduce using rule 39 (unary_op -> PLUS .)
+    ADDRESS         reduce using rule 39 (unary_op -> PLUS .)
 
 
 state 23
@@ -589,11 +593,11 @@ state 23
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -607,48 +611,48 @@ state 23
     ADDRESS         shift and go to state 17
 
     unary_op                       shift and go to state 23
-    factor                         shift and go to state 45
+    factor                         shift and go to state 46
 
 state 24
 
-    (41) unary_op -> DECREMENT .
+    (42) unary_op -> DECREMENT .
 
-    LPAREN          reduce using rule 41 (unary_op -> DECREMENT .)
-    32_BIT_USIGN_INT reduce using rule 41 (unary_op -> DECREMENT .)
-    ID              reduce using rule 41 (unary_op -> DECREMENT .)
-    GET_INPUT       reduce using rule 41 (unary_op -> DECREMENT .)
-    LOAD            reduce using rule 41 (unary_op -> DECREMENT .)
-    PLUS            reduce using rule 41 (unary_op -> DECREMENT .)
-    MINUS           reduce using rule 41 (unary_op -> DECREMENT .)
-    INCREMENT       reduce using rule 41 (unary_op -> DECREMENT .)
-    DECREMENT       reduce using rule 41 (unary_op -> DECREMENT .)
-    ADDRESS         reduce using rule 41 (unary_op -> DECREMENT .)
+    LPAREN          reduce using rule 42 (unary_op -> DECREMENT .)
+    32_BIT_USIGN_INT reduce using rule 42 (unary_op -> DECREMENT .)
+    ID              reduce using rule 42 (unary_op -> DECREMENT .)
+    GET_INPUT       reduce using rule 42 (unary_op -> DECREMENT .)
+    LOAD            reduce using rule 42 (unary_op -> DECREMENT .)
+    PLUS            reduce using rule 42 (unary_op -> DECREMENT .)
+    MINUS           reduce using rule 42 (unary_op -> DECREMENT .)
+    INCREMENT       reduce using rule 42 (unary_op -> DECREMENT .)
+    DECREMENT       reduce using rule 42 (unary_op -> DECREMENT .)
+    ADDRESS         reduce using rule 42 (unary_op -> DECREMENT .)
 
 
 state 25
 
-    (31) bool_expression -> expression . rel_op expression
+    (32) bool_expression -> expression . rel_op expression
     (13) expression -> expression . add_op term
-    (32) rel_op -> . EQUALITY
-    (33) rel_op -> . INEQUALITY
-    (34) rel_op -> . LESS_THAN
-    (35) rel_op -> . GREATER_THAN
-    (36) rel_op -> . LESS_THAN_EQ
-    (37) rel_op -> . GREATER_THAN_EQ
+    (33) rel_op -> . EQUALITY
+    (34) rel_op -> . INEQUALITY
+    (35) rel_op -> . LESS_THAN
+    (36) rel_op -> . GREATER_THAN
+    (37) rel_op -> . LESS_THAN_EQ
+    (38) rel_op -> . GREATER_THAN_EQ
     (15) add_op -> . PLUS
     (16) add_op -> . MINUS
 
-    EQUALITY        shift and go to state 46
-    INEQUALITY      shift and go to state 49
-    LESS_THAN       shift and go to state 53
-    GREATER_THAN    shift and go to state 52
-    LESS_THAN_EQ    shift and go to state 48
-    GREATER_THAN_EQ shift and go to state 55
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 47
+    EQUALITY        shift and go to state 47
+    INEQUALITY      shift and go to state 50
+    LESS_THAN       shift and go to state 54
+    GREATER_THAN    shift and go to state 53
+    LESS_THAN_EQ    shift and go to state 49
+    GREATER_THAN_EQ shift and go to state 56
+    PLUS            shift and go to state 51
+    MINUS           shift and go to state 48
 
-    rel_op                         shift and go to state 54
-    add_op                         shift and go to state 51
+    rel_op                         shift and go to state 55
+    add_op                         shift and go to state 52
 
 state 26
 
@@ -660,6 +664,12 @@ state 26
     XOR             reduce using rule 28 (factor -> ID .)
     INCLUSIVE_OR    reduce using rule 28 (factor -> ID .)
     ADDRESS         reduce using rule 28 (factor -> ID .)
+    EQUALITY        reduce using rule 28 (factor -> ID .)
+    INEQUALITY      reduce using rule 28 (factor -> ID .)
+    LESS_THAN       reduce using rule 28 (factor -> ID .)
+    GREATER_THAN    reduce using rule 28 (factor -> ID .)
+    LESS_THAN_EQ    reduce using rule 28 (factor -> ID .)
+    GREATER_THAN_EQ reduce using rule 28 (factor -> ID .)
     PLUS            reduce using rule 28 (factor -> ID .)
     MINUS           reduce using rule 28 (factor -> ID .)
     VAR             reduce using rule 28 (factor -> ID .)
@@ -671,12 +681,6 @@ state 26
     PRINT_OUTPUT    reduce using rule 28 (factor -> ID .)
     $end            reduce using rule 28 (factor -> ID .)
     RPAREN          reduce using rule 28 (factor -> ID .)
-    EQUALITY        reduce using rule 28 (factor -> ID .)
-    INEQUALITY      reduce using rule 28 (factor -> ID .)
-    LESS_THAN       reduce using rule 28 (factor -> ID .)
-    GREATER_THAN    reduce using rule 28 (factor -> ID .)
-    LESS_THAN_EQ    reduce using rule 28 (factor -> ID .)
-    GREATER_THAN_EQ reduce using rule 28 (factor -> ID .)
     COMMA           reduce using rule 28 (factor -> ID .)
     ELSE            reduce using rule 28 (factor -> ID .)
 
@@ -711,22 +715,6 @@ state 28
 
 state 29
 
-    (5) statement -> VAR ID .
-    (6) statement -> VAR ID . ASSIGN expression
-
-    VAR             reduce using rule 5 (statement -> VAR ID .)
-    ID              reduce using rule 5 (statement -> VAR ID .)
-    STORE           reduce using rule 5 (statement -> VAR ID .)
-    GOTO            reduce using rule 5 (statement -> VAR ID .)
-    ASSERT          reduce using rule 5 (statement -> VAR ID .)
-    IF              reduce using rule 5 (statement -> VAR ID .)
-    PRINT_OUTPUT    reduce using rule 5 (statement -> VAR ID .)
-    $end            reduce using rule 5 (statement -> VAR ID .)
-    ASSIGN          shift and go to state 56
-
-
-state 30
-
     (7) statement -> ID ASSIGN . expression
     (13) expression -> . expression add_op term
     (14) expression -> . term
@@ -738,11 +726,11 @@ state 30
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -760,7 +748,38 @@ state 30
     factor                         shift and go to state 19
     expression                     shift and go to state 57
 
+state 30
+
+    (31) id -> ID .
+
+    ASSIGN          reduce using rule 31 (id -> ID .)
+    VAR             reduce using rule 31 (id -> ID .)
+    ID              reduce using rule 31 (id -> ID .)
+    STORE           reduce using rule 31 (id -> ID .)
+    GOTO            reduce using rule 31 (id -> ID .)
+    ASSERT          reduce using rule 31 (id -> ID .)
+    IF              reduce using rule 31 (id -> ID .)
+    PRINT_OUTPUT    reduce using rule 31 (id -> ID .)
+    $end            reduce using rule 31 (id -> ID .)
+
+
 state 31
+
+    (5) statement -> VAR id .
+    (6) statement -> VAR id . ASSIGN expression
+
+    VAR             reduce using rule 5 (statement -> VAR id .)
+    ID              reduce using rule 5 (statement -> VAR id .)
+    STORE           reduce using rule 5 (statement -> VAR id .)
+    GOTO            reduce using rule 5 (statement -> VAR id .)
+    ASSERT          reduce using rule 5 (statement -> VAR id .)
+    IF              reduce using rule 5 (statement -> VAR id .)
+    PRINT_OUTPUT    reduce using rule 5 (statement -> VAR id .)
+    $end            reduce using rule 5 (statement -> VAR id .)
+    ASSIGN          shift and go to state 58
+
+
+state 32
 
     (8) statement -> STORE LPAREN . expression COMMA expression RPAREN
     (13) expression -> . expression add_op term
@@ -773,11 +792,11 @@ state 31
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -793,9 +812,9 @@ state 31
     term                           shift and go to state 14
     unary_op                       shift and go to state 23
     factor                         shift and go to state 19
-    expression                     shift and go to state 58
+    expression                     shift and go to state 59
 
-state 32
+state 33
 
     (9) statement -> GOTO expression .
     (13) expression -> expression . add_op term
@@ -810,32 +829,32 @@ state 32
     IF              reduce using rule 9 (statement -> GOTO expression .)
     PRINT_OUTPUT    reduce using rule 9 (statement -> GOTO expression .)
     $end            reduce using rule 9 (statement -> GOTO expression .)
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 47
+    PLUS            shift and go to state 51
+    MINUS           shift and go to state 48
 
-    add_op                         shift and go to state 51
+    add_op                         shift and go to state 52
 
-state 33
+state 34
 
     (12) statement -> PRINT_OUTPUT LPAREN expression . RPAREN
     (13) expression -> expression . add_op term
     (15) add_op -> . PLUS
     (16) add_op -> . MINUS
 
-    RPAREN          shift and go to state 59
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 47
+    RPAREN          shift and go to state 60
+    PLUS            shift and go to state 51
+    MINUS           shift and go to state 48
 
-    add_op                         shift and go to state 51
+    add_op                         shift and go to state 52
 
-state 34
+state 35
 
     (11) statement -> IF LPAREN bool_expression . RPAREN THEN GOTO expression ELSE GOTO expression
 
-    RPAREN          shift and go to state 60
+    RPAREN          shift and go to state 61
 
 
-state 35
+state 36
 
     (30) factor -> LOAD LPAREN . expression RPAREN
     (13) expression -> . expression add_op term
@@ -848,11 +867,11 @@ state 35
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -868,9 +887,9 @@ state 35
     term                           shift and go to state 14
     unary_op                       shift and go to state 23
     factor                         shift and go to state 19
-    expression                     shift and go to state 61
+    expression                     shift and go to state 62
 
-state 36
+state 37
 
     (21) mulop -> MODULO .
 
@@ -886,7 +905,7 @@ state 36
     ADDRESS         reduce using rule 21 (mulop -> MODULO .)
 
 
-state 37
+state 38
 
     (20) mulop -> DIVIDE .
 
@@ -902,7 +921,7 @@ state 37
     ADDRESS         reduce using rule 20 (mulop -> DIVIDE .)
 
 
-state 38
+state 39
 
     (24) mulop -> ADDRESS .
 
@@ -918,7 +937,7 @@ state 38
     ADDRESS         reduce using rule 24 (mulop -> ADDRESS .)
 
 
-state 39
+state 40
 
     (23) mulop -> INCLUSIVE_OR .
 
@@ -934,7 +953,7 @@ state 39
     ADDRESS         reduce using rule 23 (mulop -> INCLUSIVE_OR .)
 
 
-state 40
+state 41
 
     (17) term -> term mulop . factor
     (25) factor -> . unary_op factor
@@ -943,11 +962,11 @@ state 40
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -961,9 +980,9 @@ state 40
     ADDRESS         shift and go to state 17
 
     unary_op                       shift and go to state 23
-    factor                         shift and go to state 62
+    factor                         shift and go to state 63
 
-state 41
+state 42
 
     (19) mulop -> MULTIPLY .
 
@@ -979,7 +998,7 @@ state 41
     ADDRESS         reduce using rule 19 (mulop -> MULTIPLY .)
 
 
-state 42
+state 43
 
     (22) mulop -> XOR .
 
@@ -995,27 +1014,27 @@ state 42
     ADDRESS         reduce using rule 22 (mulop -> XOR .)
 
 
-state 43
+state 44
 
     (26) factor -> LPAREN expression . RPAREN
     (13) expression -> expression . add_op term
     (15) add_op -> . PLUS
     (16) add_op -> . MINUS
 
-    RPAREN          shift and go to state 63
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 47
+    RPAREN          shift and go to state 64
+    PLUS            shift and go to state 51
+    MINUS           shift and go to state 48
 
-    add_op                         shift and go to state 51
+    add_op                         shift and go to state 52
 
-state 44
+state 45
 
     (29) factor -> GET_INPUT LPAREN . RPAREN
 
-    RPAREN          shift and go to state 64
+    RPAREN          shift and go to state 65
 
 
-state 45
+state 46
 
     (25) factor -> unary_op factor .
 
@@ -1025,6 +1044,12 @@ state 45
     XOR             reduce using rule 25 (factor -> unary_op factor .)
     INCLUSIVE_OR    reduce using rule 25 (factor -> unary_op factor .)
     ADDRESS         reduce using rule 25 (factor -> unary_op factor .)
+    EQUALITY        reduce using rule 25 (factor -> unary_op factor .)
+    INEQUALITY      reduce using rule 25 (factor -> unary_op factor .)
+    LESS_THAN       reduce using rule 25 (factor -> unary_op factor .)
+    GREATER_THAN    reduce using rule 25 (factor -> unary_op factor .)
+    LESS_THAN_EQ    reduce using rule 25 (factor -> unary_op factor .)
+    GREATER_THAN_EQ reduce using rule 25 (factor -> unary_op factor .)
     PLUS            reduce using rule 25 (factor -> unary_op factor .)
     MINUS           reduce using rule 25 (factor -> unary_op factor .)
     VAR             reduce using rule 25 (factor -> unary_op factor .)
@@ -1036,33 +1061,27 @@ state 45
     PRINT_OUTPUT    reduce using rule 25 (factor -> unary_op factor .)
     $end            reduce using rule 25 (factor -> unary_op factor .)
     RPAREN          reduce using rule 25 (factor -> unary_op factor .)
-    EQUALITY        reduce using rule 25 (factor -> unary_op factor .)
-    INEQUALITY      reduce using rule 25 (factor -> unary_op factor .)
-    LESS_THAN       reduce using rule 25 (factor -> unary_op factor .)
-    GREATER_THAN    reduce using rule 25 (factor -> unary_op factor .)
-    LESS_THAN_EQ    reduce using rule 25 (factor -> unary_op factor .)
-    GREATER_THAN_EQ reduce using rule 25 (factor -> unary_op factor .)
     COMMA           reduce using rule 25 (factor -> unary_op factor .)
     ELSE            reduce using rule 25 (factor -> unary_op factor .)
 
 
-state 46
-
-    (32) rel_op -> EQUALITY .
-
-    LPAREN          reduce using rule 32 (rel_op -> EQUALITY .)
-    32_BIT_USIGN_INT reduce using rule 32 (rel_op -> EQUALITY .)
-    ID              reduce using rule 32 (rel_op -> EQUALITY .)
-    GET_INPUT       reduce using rule 32 (rel_op -> EQUALITY .)
-    LOAD            reduce using rule 32 (rel_op -> EQUALITY .)
-    PLUS            reduce using rule 32 (rel_op -> EQUALITY .)
-    MINUS           reduce using rule 32 (rel_op -> EQUALITY .)
-    INCREMENT       reduce using rule 32 (rel_op -> EQUALITY .)
-    DECREMENT       reduce using rule 32 (rel_op -> EQUALITY .)
-    ADDRESS         reduce using rule 32 (rel_op -> EQUALITY .)
-
-
 state 47
+
+    (33) rel_op -> EQUALITY .
+
+    LPAREN          reduce using rule 33 (rel_op -> EQUALITY .)
+    32_BIT_USIGN_INT reduce using rule 33 (rel_op -> EQUALITY .)
+    ID              reduce using rule 33 (rel_op -> EQUALITY .)
+    GET_INPUT       reduce using rule 33 (rel_op -> EQUALITY .)
+    LOAD            reduce using rule 33 (rel_op -> EQUALITY .)
+    PLUS            reduce using rule 33 (rel_op -> EQUALITY .)
+    MINUS           reduce using rule 33 (rel_op -> EQUALITY .)
+    INCREMENT       reduce using rule 33 (rel_op -> EQUALITY .)
+    DECREMENT       reduce using rule 33 (rel_op -> EQUALITY .)
+    ADDRESS         reduce using rule 33 (rel_op -> EQUALITY .)
+
+
+state 48
 
     (16) add_op -> MINUS .
 
@@ -1078,39 +1097,39 @@ state 47
     ADDRESS         reduce using rule 16 (add_op -> MINUS .)
 
 
-state 48
-
-    (36) rel_op -> LESS_THAN_EQ .
-
-    LPAREN          reduce using rule 36 (rel_op -> LESS_THAN_EQ .)
-    32_BIT_USIGN_INT reduce using rule 36 (rel_op -> LESS_THAN_EQ .)
-    ID              reduce using rule 36 (rel_op -> LESS_THAN_EQ .)
-    GET_INPUT       reduce using rule 36 (rel_op -> LESS_THAN_EQ .)
-    LOAD            reduce using rule 36 (rel_op -> LESS_THAN_EQ .)
-    PLUS            reduce using rule 36 (rel_op -> LESS_THAN_EQ .)
-    MINUS           reduce using rule 36 (rel_op -> LESS_THAN_EQ .)
-    INCREMENT       reduce using rule 36 (rel_op -> LESS_THAN_EQ .)
-    DECREMENT       reduce using rule 36 (rel_op -> LESS_THAN_EQ .)
-    ADDRESS         reduce using rule 36 (rel_op -> LESS_THAN_EQ .)
-
-
 state 49
 
-    (33) rel_op -> INEQUALITY .
+    (37) rel_op -> LESS_THAN_EQ .
 
-    LPAREN          reduce using rule 33 (rel_op -> INEQUALITY .)
-    32_BIT_USIGN_INT reduce using rule 33 (rel_op -> INEQUALITY .)
-    ID              reduce using rule 33 (rel_op -> INEQUALITY .)
-    GET_INPUT       reduce using rule 33 (rel_op -> INEQUALITY .)
-    LOAD            reduce using rule 33 (rel_op -> INEQUALITY .)
-    PLUS            reduce using rule 33 (rel_op -> INEQUALITY .)
-    MINUS           reduce using rule 33 (rel_op -> INEQUALITY .)
-    INCREMENT       reduce using rule 33 (rel_op -> INEQUALITY .)
-    DECREMENT       reduce using rule 33 (rel_op -> INEQUALITY .)
-    ADDRESS         reduce using rule 33 (rel_op -> INEQUALITY .)
+    LPAREN          reduce using rule 37 (rel_op -> LESS_THAN_EQ .)
+    32_BIT_USIGN_INT reduce using rule 37 (rel_op -> LESS_THAN_EQ .)
+    ID              reduce using rule 37 (rel_op -> LESS_THAN_EQ .)
+    GET_INPUT       reduce using rule 37 (rel_op -> LESS_THAN_EQ .)
+    LOAD            reduce using rule 37 (rel_op -> LESS_THAN_EQ .)
+    PLUS            reduce using rule 37 (rel_op -> LESS_THAN_EQ .)
+    MINUS           reduce using rule 37 (rel_op -> LESS_THAN_EQ .)
+    INCREMENT       reduce using rule 37 (rel_op -> LESS_THAN_EQ .)
+    DECREMENT       reduce using rule 37 (rel_op -> LESS_THAN_EQ .)
+    ADDRESS         reduce using rule 37 (rel_op -> LESS_THAN_EQ .)
 
 
 state 50
+
+    (34) rel_op -> INEQUALITY .
+
+    LPAREN          reduce using rule 34 (rel_op -> INEQUALITY .)
+    32_BIT_USIGN_INT reduce using rule 34 (rel_op -> INEQUALITY .)
+    ID              reduce using rule 34 (rel_op -> INEQUALITY .)
+    GET_INPUT       reduce using rule 34 (rel_op -> INEQUALITY .)
+    LOAD            reduce using rule 34 (rel_op -> INEQUALITY .)
+    PLUS            reduce using rule 34 (rel_op -> INEQUALITY .)
+    MINUS           reduce using rule 34 (rel_op -> INEQUALITY .)
+    INCREMENT       reduce using rule 34 (rel_op -> INEQUALITY .)
+    DECREMENT       reduce using rule 34 (rel_op -> INEQUALITY .)
+    ADDRESS         reduce using rule 34 (rel_op -> INEQUALITY .)
+
+
+state 51
 
     (15) add_op -> PLUS .
 
@@ -1126,7 +1145,7 @@ state 50
     ADDRESS         reduce using rule 15 (add_op -> PLUS .)
 
 
-state 51
+state 52
 
     (13) expression -> expression add_op . term
     (17) term -> . term mulop factor
@@ -1137,11 +1156,11 @@ state 51
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -1154,96 +1173,45 @@ state 51
     DECREMENT       shift and go to state 24
     ADDRESS         shift and go to state 17
 
-    term                           shift and go to state 65
+    term                           shift and go to state 66
     unary_op                       shift and go to state 23
     factor                         shift and go to state 19
 
-state 52
-
-    (35) rel_op -> GREATER_THAN .
-
-    LPAREN          reduce using rule 35 (rel_op -> GREATER_THAN .)
-    32_BIT_USIGN_INT reduce using rule 35 (rel_op -> GREATER_THAN .)
-    ID              reduce using rule 35 (rel_op -> GREATER_THAN .)
-    GET_INPUT       reduce using rule 35 (rel_op -> GREATER_THAN .)
-    LOAD            reduce using rule 35 (rel_op -> GREATER_THAN .)
-    PLUS            reduce using rule 35 (rel_op -> GREATER_THAN .)
-    MINUS           reduce using rule 35 (rel_op -> GREATER_THAN .)
-    INCREMENT       reduce using rule 35 (rel_op -> GREATER_THAN .)
-    DECREMENT       reduce using rule 35 (rel_op -> GREATER_THAN .)
-    ADDRESS         reduce using rule 35 (rel_op -> GREATER_THAN .)
-
-
 state 53
 
-    (34) rel_op -> LESS_THAN .
+    (36) rel_op -> GREATER_THAN .
 
-    LPAREN          reduce using rule 34 (rel_op -> LESS_THAN .)
-    32_BIT_USIGN_INT reduce using rule 34 (rel_op -> LESS_THAN .)
-    ID              reduce using rule 34 (rel_op -> LESS_THAN .)
-    GET_INPUT       reduce using rule 34 (rel_op -> LESS_THAN .)
-    LOAD            reduce using rule 34 (rel_op -> LESS_THAN .)
-    PLUS            reduce using rule 34 (rel_op -> LESS_THAN .)
-    MINUS           reduce using rule 34 (rel_op -> LESS_THAN .)
-    INCREMENT       reduce using rule 34 (rel_op -> LESS_THAN .)
-    DECREMENT       reduce using rule 34 (rel_op -> LESS_THAN .)
-    ADDRESS         reduce using rule 34 (rel_op -> LESS_THAN .)
+    LPAREN          reduce using rule 36 (rel_op -> GREATER_THAN .)
+    32_BIT_USIGN_INT reduce using rule 36 (rel_op -> GREATER_THAN .)
+    ID              reduce using rule 36 (rel_op -> GREATER_THAN .)
+    GET_INPUT       reduce using rule 36 (rel_op -> GREATER_THAN .)
+    LOAD            reduce using rule 36 (rel_op -> GREATER_THAN .)
+    PLUS            reduce using rule 36 (rel_op -> GREATER_THAN .)
+    MINUS           reduce using rule 36 (rel_op -> GREATER_THAN .)
+    INCREMENT       reduce using rule 36 (rel_op -> GREATER_THAN .)
+    DECREMENT       reduce using rule 36 (rel_op -> GREATER_THAN .)
+    ADDRESS         reduce using rule 36 (rel_op -> GREATER_THAN .)
 
 
 state 54
 
-    (31) bool_expression -> expression rel_op . expression
-    (13) expression -> . expression add_op term
-    (14) expression -> . term
-    (17) term -> . term mulop factor
-    (18) term -> . factor
-    (25) factor -> . unary_op factor
-    (26) factor -> . LPAREN expression RPAREN
-    (27) factor -> . 32_BIT_USIGN_INT
-    (28) factor -> . ID
-    (29) factor -> . GET_INPUT LPAREN RPAREN
-    (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (35) rel_op -> LESS_THAN .
 
-    LPAREN          shift and go to state 16
-    32_BIT_USIGN_INT shift and go to state 20
-    ID              shift and go to state 26
-    GET_INPUT       shift and go to state 18
-    LOAD            shift and go to state 13
-    PLUS            shift and go to state 22
-    MINUS           shift and go to state 21
-    INCREMENT       shift and go to state 15
-    DECREMENT       shift and go to state 24
-    ADDRESS         shift and go to state 17
+    LPAREN          reduce using rule 35 (rel_op -> LESS_THAN .)
+    32_BIT_USIGN_INT reduce using rule 35 (rel_op -> LESS_THAN .)
+    ID              reduce using rule 35 (rel_op -> LESS_THAN .)
+    GET_INPUT       reduce using rule 35 (rel_op -> LESS_THAN .)
+    LOAD            reduce using rule 35 (rel_op -> LESS_THAN .)
+    PLUS            reduce using rule 35 (rel_op -> LESS_THAN .)
+    MINUS           reduce using rule 35 (rel_op -> LESS_THAN .)
+    INCREMENT       reduce using rule 35 (rel_op -> LESS_THAN .)
+    DECREMENT       reduce using rule 35 (rel_op -> LESS_THAN .)
+    ADDRESS         reduce using rule 35 (rel_op -> LESS_THAN .)
 
-    term                           shift and go to state 14
-    unary_op                       shift and go to state 23
-    factor                         shift and go to state 19
-    expression                     shift and go to state 66
 
 state 55
 
-    (37) rel_op -> GREATER_THAN_EQ .
-
-    LPAREN          reduce using rule 37 (rel_op -> GREATER_THAN_EQ .)
-    32_BIT_USIGN_INT reduce using rule 37 (rel_op -> GREATER_THAN_EQ .)
-    ID              reduce using rule 37 (rel_op -> GREATER_THAN_EQ .)
-    GET_INPUT       reduce using rule 37 (rel_op -> GREATER_THAN_EQ .)
-    LOAD            reduce using rule 37 (rel_op -> GREATER_THAN_EQ .)
-    PLUS            reduce using rule 37 (rel_op -> GREATER_THAN_EQ .)
-    MINUS           reduce using rule 37 (rel_op -> GREATER_THAN_EQ .)
-    INCREMENT       reduce using rule 37 (rel_op -> GREATER_THAN_EQ .)
-    DECREMENT       reduce using rule 37 (rel_op -> GREATER_THAN_EQ .)
-    ADDRESS         reduce using rule 37 (rel_op -> GREATER_THAN_EQ .)
-
-
-state 56
-
-    (6) statement -> VAR ID ASSIGN . expression
+    (32) bool_expression -> expression rel_op . expression
     (13) expression -> . expression add_op term
     (14) expression -> . term
     (17) term -> . term mulop factor
@@ -1254,11 +1222,11 @@ state 56
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -1276,6 +1244,22 @@ state 56
     factor                         shift and go to state 19
     expression                     shift and go to state 67
 
+state 56
+
+    (38) rel_op -> GREATER_THAN_EQ .
+
+    LPAREN          reduce using rule 38 (rel_op -> GREATER_THAN_EQ .)
+    32_BIT_USIGN_INT reduce using rule 38 (rel_op -> GREATER_THAN_EQ .)
+    ID              reduce using rule 38 (rel_op -> GREATER_THAN_EQ .)
+    GET_INPUT       reduce using rule 38 (rel_op -> GREATER_THAN_EQ .)
+    LOAD            reduce using rule 38 (rel_op -> GREATER_THAN_EQ .)
+    PLUS            reduce using rule 38 (rel_op -> GREATER_THAN_EQ .)
+    MINUS           reduce using rule 38 (rel_op -> GREATER_THAN_EQ .)
+    INCREMENT       reduce using rule 38 (rel_op -> GREATER_THAN_EQ .)
+    DECREMENT       reduce using rule 38 (rel_op -> GREATER_THAN_EQ .)
+    ADDRESS         reduce using rule 38 (rel_op -> GREATER_THAN_EQ .)
+
+
 state 57
 
     (7) statement -> ID ASSIGN expression .
@@ -1291,25 +1275,60 @@ state 57
     IF              reduce using rule 7 (statement -> ID ASSIGN expression .)
     PRINT_OUTPUT    reduce using rule 7 (statement -> ID ASSIGN expression .)
     $end            reduce using rule 7 (statement -> ID ASSIGN expression .)
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 47
+    PLUS            shift and go to state 51
+    MINUS           shift and go to state 48
 
-    add_op                         shift and go to state 51
+    add_op                         shift and go to state 52
 
 state 58
+
+    (6) statement -> VAR id ASSIGN . expression
+    (13) expression -> . expression add_op term
+    (14) expression -> . term
+    (17) term -> . term mulop factor
+    (18) term -> . factor
+    (25) factor -> . unary_op factor
+    (26) factor -> . LPAREN expression RPAREN
+    (27) factor -> . 32_BIT_USIGN_INT
+    (28) factor -> . ID
+    (29) factor -> . GET_INPUT LPAREN RPAREN
+    (30) factor -> . LOAD LPAREN expression RPAREN
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
+
+    LPAREN          shift and go to state 16
+    32_BIT_USIGN_INT shift and go to state 20
+    ID              shift and go to state 26
+    GET_INPUT       shift and go to state 18
+    LOAD            shift and go to state 13
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 21
+    INCREMENT       shift and go to state 15
+    DECREMENT       shift and go to state 24
+    ADDRESS         shift and go to state 17
+
+    term                           shift and go to state 14
+    unary_op                       shift and go to state 23
+    factor                         shift and go to state 19
+    expression                     shift and go to state 68
+
+state 59
 
     (8) statement -> STORE LPAREN expression . COMMA expression RPAREN
     (13) expression -> expression . add_op term
     (15) add_op -> . PLUS
     (16) add_op -> . MINUS
 
-    COMMA           shift and go to state 68
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 47
+    COMMA           shift and go to state 69
+    PLUS            shift and go to state 51
+    MINUS           shift and go to state 48
 
-    add_op                         shift and go to state 51
+    add_op                         shift and go to state 52
 
-state 59
+state 60
 
     (12) statement -> PRINT_OUTPUT LPAREN expression RPAREN .
 
@@ -1323,27 +1342,27 @@ state 59
     $end            reduce using rule 12 (statement -> PRINT_OUTPUT LPAREN expression RPAREN .)
 
 
-state 60
+state 61
 
     (11) statement -> IF LPAREN bool_expression RPAREN . THEN GOTO expression ELSE GOTO expression
 
-    THEN            shift and go to state 69
+    THEN            shift and go to state 70
 
 
-state 61
+state 62
 
     (30) factor -> LOAD LPAREN expression . RPAREN
     (13) expression -> expression . add_op term
     (15) add_op -> . PLUS
     (16) add_op -> . MINUS
 
-    RPAREN          shift and go to state 70
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 47
+    RPAREN          shift and go to state 71
+    PLUS            shift and go to state 51
+    MINUS           shift and go to state 48
 
-    add_op                         shift and go to state 51
+    add_op                         shift and go to state 52
 
-state 62
+state 63
 
     (17) term -> term mulop factor .
 
@@ -1361,6 +1380,7 @@ state 62
     GREATER_THAN_EQ reduce using rule 17 (term -> term mulop factor .)
     PLUS            reduce using rule 17 (term -> term mulop factor .)
     MINUS           reduce using rule 17 (term -> term mulop factor .)
+    ELSE            reduce using rule 17 (term -> term mulop factor .)
     VAR             reduce using rule 17 (term -> term mulop factor .)
     ID              reduce using rule 17 (term -> term mulop factor .)
     STORE           reduce using rule 17 (term -> term mulop factor .)
@@ -1369,12 +1389,11 @@ state 62
     IF              reduce using rule 17 (term -> term mulop factor .)
     PRINT_OUTPUT    reduce using rule 17 (term -> term mulop factor .)
     $end            reduce using rule 17 (term -> term mulop factor .)
-    COMMA           reduce using rule 17 (term -> term mulop factor .)
     RPAREN          reduce using rule 17 (term -> term mulop factor .)
-    ELSE            reduce using rule 17 (term -> term mulop factor .)
+    COMMA           reduce using rule 17 (term -> term mulop factor .)
 
 
-state 63
+state 64
 
     (26) factor -> LPAREN expression RPAREN .
 
@@ -1384,6 +1403,12 @@ state 63
     XOR             reduce using rule 26 (factor -> LPAREN expression RPAREN .)
     INCLUSIVE_OR    reduce using rule 26 (factor -> LPAREN expression RPAREN .)
     ADDRESS         reduce using rule 26 (factor -> LPAREN expression RPAREN .)
+    EQUALITY        reduce using rule 26 (factor -> LPAREN expression RPAREN .)
+    INEQUALITY      reduce using rule 26 (factor -> LPAREN expression RPAREN .)
+    LESS_THAN       reduce using rule 26 (factor -> LPAREN expression RPAREN .)
+    GREATER_THAN    reduce using rule 26 (factor -> LPAREN expression RPAREN .)
+    LESS_THAN_EQ    reduce using rule 26 (factor -> LPAREN expression RPAREN .)
+    GREATER_THAN_EQ reduce using rule 26 (factor -> LPAREN expression RPAREN .)
     PLUS            reduce using rule 26 (factor -> LPAREN expression RPAREN .)
     MINUS           reduce using rule 26 (factor -> LPAREN expression RPAREN .)
     VAR             reduce using rule 26 (factor -> LPAREN expression RPAREN .)
@@ -1395,17 +1420,11 @@ state 63
     PRINT_OUTPUT    reduce using rule 26 (factor -> LPAREN expression RPAREN .)
     $end            reduce using rule 26 (factor -> LPAREN expression RPAREN .)
     RPAREN          reduce using rule 26 (factor -> LPAREN expression RPAREN .)
-    EQUALITY        reduce using rule 26 (factor -> LPAREN expression RPAREN .)
-    INEQUALITY      reduce using rule 26 (factor -> LPAREN expression RPAREN .)
-    LESS_THAN       reduce using rule 26 (factor -> LPAREN expression RPAREN .)
-    GREATER_THAN    reduce using rule 26 (factor -> LPAREN expression RPAREN .)
-    LESS_THAN_EQ    reduce using rule 26 (factor -> LPAREN expression RPAREN .)
-    GREATER_THAN_EQ reduce using rule 26 (factor -> LPAREN expression RPAREN .)
     COMMA           reduce using rule 26 (factor -> LPAREN expression RPAREN .)
     ELSE            reduce using rule 26 (factor -> LPAREN expression RPAREN .)
 
 
-state 64
+state 65
 
     (29) factor -> GET_INPUT LPAREN RPAREN .
 
@@ -1415,6 +1434,12 @@ state 64
     XOR             reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
     INCLUSIVE_OR    reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
     ADDRESS         reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
+    EQUALITY        reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
+    INEQUALITY      reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
+    LESS_THAN       reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
+    GREATER_THAN    reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
+    LESS_THAN_EQ    reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
+    GREATER_THAN_EQ reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
     PLUS            reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
     MINUS           reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
     VAR             reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
@@ -1426,17 +1451,11 @@ state 64
     PRINT_OUTPUT    reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
     $end            reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
     RPAREN          reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
-    EQUALITY        reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
-    INEQUALITY      reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
-    LESS_THAN       reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
-    GREATER_THAN    reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
-    LESS_THAN_EQ    reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
-    GREATER_THAN_EQ reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
     COMMA           reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
     ELSE            reduce using rule 29 (factor -> GET_INPUT LPAREN RPAREN .)
 
 
-state 65
+state 66
 
     (13) expression -> expression add_op term .
     (17) term -> term . mulop factor
@@ -1447,17 +1466,15 @@ state 65
     (23) mulop -> . INCLUSIVE_OR
     (24) mulop -> . ADDRESS
 
-    COMMA           reduce using rule 13 (expression -> expression add_op term .)
-    PLUS            reduce using rule 13 (expression -> expression add_op term .)
-    MINUS           reduce using rule 13 (expression -> expression add_op term .)
     EQUALITY        reduce using rule 13 (expression -> expression add_op term .)
     INEQUALITY      reduce using rule 13 (expression -> expression add_op term .)
     LESS_THAN       reduce using rule 13 (expression -> expression add_op term .)
     GREATER_THAN    reduce using rule 13 (expression -> expression add_op term .)
     LESS_THAN_EQ    reduce using rule 13 (expression -> expression add_op term .)
     GREATER_THAN_EQ reduce using rule 13 (expression -> expression add_op term .)
-    RPAREN          reduce using rule 13 (expression -> expression add_op term .)
-    ELSE            reduce using rule 13 (expression -> expression add_op term .)
+    PLUS            reduce using rule 13 (expression -> expression add_op term .)
+    MINUS           reduce using rule 13 (expression -> expression add_op term .)
+    COMMA           reduce using rule 13 (expression -> expression add_op term .)
     VAR             reduce using rule 13 (expression -> expression add_op term .)
     ID              reduce using rule 13 (expression -> expression add_op term .)
     STORE           reduce using rule 13 (expression -> expression add_op term .)
@@ -1466,57 +1483,59 @@ state 65
     IF              reduce using rule 13 (expression -> expression add_op term .)
     PRINT_OUTPUT    reduce using rule 13 (expression -> expression add_op term .)
     $end            reduce using rule 13 (expression -> expression add_op term .)
-    MULTIPLY        shift and go to state 41
-    DIVIDE          shift and go to state 37
-    MODULO          shift and go to state 36
-    XOR             shift and go to state 42
-    INCLUSIVE_OR    shift and go to state 39
-    ADDRESS         shift and go to state 38
+    RPAREN          reduce using rule 13 (expression -> expression add_op term .)
+    ELSE            reduce using rule 13 (expression -> expression add_op term .)
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 38
+    MODULO          shift and go to state 37
+    XOR             shift and go to state 43
+    INCLUSIVE_OR    shift and go to state 40
+    ADDRESS         shift and go to state 39
 
-    mulop                          shift and go to state 40
-
-state 66
-
-    (31) bool_expression -> expression rel_op expression .
-    (13) expression -> expression . add_op term
-    (15) add_op -> . PLUS
-    (16) add_op -> . MINUS
-
-    RPAREN          reduce using rule 31 (bool_expression -> expression rel_op expression .)
-    VAR             reduce using rule 31 (bool_expression -> expression rel_op expression .)
-    ID              reduce using rule 31 (bool_expression -> expression rel_op expression .)
-    STORE           reduce using rule 31 (bool_expression -> expression rel_op expression .)
-    GOTO            reduce using rule 31 (bool_expression -> expression rel_op expression .)
-    ASSERT          reduce using rule 31 (bool_expression -> expression rel_op expression .)
-    IF              reduce using rule 31 (bool_expression -> expression rel_op expression .)
-    PRINT_OUTPUT    reduce using rule 31 (bool_expression -> expression rel_op expression .)
-    $end            reduce using rule 31 (bool_expression -> expression rel_op expression .)
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 47
-
-    add_op                         shift and go to state 51
+    mulop                          shift and go to state 41
 
 state 67
 
-    (6) statement -> VAR ID ASSIGN expression .
+    (32) bool_expression -> expression rel_op expression .
     (13) expression -> expression . add_op term
     (15) add_op -> . PLUS
     (16) add_op -> . MINUS
 
-    VAR             reduce using rule 6 (statement -> VAR ID ASSIGN expression .)
-    ID              reduce using rule 6 (statement -> VAR ID ASSIGN expression .)
-    STORE           reduce using rule 6 (statement -> VAR ID ASSIGN expression .)
-    GOTO            reduce using rule 6 (statement -> VAR ID ASSIGN expression .)
-    ASSERT          reduce using rule 6 (statement -> VAR ID ASSIGN expression .)
-    IF              reduce using rule 6 (statement -> VAR ID ASSIGN expression .)
-    PRINT_OUTPUT    reduce using rule 6 (statement -> VAR ID ASSIGN expression .)
-    $end            reduce using rule 6 (statement -> VAR ID ASSIGN expression .)
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 47
+    RPAREN          reduce using rule 32 (bool_expression -> expression rel_op expression .)
+    VAR             reduce using rule 32 (bool_expression -> expression rel_op expression .)
+    ID              reduce using rule 32 (bool_expression -> expression rel_op expression .)
+    STORE           reduce using rule 32 (bool_expression -> expression rel_op expression .)
+    GOTO            reduce using rule 32 (bool_expression -> expression rel_op expression .)
+    ASSERT          reduce using rule 32 (bool_expression -> expression rel_op expression .)
+    IF              reduce using rule 32 (bool_expression -> expression rel_op expression .)
+    PRINT_OUTPUT    reduce using rule 32 (bool_expression -> expression rel_op expression .)
+    $end            reduce using rule 32 (bool_expression -> expression rel_op expression .)
+    PLUS            shift and go to state 51
+    MINUS           shift and go to state 48
 
-    add_op                         shift and go to state 51
+    add_op                         shift and go to state 52
 
 state 68
+
+    (6) statement -> VAR id ASSIGN expression .
+    (13) expression -> expression . add_op term
+    (15) add_op -> . PLUS
+    (16) add_op -> . MINUS
+
+    VAR             reduce using rule 6 (statement -> VAR id ASSIGN expression .)
+    ID              reduce using rule 6 (statement -> VAR id ASSIGN expression .)
+    STORE           reduce using rule 6 (statement -> VAR id ASSIGN expression .)
+    GOTO            reduce using rule 6 (statement -> VAR id ASSIGN expression .)
+    ASSERT          reduce using rule 6 (statement -> VAR id ASSIGN expression .)
+    IF              reduce using rule 6 (statement -> VAR id ASSIGN expression .)
+    PRINT_OUTPUT    reduce using rule 6 (statement -> VAR id ASSIGN expression .)
+    $end            reduce using rule 6 (statement -> VAR id ASSIGN expression .)
+    PLUS            shift and go to state 51
+    MINUS           shift and go to state 48
+
+    add_op                         shift and go to state 52
+
+state 69
 
     (8) statement -> STORE LPAREN expression COMMA . expression RPAREN
     (13) expression -> . expression add_op term
@@ -1529,11 +1548,11 @@ state 68
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -1549,16 +1568,16 @@ state 68
     term                           shift and go to state 14
     unary_op                       shift and go to state 23
     factor                         shift and go to state 19
-    expression                     shift and go to state 71
+    expression                     shift and go to state 72
 
-state 69
+state 70
 
     (11) statement -> IF LPAREN bool_expression RPAREN THEN . GOTO expression ELSE GOTO expression
 
-    GOTO            shift and go to state 72
+    GOTO            shift and go to state 73
 
 
-state 70
+state 71
 
     (30) factor -> LOAD LPAREN expression RPAREN .
 
@@ -1568,6 +1587,12 @@ state 70
     XOR             reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
     INCLUSIVE_OR    reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
     ADDRESS         reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
+    EQUALITY        reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
+    INEQUALITY      reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
+    LESS_THAN       reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
+    GREATER_THAN    reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
+    LESS_THAN_EQ    reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
+    GREATER_THAN_EQ reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
     PLUS            reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
     MINUS           reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
     VAR             reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
@@ -1579,30 +1604,24 @@ state 70
     PRINT_OUTPUT    reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
     $end            reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
     RPAREN          reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
-    EQUALITY        reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
-    INEQUALITY      reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
-    LESS_THAN       reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
-    GREATER_THAN    reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
-    LESS_THAN_EQ    reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
-    GREATER_THAN_EQ reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
     COMMA           reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
     ELSE            reduce using rule 30 (factor -> LOAD LPAREN expression RPAREN .)
 
 
-state 71
+state 72
 
     (8) statement -> STORE LPAREN expression COMMA expression . RPAREN
     (13) expression -> expression . add_op term
     (15) add_op -> . PLUS
     (16) add_op -> . MINUS
 
-    RPAREN          shift and go to state 73
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 47
+    RPAREN          shift and go to state 74
+    PLUS            shift and go to state 51
+    MINUS           shift and go to state 48
 
-    add_op                         shift and go to state 51
+    add_op                         shift and go to state 52
 
-state 72
+state 73
 
     (11) statement -> IF LPAREN bool_expression RPAREN THEN GOTO . expression ELSE GOTO expression
     (13) expression -> . expression add_op term
@@ -1615,11 +1634,11 @@ state 72
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -1635,9 +1654,9 @@ state 72
     term                           shift and go to state 14
     unary_op                       shift and go to state 23
     factor                         shift and go to state 19
-    expression                     shift and go to state 74
+    expression                     shift and go to state 75
 
-state 73
+state 74
 
     (8) statement -> STORE LPAREN expression COMMA expression RPAREN .
 
@@ -1651,27 +1670,27 @@ state 73
     $end            reduce using rule 8 (statement -> STORE LPAREN expression COMMA expression RPAREN .)
 
 
-state 74
+state 75
 
     (11) statement -> IF LPAREN bool_expression RPAREN THEN GOTO expression . ELSE GOTO expression
     (13) expression -> expression . add_op term
     (15) add_op -> . PLUS
     (16) add_op -> . MINUS
 
-    ELSE            shift and go to state 75
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 47
+    ELSE            shift and go to state 76
+    PLUS            shift and go to state 51
+    MINUS           shift and go to state 48
 
-    add_op                         shift and go to state 51
+    add_op                         shift and go to state 52
 
-state 75
+state 76
 
     (11) statement -> IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE . GOTO expression
 
-    GOTO            shift and go to state 76
+    GOTO            shift and go to state 77
 
 
-state 76
+state 77
 
     (11) statement -> IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO . expression
     (13) expression -> . expression add_op term
@@ -1684,11 +1703,11 @@ state 76
     (28) factor -> . ID
     (29) factor -> . GET_INPUT LPAREN RPAREN
     (30) factor -> . LOAD LPAREN expression RPAREN
-    (38) unary_op -> . PLUS
-    (39) unary_op -> . MINUS
-    (40) unary_op -> . INCREMENT
-    (41) unary_op -> . DECREMENT
-    (42) unary_op -> . ADDRESS
+    (39) unary_op -> . PLUS
+    (40) unary_op -> . MINUS
+    (41) unary_op -> . INCREMENT
+    (42) unary_op -> . DECREMENT
+    (43) unary_op -> . ADDRESS
 
     LPAREN          shift and go to state 16
     32_BIT_USIGN_INT shift and go to state 20
@@ -1704,9 +1723,9 @@ state 76
     term                           shift and go to state 14
     unary_op                       shift and go to state 23
     factor                         shift and go to state 19
-    expression                     shift and go to state 77
+    expression                     shift and go to state 78
 
-state 77
+state 78
 
     (11) statement -> IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO expression .
     (13) expression -> expression . add_op term
@@ -1721,10 +1740,10 @@ state 77
     IF              reduce using rule 11 (statement -> IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO expression .)
     PRINT_OUTPUT    reduce using rule 11 (statement -> IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO expression .)
     $end            reduce using rule 11 (statement -> IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO expression .)
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 47
+    PLUS            shift and go to state 51
+    MINUS           shift and go to state 48
 
-    add_op                         shift and go to state 51
+    add_op                         shift and go to state 52
 WARNING: 
 WARNING: Conflicts:
 WARNING: 

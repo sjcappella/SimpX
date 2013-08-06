@@ -123,8 +123,8 @@ def p_statement_list(p):
 
 # Production rules for statements (may need to add a special rule for ID to keep track of it)
 def p_statement(p):
-	'''statement	: VAR ID
-					| VAR ID ASSIGN expression
+	'''statement	: VAR id
+					| VAR id ASSIGN expression
 					| ID ASSIGN expression
              		| STORE LPAREN expression COMMA expression RPAREN
              		| GOTO expression 
@@ -203,18 +203,24 @@ def p_mulop(p):
 					| ADDRESS'''
 	if p[1] == '*':
 		print("Multiplication operation.")
+		p[0] = ASTNode.MulopNode(line_number, '*')
 	if p[1] == '/':
 		print("Division operation.")
+		p[0] = ASTNode.MulopNode(line_number, '/')
 	if p[1] == '%':
 		print("Modulus operation.")
+		p[0] = ASTNode.MulopNode(line_number, '%')
 	if p[1] == '^':
 		print("XOR operation.")
+		p[0] = ASTNode.MulopNode(line_number, '^')
 	if p[1] == '|':
 		print("Inclusive OR operation.")
+		p[0] = ASTNode.MulopNode(line_number, '|')
 	if p[1] == '&':
 		print("AND operation.")
+		p[0] = ASTNode.MulopNode(line_number, '&')
 
-# Production rules for factos
+# Production rules for factors
 def p_factor(p):
 	'''factor 		: unary_op factor
 					| LPAREN expression RPAREN
@@ -238,10 +244,17 @@ def p_factor(p):
 		# LOAD LPAREN expression RPAREN
 		pass
 
-
+# Production rule for an ID so we can catch its information during production
+def p_id(p):
+	'''id 			: ID'''
+	print("Individual ID. " + str(p[1]))
+	# Put into factor class
+	
 # Production rules for boolean expressions
 def p_bool_expression(p):
 	'''bool_expression 	: expression rel_op expression'''
+
+	p[0] = ASTNode.BooleanExpression(line_number, "BOOLEAN_EXPRESSION", [p[1], p[2], p[3]])
 
 # Production rules for relational operators
 def p_rel_op(p): 
@@ -315,6 +328,3 @@ def parse(source_code, line):
 	p = parser.parse(source_code, debug=True, tracking=True)
 
 	print(p)
-	#tokens = parser.tokens()
-	#ast_node = ASTNode.ASTNode(3, "ROOT", p)
-	#statement_node = ASTNode.StatementNode(3, "ROOT", p)

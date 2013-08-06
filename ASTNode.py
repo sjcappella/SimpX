@@ -35,7 +35,13 @@ class Term(ASTNode):
 class MulopNode(ASTNode):
 	def __init__(self, line_number, symbol):
 		self.line_number = line_number
+		self.token_type = "MULOP_NODE"
 		self.symbol = symbol
+
+	def printNode(self):
+		print("Line Number: %d") % (self.line_number)
+		print("Token Type:  %s") % (self.token_type)
+		print("Symbol:      %s") % (self.symbol)
 
 # Factor class in AST (this on may need a little work)
 class FactorNode(ASTNode):
