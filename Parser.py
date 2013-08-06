@@ -1,3 +1,8 @@
+###########################################################
+# This section defines tokens used by the lexer. Both the #
+# lexer and parser should be in 1 file based on the way   #
+# the libraries have been created.                        #
+###########################################################
 import lex
 
 # List of token names.   This is always required
@@ -18,16 +23,15 @@ tokens = (
    'ASSIGN',          # :=
    'EQUALITY',        # ==
    'INEQUALITY',      # !=
-   #'LOGICAL_AND',     # &&
    'GREATER_THAN',    # >
    'LESS_THAN',       # <
    'GREATER_THAN_EQ', # >=
    'LESS_THAN_EQ',    # <=
    'XOR',             # ^
-   'INCLUSIVE_OR',    # |
-   #'LOGICAL_OR'       # ||
+   'INCLUSIVE_OR'    # |
 )
 
+# List of reserved words
 reserved = {
   'var' : 'VAR',
   'store' : 'STORE',
@@ -38,9 +42,7 @@ reserved = {
   'then' : 'THEN',
   'else' : 'ELSE',
   'get_input' : 'GET_INPUT',
-  'print_output' : 'PRINT_OUTPUT'#,
-  #'true' : 'TRUE',
-  #'false' : 'FALSE'
+  'print_output' : 'PRINT_OUTPUT'
 }
 
 # Regular expression rules for simple tokens
@@ -58,14 +60,12 @@ t_COMMA             = r','
 t_ASSIGN            = r':='
 t_EQUALITY          = r'=='
 t_INEQUALITY        = r'!='
-#t_LOGICAL_AND       = r'&&'
 t_GREATER_THAN      = r'\>'
 t_LESS_THAN         = r'\<'
 t_GREATER_THAN_EQ   = r'\>='
 t_LESS_THAN_EQ      = r'\<='
 t_XOR               = r'\^'
 t_INCLUSIVE_OR      = r'\|'
-#t_LOGICAL_OR        = r'\|\|'
 
 tokens = list(tokens) + list(reserved.values())
 
@@ -99,10 +99,14 @@ def t_error(t):
     print "Illegal character '%s'" % t.value[0]
     t.lexer.skip(1)
 
-############################################################################
+
+###########################################################
+# This ends the lexer section and begins the grammar and  #
+# inlined production rules of the grammar.                #
+###########################################################
+
 
 import yacc as yacc
-
 
 # Production rule for program
 def p_start(p):
@@ -183,11 +187,8 @@ def p_unary_op(p):
 					| INCREMENT 
 					| DECREMENT 
 					| ADDRESS'''
-	
 
-
-
-
+# Lex and parse the source code
 def parse(source_code):
 	# Build the lexer
   	lexer = lex.lex()
