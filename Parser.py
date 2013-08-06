@@ -18,14 +18,14 @@ tokens = (
    'ASSIGN',          # :=
    'EQUALITY',        # ==
    'INEQUALITY',      # !=
-   'LOGICAL_AND',     # &&
+   #'LOGICAL_AND',     # &&
    'GREATER_THAN',    # >
    'LESS_THAN',       # <
    'GREATER_THAN_EQ', # >=
    'LESS_THAN_EQ',    # <=
    'XOR',             # ^
    'INCLUSIVE_OR',    # |
-   'LOGICAL_OR'       # ||
+   #'LOGICAL_OR'       # ||
 )
 
 reserved = {
@@ -38,9 +38,9 @@ reserved = {
   'then' : 'THEN',
   'else' : 'ELSE',
   'get_input' : 'GET_INPUT',
-  'print_output' : 'PRINT_OUTPUT',
-  'true' : 'TRUE',
-  'false' : 'FALSE'
+  'print_output' : 'PRINT_OUTPUT'#,
+  #'true' : 'TRUE',
+  #'false' : 'FALSE'
 }
 
 # Regular expression rules for simple tokens
@@ -58,14 +58,14 @@ t_COMMA             = r','
 t_ASSIGN            = r':='
 t_EQUALITY          = r'=='
 t_INEQUALITY        = r'!='
-t_LOGICAL_AND       = r'&&'
+#t_LOGICAL_AND       = r'&&'
 t_GREATER_THAN      = r'\>'
 t_LESS_THAN         = r'\<'
 t_GREATER_THAN_EQ   = r'\>='
 t_LESS_THAN_EQ      = r'\<='
 t_XOR               = r'\^'
 t_INCLUSIVE_OR      = r'\|'
-t_LOGICAL_OR        = r'\|\|'
+#t_LOGICAL_OR        = r'\|\|'
 
 tokens = list(tokens) + list(reserved.values())
 
@@ -117,66 +117,64 @@ def p_statement_list(p):
 # Production rules for statements
 def p_statement(p):
 	'''statement	: VAR ID
-					| VAR ID ASSIGN expressions
-					| ID ASSIGN expressions
-             		| STORE LPAREN expressions COMMA expressions RPAREN
-             		| GOTO expressions 
-             		| ASSERT bool_statement
-             		| IF bool_expression THEN GOTO expressions ELSE GOTO expressions
-             		| PRINT_OUTPUT LPAREN expressions RPAREN'''
+					| VAR ID ASSIGN expression
+					| ID ASSIGN expression
+             		| STORE LPAREN expression COMMA expression RPAREN
+             		| GOTO expression 
+             		| ASSERT bool_expression
+             		| IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO expression
+             		| PRINT_OUTPUT LPAREN expression RPAREN'''
 	print ("MESSAGE =====> Length of p = %d") % len(p)
 	print "MESSAGE =====> Parsed a statement ", 
 
 		
 
 # Production rules for expressions
-def p_expressions(p):
-	'''expressions 	: LOAD LPAREN expressions RPAREN 
-              		| expressions binary_op expression
-              		| unary_op expressions  
-              		| expression'''
-
-# Production rules for an expression
 def p_expression(p):
-	'''expression	: ID
-              		| 32_BIT_USIGN_INT 
-              		| GET_INPUT LPAREN RPAREN'''
+	'''expression 	: expression add_op term
+					| term'''
+
+# Production rules for addition operations
+def p_add_op(p):
+	'''add_op 		: PLUS
+					| MINUS'''
+
+# Prodution rules for factor operations. We are giving the
+# logical operations the same precedence as factors
+def p_term(p):
+	'''term 		: term mulop factor
+					| factor'''
+
+# Production rules for the factor operators
+def p_mulop(p):
+	'''mulop 		: MULTIPLY
+					| DIVIDE
+					| MODULO
+					| XOR
+					| INCLUSIVE_OR
+					| ADDRESS'''
+
+# Production rules for factos
+def p_factor(p):
+	'''factor 		: unary_op factor
+					| LPAREN expression RPAREN
+					| 32_BIT_USIGN_INT
+					| ID
+					| GET_INPUT LPAREN RPAREN
+					| LOAD LPAREN expression RPAREN'''
 
 # Production rules for boolean expressions
 def p_bool_expression(p):
-	'''bool_expression 	: LPAREN bool_statement bool_op bool_expression RPAREN
-                   		| bool_statement'''
+	'''bool_expression 	: expression rel_op expression'''
 
-
-# Production rules for boolean statements
-def p_bool_statement(p):
-	'''bool_statement 	: expressions
-                  		| TRUE
-                  		| FALSE'''
-
-# Production rules for binary operators
-def p_binary_op(p):
-	'''binary_op 	: PLUS
-					| MINUS
-					| MULTIPLY
-					| DIVIDE
-					| MODULO
-					| INCLUSIVE_OR
-					| ADDRESS
-					| XOR'''
-	
-
-# Production rules for boolean operators
-def p_bool_op(p): 
-	'''bool_op 		: INCLUSIVE_OR
-					| LOGICAL_AND
-					| LOGICAL_OR
+# Production rules for relational operators
+def p_rel_op(p): 
+	'''rel_op 		: EQUALITY
+					| INEQUALITY
 					| LESS_THAN
 					| GREATER_THAN
 					| LESS_THAN_EQ
-					| GREATER_THAN_EQ
-					| INEQUALITY
-					| EQUALITY'''
+					| GREATER_THAN_EQ'''
 
 # Production rules for unary operators
 def p_unary_op(p):
@@ -188,10 +186,7 @@ def p_unary_op(p):
 	
 
 
-# Production rules for 32 bit usigned integers and variables
-def p_value(p):
-	'''value 	: 32_BIT_USIGN_INT
-				| VAR'''
+
 
 def parse(source_code):
 	# Build the lexer
