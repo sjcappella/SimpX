@@ -1,1 +1,1 @@
-if (x < 523423) then goto 53434 else goto 4444446
+var x := 7 + 5

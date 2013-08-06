@@ -129,31 +129,53 @@ def p_statement(p):
              		| ASSERT bool_expression
              		| IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO expression
              		| PRINT_OUTPUT LPAREN expression RPAREN'''
-	print ("MESSAGE =====> Length of p = %d") % len(p)
-	for x in range(0, len(p)):
-		print("==================================: X = %d") % (x)
-		print(str(p[x]))
-		#for attr in dir(p[x]):
-			#print "p[%d].%s = %s" % (x, attr, getattr(p[x], attr))
-
-
-		
+	
+    # Embedded prduction rules of length 2
+	if len(p) == 3:
+		# VAR ID
+		# GOTO expression
+		# ASSERT bool_expression
+		print("Either declaring, asserting, or goint to.")
+		pass
+	if len(p) == 4:
+		# ID ASSIGN expression
+		print("Assigning a new var")
+		pass
+	if len(p) == 5:
+		# VAR ID ASSIGN expression
+		# PRINT_OUTPUT LPAREN expression RPAREN
+		print("Declaring and assigning a new var or printing to console.")
+		pass
+	if len(p) == 7:
+		# STORE LPAREN expression COMMA expression RPAREN
+		print("Store operation.")
+		pass
+	if len(p) == 11:
+		# IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO expression
+		print("Boolean expression.")
+		pass
 
 # Production rules for expressions
 def p_expression(p):
 	'''expression 	: expression add_op term
 					| term'''
-	if len(p) == 4:
-		p[0] = p[1],p[2],p[3]
 	if len(p) == 2:
-		p[0] = p[1]
+		# term
+		print("Individual term.")
+		pass
+	if len(p) == 4:
+		# expression add_op term
+		pass
 	
 
 # Production rules for addition operations
 def p_add_op(p):
 	'''add_op 		: PLUS
 					| MINUS'''
-	p[0] = p[1]
+	if p[1] == '+':
+		print("Addition operation found.")
+	if p[1] == '-':
+		print("Subtraction operation found.")
 	
 
 # Prodution rules for factor operations. We are giving the
@@ -161,14 +183,13 @@ def p_add_op(p):
 def p_term(p):
 	'''term 		: term mulop factor
 					| factor'''
-	if len(p) == 4:
-		p[0] = p[1],p[2],p[3]
 	if len(p) == 2:
-		p[0] = p[1]
-	print ("MESSAGE =====> Length of p = %d") % len(p)
-	for x in range(0, len(p)):
-		print("==================================: X = %d") % (x)
-		print(str(p[x]))
+		# factor
+		print("Individual factor. " + str(p[1]))
+		pass
+	if len(p) == 4:
+		# term mulop factor
+		pass
 
 # Production rules for the factor operators
 def p_mulop(p):
@@ -178,7 +199,18 @@ def p_mulop(p):
 					| XOR
 					| INCLUSIVE_OR
 					| ADDRESS'''
-	p[0] = p[1]
+	if p[1] == '*':
+		print("Multiplication operation.")
+	if p[1] == '/':
+		print("Division operation.")
+	if p[1] == '%':
+		print("Modulus operation.")
+	if p[1] == '^':
+		print("XOR operation.")
+	if p[1] == '|':
+		print("Inclusive OR operation.")
+	if p[1] == '&':
+		print("AND operation.")
 
 # Production rules for factos
 def p_factor(p):
@@ -188,11 +220,21 @@ def p_factor(p):
 					| ID
 					| GET_INPUT LPAREN RPAREN
 					| LOAD LPAREN expression RPAREN'''
-	print ("MESSAGE =====> Length of p = %d") % len(p)
-	for x in range(0, len(p)):
-		print("==================================: X = %d") % (x)
-		print(str(p[x]))
-	p[0] = p[1]
+	if len(p) == 2:
+		# 32_BIT_USIGN_INT
+		# ID
+		print("Individual number or ID. " + str(p[1]))
+		pass
+	if len(p) == 3:
+		# unary_op factor
+		pass
+	if len(p) == 4:
+		# LPAREN expression RPAREN
+		# GET_INPUT LPAREN RPAREN
+		pass
+	if len(p) == 5:
+		# LOAD LPAREN expression RPAREN
+		pass
 
 
 # Production rules for boolean expressions
@@ -207,7 +249,18 @@ def p_rel_op(p):
 					| GREATER_THAN
 					| LESS_THAN_EQ
 					| GREATER_THAN_EQ'''
-	p[0] = p[1]
+	if p[1] == '==':
+		print("Equality check.")
+	if p[1] == "!=":
+		print("Inquality check.")
+	if p[1] == '<':
+		print("Less than check.")
+	if p[1] == '>':
+		print("Greater than check.")
+	if p[1] == '<=':
+		print("Less than or equal check.")
+	if p[1] == '>=':
+		print("Greater than or equal check.")
 
 # Production rules for unary operators
 def p_unary_op(p):
@@ -216,7 +269,16 @@ def p_unary_op(p):
 					| INCREMENT 
 					| DECREMENT 
 					| ADDRESS'''
-	p[0] = p[1]
+	if p[1] == '+':
+		print("Positive.")
+	if p[1] == '-':
+		print("Negate.")
+	if p[1] == '++':
+		print("Increment.")
+	if p[1] == '--':
+		print("Decrement.")
+	if p[1] == '&':
+		print("Get value at address.")
 
 # Lex and parse the source code
 def parse(source_code):
@@ -238,5 +300,5 @@ def parse(source_code):
 
 	print(p)
 	#tokens = parser.tokens()
-	ast_node = ASTNode.ASTNode(3, "ROOT", p)
-	statement_node = ASTNode.StatementNode(3, "ROOT", p)
+	#ast_node = ASTNode.ASTNode(3, "ROOT", p)
+	#statement_node = ASTNode.StatementNode(3, "ROOT", p)
