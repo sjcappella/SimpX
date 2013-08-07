@@ -16,6 +16,20 @@ class StatementNode(ASTNode):
 	def __init__(self, line_number, token_type, children, statement_type):
 		pass
 
+	def prettyPrint(indent, last):
+		print("PRETTY PRINT WAS CALLED!")
+		print(indent)
+		
+		if last == True:
+			print("\\--> ")
+		else:
+			print("|--> ")
+			indent += "  "
+
+		print(statement_type)
+		for x in range(len(children)):
+			children[x].prettyPrint(indent, x == 0)
+
 # Expression node in AST
 class ExpressionNode(ASTNode):
 	def __init__(self, line_number, token_type, children):
@@ -39,7 +53,10 @@ class FactorNode(ASTNode):
 
 # Boolean expression class in AST
 class BooleanExpression(ASTNode):
-	pass
+	def __init__(self, line_number, statement_type, children):
+		self.line_number = line_number
+		self.statement_type = statement_type
+		self.children = children
 
 # Addop node in AST
 class AddopNode(ASTNode):

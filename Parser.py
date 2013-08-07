@@ -256,7 +256,8 @@ def p_id(p):
 def p_bool_expression(p):
 	'''bool_expression 	: expression rel_op expression'''
 
-	p[0] = ASTNode.BooleanExpression(line_number, "BOOLEAN_EXPRESSION", [p[1], p[2], p[3]])
+	p[0] = ASTNode.BooleanExpression(line_number, "BOOLEAN_EXPRESSION", (p[1], p[2], p[3]))
+	p[0].prettyPrint("", True)
 
 # Production rules for relational operators
 def p_rel_op(p): 
