@@ -31,6 +31,29 @@ class AddopNode(ASTNode):
 class Term(ASTNode):
 	pass
 
+
+
+# Factor class in AST (this on may need a little work)
+class FactorNode(ASTNode):
+	pass
+
+# Boolean expression class in AST
+class BooleanExpression(ASTNode):
+	pass
+
+# Addop node in AST
+class AddopNode(ASTNode):
+	def __init__(self, line_number, symbol):
+		self.line_number = line_number
+		self.token_type = "ADDOP_NODE"
+		self.symbol = symbol
+
+	def printNode(self):
+		print("Line Number: %d") % (self.line_number)
+		print("Token Type:  %s") % (self.token_type)
+		print("Symbol:      %s") % (self.symbol)
+
+
 # Mulop node in AST
 class MulopNode(ASTNode):
 	def __init__(self, line_number, symbol):
@@ -42,14 +65,6 @@ class MulopNode(ASTNode):
 		print("Line Number: %d") % (self.line_number)
 		print("Token Type:  %s") % (self.token_type)
 		print("Symbol:      %s") % (self.symbol)
-
-# Factor class in AST (this on may need a little work)
-class FactorNode(ASTNode):
-	pass
-
-# Boolean expression class in AST
-class BooleanExpression(ASTNode):
-	pass
 
 # Relationship Operator class in AST
 class RelopNode(ASTNode):
@@ -75,3 +90,4 @@ class UnaryNode(ASTNode):
 		print("Line Number: %d") % (self.line_number)
 		print("Token Type:  %s") % (self.token_type)
 		print("Symbol:      %s") % (self.symbol)
+

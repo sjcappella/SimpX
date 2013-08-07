@@ -176,8 +176,10 @@ def p_add_op(p):
 					| MINUS'''
 	if p[1] == '+':
 		print("Addition operation found.")
+		p[0] = ASTNode.AddopNode(line_number, '+')
 	if p[1] == '-':
 		print("Subtraction operation found.")
+		p[0] = ASTNode.AddopNode(line_number, '-')
 	
 
 # Prodution rules for factor operations. We are giving the
