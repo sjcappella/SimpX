@@ -55,7 +55,7 @@ class ExpressionNode(ASTNode):
 		pass
 
 # Term node in AST
-class Term(ASTNode):
+class TermNode(ASTNode):
 	pass
 
 

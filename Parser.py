@@ -141,57 +141,53 @@ def p_statement(p):
              		| IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO expression
              		| PRINT_OUTPUT LPAREN expression RPAREN'''
 	
-    # Embedded prduction rules of length 2
+    # Production rules of length 2
 	if len(p) == 3:
 		# VAR ID
 		if p[1] == 'var':
-			print("VAR id statement.")
 			p[1] = ASTNode.ASTGeneric(line_number, "var")
 			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "VAR_ID", (p[1], p[2]))
 		# GOTO expression
 		if p[1] == 'goto':
-			print("GOTO expression statement.")
 			p[1] = ASTNode.ASTGeneric(line_number, "goto")
 			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "GOTO", (p[1], p[2]))
 		# ASSERT bool_expression
 		if p[1] == 'assert':
-			print("ASSERT bool_expression statement.")
 			p[1] = ASTNode.ASTGeneric(line_number, "assert")
 			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "ASSERT", (p[1], p[2]))
 		pass
+	# Production rules of length 4
 	if len(p) == 4:
 		# id ASSIGN expression
-		print("Assigning a var")
 		p[2] = ASTNode.ASTGeneric(line_number, ":=")
 		p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "ASSIGN", (p[1], p[2], p[3]))
 		pass
+	# Production rules of length 5
 	if len(p) == 5:
 		# VAR ID ASSIGN expression
 		if p[1] == 'var':
-			print("VAR id ASSIGN statement.")
 			p[1] = ASTNode.ASTGeneric(line_number, "var")
 			p[3] = ASTNode.ASTGeneric(line_number, ":=")
 			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "ASSIGN_NEW", (p[1], p[2], p[3], p[4]))
 		# PRINT_OUTPUT LPAREN expression RPAREN
 		if p[1] == 'print_output':
-			print("PRINT_OUTPUT statement.")
 			p[1] = ASTNode.ASTGeneric(line_number, "print_output")
 			p[2] = ASTNode.ASTGeneric(line_number, "(")
 			p[4] = ASTNode.ASTGeneric(line_number, ")")
 			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "PRINT_OUTPUT", (p[1], p[2], p[3], p[4]))
 		pass
+	# Production rules of length 7
 	if len(p) == 7:
 		# STORE LPAREN expression COMMA expression RPAREN
-		print("Store statement.")
 		p[1] = ASTNode.ASTGeneric(line_number, "store")
 		p[2] = ASTNode.ASTGeneric(line_number, "(")
 		p[4] = ASTNode.ASTGeneric(line_number, ",")
 		p[6] = ASTNode.ASTGeneric(line_number, ")")
 		p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "STORE", (p[1], p[2], p[3], p[4], p[5], p[6]))
 		pass
+	# Production rules of length 11
 	if len(p) == 11:
 		# IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO expression
-		print("Boolean statement.")
 		p[1] = ASTNode.ASTGeneric(line_number, "if")
 		p[2] = ASTNode.ASTGeneric(line_number, "(")
 		p[4] = ASTNode.ASTGeneric(line_number, ")")
@@ -206,11 +202,13 @@ def p_statement(p):
 def p_expression(p):
 	'''expression 	: expression add_op term
 					| term'''
+	# Production rules of length 2
 	if len(p) == 2:
 		# term
 		print("Individual term.")
 		p[0] = p[1]
 		pass
+	# Production rules of length 4
 	if len(p) == 4:
 		# expression add_op term
 		p[0] = ASTNode.ExpressionNode(line_number, "EXPRESSION", (p[1], p[2], p[3]))
@@ -234,11 +232,13 @@ def p_add_op(p):
 def p_term(p):
 	'''term 		: term mulop factor
 					| factor'''
+	# Production rules of length 2
 	if len(p) == 2:
 		# factor
 		print("Individual factor. " + str(p[1]))
 		p[0] = p[1]
 		pass
+	# Production rules of length 4
 	if len(p) == 4:
 		# term mulop factor
 		print("Term with multiplication/division.")
@@ -280,39 +280,37 @@ def p_factor(p):
 					| ID
 					| GET_INPUT LPAREN RPAREN
 					| LOAD LPAREN expression RPAREN'''
+	# Production rules of length 2
 	if len(p) == 2:
 		# 32_BIT_USIGN_INT
 		if isinstance(p[1], (int, long)):
-			print("32_BIT_USIGN_INT factor.")
 			p[0] = ASTNode.FactorNode(line_number, "FACTOR", p[1], None)
 		# ID
 		else:
-			print("ID Factor")
 			p[0] = ASTNode.FactorNode(line_number, "FACTOR", p[1], None)		
 		pass
+	# Production rules of length 3
 	if len(p) == 3:
 		# unary_op factor
-		print("Unary operation on a factor.")
 		p[0] = ASTNode.FactorNode(line_number, "FACTOR", None, (p[1], p[2]))
 		pass
+	# Production rules of length 4
 	if len(p) == 4:
 		# LPAREN expression RPAREN
 		if p[1] == '(':
-			print("Parens and factor.")
 			p[1] = ASTNode.ASTGeneric(line_number, "(")
 			p[3] = ASTNode.ASTGeneric(line_number, ")")
 			p[0] = ASTNode.FactorNode(line_number, "FACTOR", None, (p[1], p[2], p[3]))
 		if p[1] == 'get_input':
 			# GET_INPUT LPAREN RPAREN
-			print("GET_INPUT factor.")
 			p[1] = ASTNode.ASTGeneric(line_number, "get_input")
 			p[2] = ASTNode.ASTGeneric(line_number, "(")
 			p[3] = ASTNode.ASTGeneric(line_number, ")")
 			p[0] = ASTNode.FactorNode(line_number, "FACTOR", None, (p[1], p[2], p[3]))
 		pass
+	# Production rules of length 5
 	if len(p) == 5:
 		# LOAD LPAREN expression RPAREN
-		print("LOAD factor.")
 		p[1] = ASTNode.ASTGeneric(line_number, "load")
 		p[2] = ASTNode.ASTGeneric(line_number, "(")
 		p[4] = ASTNode.ASTGeneric(line_number, ")")
@@ -323,7 +321,6 @@ def p_factor(p):
 def p_id(p):
 	'''id 			: ID'''
 	# Put into factor class
-	print("ID Factor")
 	p[0] = ASTNode.FactorNode(line_number, "FACTOR", p[1], None)
 	
 # Production rules for boolean expressions
@@ -341,22 +338,16 @@ def p_rel_op(p):
 					| LESS_THAN_EQ
 					| GREATER_THAN_EQ'''
 	if p[1] == '==':
-		print("Equality check.")
 		p[0] = ASTNode.RelopNode(line_number, '==')
 	if p[1] == "!=":
-		print("Inquality check.")
 		p[0] = ASTNode.RelopNode(line_number, '!=')
 	if p[1] == '<':
-		print("Less than check.")
 		p[0] = ASTNode.RelopNode(line_number, '<')
 	if p[1] == '>':
-		print("Greater than check.")
 		p[0] = ASTNode.RelopNode(line_number, '>')
 	if p[1] == '<=':
-		print("Less than or equal check.")
 		p[0] = ASTNode.RelopNode(line_number, '<=')
 	if p[1] == '>=':
-		print("Greater than or equal check.")
 		p[0] = ASTNode.RelopNode(line_number, '>=')
 
 # Production rules for unary operators
@@ -367,19 +358,14 @@ def p_unary_op(p):
 					| DECREMENT 
 					| ADDRESS'''
 	if p[1] == '+':
-		print("Positive.")
 		p[0] = ASTNode.UnaryNode(line_number, '+')
 	if p[1] == '-':
-		print("Negate.")
 		p[0] = ASTNode.UnaryNode(line_number, '-')
 	if p[1] == '++':
-		print("Increment.")
 		p[0] = ASTNode.UnaryNode(line_number, '++')
 	if p[1] == '--':
-		print("Decrement.")
 		p[0] = ASTNode.UnaryNode(line_number, '--')
 	if p[1] == '&':
-		print("Get value at address.")
 		p[0] = ASTNode.UnaryNode(line_number, '&')
 
 # Lex and parse the source code
