@@ -135,9 +135,15 @@ def p_statement(p):
     # Embedded prduction rules of length 2
 	if len(p) == 3:
 		# VAR ID
+		if p[1] == 'var':
+			print("VAR ID statement.")
+			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "VAR_ID", (p[1], p[2]))
 		# GOTO expression
+		if p[1] == 'goto':
+			print("GOTO expression statement.")
 		# ASSERT bool_expression
-		print("Either declaring, asserting, or goint to.")
+		if p[1] == 'assert':
+			print("ASSERT bool_expression statement.")
 		pass
 	if len(p) == 4:
 		# ID ASSIGN expression
@@ -164,9 +170,11 @@ def p_expression(p):
 	if len(p) == 2:
 		# term
 		print("Individual term.")
+		p[0] = p[1]
 		pass
 	if len(p) == 4:
 		# expression add_op term
+		p[0] = ASTNode.ExpressionNode(line_number, "EXPRESSION", (p[1], p[2], p[3]))
 		pass
 	
 
@@ -190,9 +198,12 @@ def p_term(p):
 	if len(p) == 2:
 		# factor
 		print("Individual factor. " + str(p[1]))
+		p[0] = p[1]
 		pass
 	if len(p) == 4:
 		# term mulop factor
+		print("Term with multiplication/division.")
+		p[0] = ASTNode.TermNode(line_number, "TERM", (p[1], p[2], p[3]))
 		pass
 
 # Production rules for the factor operators
@@ -232,12 +243,12 @@ def p_factor(p):
 					| LOAD LPAREN expression RPAREN'''
 	if len(p) == 2:
 		# 32_BIT_USIGN_INT
-		# ID
 		if isinstance(p[1], (int, long)):
-			print("32_BIT_USIGN_INT!!")
+			print("32_BIT_USIGN_INT factor.")
 			p[0] = ASTNode.FactorNode(line_number, "FACTOR", int(p[1]))
+		# ID
 		else:
-			print("IDENTIFIER!!")
+			print("ID Factor")
 			p[0] = ASTNode.FactorNode(line_number, "FACTOR", p[1])		
 		pass
 	if len(p) == 3:
@@ -247,10 +258,16 @@ def p_factor(p):
 		pass
 	if len(p) == 4:
 		# LPAREN expression RPAREN
+		print("Parens and factor.")
+		p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2], p[3]))
 		# GET_INPUT LPAREN RPAREN
+		print("GET_INPUT factor.")
+		p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2], p[3]))
 		pass
 	if len(p) == 5:
 		# LOAD LPAREN expression RPAREN
+		print("LOAD factor.")
+		p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2], p[3], p[4]))
 		pass
 
 # Production rule for an ID so we can catch its information during production
@@ -258,6 +275,8 @@ def p_id(p):
 	'''id 			: ID'''
 	print("Individual ID. " + str(p[1]))
 	# Put into factor class
+	print("ID Factor")
+	p[0] = ASTNode.FactorNode(line_number, "FACTOR", p[1])
 	
 # Production rules for boolean expressions
 def p_bool_expression(p):

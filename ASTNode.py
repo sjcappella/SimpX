@@ -17,12 +17,6 @@ class ASTNode:
 		print("Line Number: %d") % (self.line_number)
 		print("Token Type: %s") % (self.token_type)
 
-
-# Statement node in AST
-class StatementNode(ASTNode):
-	def __init__(self, line_number, token_type, children, statement_type):
-		pass
-
 	def prettyPrint(indent, last):
 		print("PRETTY PRINT WAS CALLED!")
 		print(indent)
@@ -37,9 +31,20 @@ class StatementNode(ASTNode):
 		for x in range(len(children)):
 			children[x].prettyPrint(indent, x == 0)
 
+
+# Statement node in AST
+class StatementNode(ASTNode):
+	def __init__(self, line_number, token_type, statement_type, children):
+		pass
+
+	
+
 # Expression node in AST
 class ExpressionNode(ASTNode):
 	def __init__(self, line_number, token_type, children):
+		this.line_number = line_number
+		this.token_type = token_type
+		this.children = children
 		pass
 
 # Addop node in AST
@@ -55,6 +60,8 @@ class Term(ASTNode):
 
 
 # Factor class in AST (this on may need a little work)
+# Should consider adding a factor type to distinguish between
+# factors of the same length
 class FactorNode(ASTNode):
 	# Constructure for 32_BIT_USIGN_INT
 	def __init__(self, line_number, statement_type, value):
