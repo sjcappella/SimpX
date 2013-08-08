@@ -114,12 +114,18 @@ line_number = -1
 # Production rule for program
 def p_start(p):
 	'''start	: statement_list'''
+	p[0] = p[1]
+	p[0].prettyPrint("", True)
 
 # Production rules for statement lists
 def p_statement_list(p):
 	'''statement_list	: statement_list statement
 						| statement
 						|'''
+	if len(p) == 2:
+		p[0] = p[1]
+	if len(p) == 3:
+		p[0] = (p[1], p[2])
 
 # Production rules for statements (may need to add a special rule for ID to keep track of it)
 def p_statement(p):
@@ -136,31 +142,43 @@ def p_statement(p):
 	if len(p) == 3:
 		# VAR ID
 		if p[1] == 'var':
-			print("VAR ID statement.")
+			print("VAR id statement.")
+			p[1] = ASTNode.ASTGeneric(line_number, "var")
 			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "VAR_ID", (p[1], p[2]))
 		# GOTO expression
 		if p[1] == 'goto':
 			print("GOTO expression statement.")
+			p[1] = ASTNode.ASTGeneric(line_number, "goto")
+			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "GOTO", (p[1], p[2]))
 		# ASSERT bool_expression
 		if p[1] == 'assert':
 			print("ASSERT bool_expression statement.")
+			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "ASSERT", (p[1], p[2]))
 		pass
 	if len(p) == 4:
 		# ID ASSIGN expression
-		print("Assigning a new var")
+		print("Assigning a var")
+		p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "ASSIGN", (p[1], p[2], p[3]))
 		pass
 	if len(p) == 5:
 		# VAR ID ASSIGN expression
+		if p[1] == 'var':
+			print("VAR ID ASSIGN statement.")
+			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "ASSIGN_NEW", (p[1], p[2], p[3], p[4]))
 		# PRINT_OUTPUT LPAREN expression RPAREN
-		print("Declaring and assigning a new var or printing to console.")
+		if p[1] == 'print_output':
+			print("PRINT_OUTPUT statement.")
+			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "PRINT_OUTPUT", (p[1], p[2], p[3], p[4]))
 		pass
 	if len(p) == 7:
 		# STORE LPAREN expression COMMA expression RPAREN
-		print("Store operation.")
+		print("Store statement.")
+		p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "STORE", (p[1], p[2], p[3], p[4], p[5], p[6]))
 		pass
 	if len(p) == 11:
 		# IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO expression
-		print("Boolean expression.")
+		print("Boolean statement.")
+		p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "BOOLEAN", (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10]))
 		pass
 
 # Production rules for expressions
@@ -258,24 +276,34 @@ def p_factor(p):
 		pass
 	if len(p) == 4:
 		# LPAREN expression RPAREN
-		print("Parens and factor.")
-		p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2], p[3]))
-		# GET_INPUT LPAREN RPAREN
-		print("GET_INPUT factor.")
-		p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2], p[3]))
+		if p[1] == '(':
+			print("Parens and factor.")
+			p[1] = ASTNode.ASTGeneric(line_number, "(")
+			p[3] = ASTNode.ASTGeneric(line_number, ")")
+			p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2], p[3]))
+		if p[1] == 'get_input':
+			# GET_INPUT LPAREN RPAREN
+			print("GET_INPUT factor.")
+			p[1] = ASTNode.ASTGeneric(line_number, "get_input")
+			p[2] = ASTNode.ASTGeneric(line_number, "(")
+			p[3] = ASTNode.ASTGeneric(line_number, ")")
+			p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2], p[3]))
 		pass
 	if len(p) == 5:
 		# LOAD LPAREN expression RPAREN
 		print("LOAD factor.")
+		p[1] = ASTNode.ASTGeneric(line_number, "load")
+		p[2] = ASTNode.ASTGeneric(line_number, "(")
+		p[4] = ASTNode.ASTGeneric(line_number, ")")
 		p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2], p[3], p[4]))
 		pass
 
 # Production rule for an ID so we can catch its information during production
 def p_id(p):
 	'''id 			: ID'''
-	print("Individual ID. " + str(p[1]))
 	# Put into factor class
 	print("ID Factor")
+	p[1] = ASTNode.ASTGeneric(line_number, str(p[1]))
 	p[0] = ASTNode.FactorNode(line_number, "FACTOR", p[1])
 	
 # Production rules for boolean expressions
@@ -283,8 +311,6 @@ def p_bool_expression(p):
 	'''bool_expression 	: expression rel_op expression'''
 
 	p[0] = ASTNode.BooleanExpression(line_number, "BOOLEAN_EXPRESSION", (p[1], p[2], p[3]))
-	# For testing
-	p[0].prettyPrint("", True)
 
 # Production rules for relational operators
 def p_rel_op(p): 

@@ -17,7 +17,7 @@ class ASTNode:
 		print("Line Number: %d") % (self.line_number)
 		print("Token Type: %s") % (self.token_type)
 
-	def prettyPrint(indent, last):
+	def prettyPrint(self, indent, last):
 		print("PRETTY PRINT WAS CALLED!")
 		print(indent)
 		
@@ -27,14 +27,24 @@ class ASTNode:
 			print("|--> ")
 			indent += "  "
 
-		print(statement_type)
-		for x in range(len(children)):
-			children[x].prettyPrint(indent, x == 0)
+		print(self.token_type)
+		for x in range(len(self.children)):
+			self.children[x].prettyPrint(indent, x == 0)
 
+
+# Generic tokens
+class ASTGeneric(ASTNode):
+	def __init__(self, line_number, token_type):
+		self.line_number = line_number
+		self.token_type = token_type
 
 # Statement node in AST
 class StatementNode(ASTNode):
 	def __init__(self, line_number, token_type, statement_type, children):
+		self.line_number = line_number
+		self.token_type = token_type
+		self.statement_type = statement_type
+		self.children = children
 		pass
 
 	
@@ -42,9 +52,9 @@ class StatementNode(ASTNode):
 # Expression node in AST
 class ExpressionNode(ASTNode):
 	def __init__(self, line_number, token_type, children):
-		this.line_number = line_number
-		this.token_type = token_type
-		this.children = children
+		self.line_number = line_number
+		self.token_type = token_type
+		self.children = children
 		pass
 
 # Addop node in AST
@@ -52,6 +62,7 @@ class AddopNode(ASTNode):
 	def __init__(self, line_number, symbol):
 		self.line_number = line_number
 		self.symbol = symbol
+		self.token_type = "ADD_OP"
 
 # Term node in AST
 class Term(ASTNode):
@@ -64,26 +75,27 @@ class Term(ASTNode):
 # factors of the same length
 class FactorNode(ASTNode):
 	# Constructure for 32_BIT_USIGN_INT
-	def __init__(self, line_number, statement_type, value):
+	def __init__(self, line_number, token_type, value):
 		self.line_number = line_number
-		self.statement_type = statement_type
-		this.value = value
-		self.children = None 
+		self.token_type = token_type
+		self.value = value
+		self.children = None
+
 
 	# Constructure for ID
-	def __init__(self, line_number, statement_type, label):
+	def __init__(self, line_number, token_type, label):
 		self.line_number = line_number
-		self.statement_type = statement_type
-		this.label = label
+		self.token_type = token_type
+		self.label = label
 		self.children = None 
 
 
 
 # Boolean expression class in AST
 class BooleanExpression(ASTNode):
-	def __init__(self, line_number, statement_type, children):
+	def __init__(self, line_number, token_type, children):
 		self.line_number = line_number
-		self.statement_type = statement_type
+		self.token_type = token_type
 		self.children = children
 
 # Addop node in AST
