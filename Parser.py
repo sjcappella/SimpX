@@ -233,6 +233,10 @@ def p_factor(p):
 	if len(p) == 2:
 		# 32_BIT_USIGN_INT
 		# ID
+		if isinstance(p[1], (int, long)):
+			print("32_BIT_USIGN_INT!!")
+		else:
+			print("IDENTIFIER!!")
 		print("Individual number or ID. " + str(p[1]))
 		pass
 	if len(p) == 3:
@@ -257,6 +261,7 @@ def p_bool_expression(p):
 	'''bool_expression 	: expression rel_op expression'''
 
 	p[0] = ASTNode.BooleanExpression(line_number, "BOOLEAN_EXPRESSION", (p[1], p[2], p[3]))
+	# For testing
 	p[0].prettyPrint("", True)
 
 # Production rules for relational operators
