@@ -110,12 +110,15 @@ import yacc as yacc
 import ASTNode 
 
 line_number = -1
+AST = None
 
 # Production rule for program
 def p_start(p):
 	'''start	: statement_list'''
 	p[0] = p[1]
-	p[0].prettyPrint("", True)
+	#p[0].prettyPrint("", True)
+	global AST
+	AST = p[0]
 
 # Production rules for statement lists
 def p_statement_list(p):
@@ -131,7 +134,7 @@ def p_statement_list(p):
 def p_statement(p):
 	'''statement	: VAR id
 					| VAR id ASSIGN expression
-					| ID ASSIGN expression
+					| id ASSIGN expression
              		| STORE LPAREN expression COMMA expression RPAREN
              		| GOTO expression 
              		| ASSERT bool_expression
@@ -153,31 +156,49 @@ def p_statement(p):
 		# ASSERT bool_expression
 		if p[1] == 'assert':
 			print("ASSERT bool_expression statement.")
+			p[1] = ASTNode.ASTGeneric(line_number, "assert")
 			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "ASSERT", (p[1], p[2]))
 		pass
 	if len(p) == 4:
-		# ID ASSIGN expression
+		# id ASSIGN expression
 		print("Assigning a var")
+		p[2] = ASTNode.ASTGeneric(line_number, ":=")
 		p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "ASSIGN", (p[1], p[2], p[3]))
 		pass
 	if len(p) == 5:
 		# VAR ID ASSIGN expression
 		if p[1] == 'var':
-			print("VAR ID ASSIGN statement.")
+			print("VAR id ASSIGN statement.")
+			p[1] = ASTNode.ASTGeneric(line_number, "var")
+			p[3] = ASTNode.ASTGeneric(line_number, ":=")
 			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "ASSIGN_NEW", (p[1], p[2], p[3], p[4]))
 		# PRINT_OUTPUT LPAREN expression RPAREN
 		if p[1] == 'print_output':
 			print("PRINT_OUTPUT statement.")
+			p[1] = ASTNode.ASTGeneric(line_number, "print_output")
+			p[2] = ASTNode.ASTGeneric(line_number, "(")
+			p[4] = ASTNode.ASTGeneric(line_number, ")")
 			p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "PRINT_OUTPUT", (p[1], p[2], p[3], p[4]))
 		pass
 	if len(p) == 7:
 		# STORE LPAREN expression COMMA expression RPAREN
 		print("Store statement.")
+		p[1] = ASTNode.ASTGeneric(line_number, "store")
+		p[2] = ASTNode.ASTGeneric(line_number, "(")
+		p[4] = ASTNode.ASTGeneric(line_number, ",")
+		p[6] = ASTNode.ASTGeneric(line_number, ")")
 		p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "STORE", (p[1], p[2], p[3], p[4], p[5], p[6]))
 		pass
 	if len(p) == 11:
 		# IF LPAREN bool_expression RPAREN THEN GOTO expression ELSE GOTO expression
 		print("Boolean statement.")
+		p[1] = ASTNode.ASTGeneric(line_number, "if")
+		p[2] = ASTNode.ASTGeneric(line_number, "(")
+		p[4] = ASTNode.ASTGeneric(line_number, ")")
+		p[5] = ASTNode.ASTGeneric(line_number, "then")
+		p[6] = ASTNode.ASTGeneric(line_number, "goto")
+		p[8] = ASTNode.ASTGeneric(line_number, "else")
+		p[9] = ASTNode.ASTGeneric(line_number, "goto")
 		p[0] = ASTNode.StatementNode(line_number, "STATEMENT", "BOOLEAN", (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10]))
 		pass
 
@@ -381,6 +402,11 @@ def parse(source_code, line):
 	parser = yacc.yacc()
 
 	# Parse the source code
-	p = parser.parse(source_code, debug=True, tracking=True)
+	# For testing the parser
+	#p = parser.parse(source_code, debug=True, tracking=True)
 
-	print(p)
+	# Running the parser
+	parser.parse(source_code)
+	global AST
+	AST.prettyPrint("", True)
+	

@@ -1,9 +1,4 @@
-# Terminology has gotten mixed up between token_type and statement_type.
-# The correct use is token_type in the ASTNode class and statement type
-# should only be used in Statmenet nodes. Need to fix this.
-
-
-
+import sys
 
 # Will be used as the general class case
 class ASTNode:
@@ -18,18 +13,19 @@ class ASTNode:
 		print("Token Type: %s") % (self.token_type)
 
 	def prettyPrint(self, indent, last):
-		print("PRETTY PRINT WAS CALLED!")
-		print(indent)
+		sys.stdout.write(indent)
 		
 		if last == True:
-			print("\\--> ")
-		else:
-			print("|--> ")
+			sys.stdout.write("\\--> ")
 			indent += "  "
+		else:
+			sys.stdout.write("|--> ",)
+			indent += "| "
 
-		print(self.token_type)
+		sys.stdout.write(self.token_type)
+		sys.stdout.write("\n")
 		for x in range(len(self.children)):
-			self.children[x].prettyPrint(indent, x == 0)
+			self.children[x].prettyPrint(indent, x == (len(self.children)-1))
 
 
 # Generic tokens
@@ -37,6 +33,7 @@ class ASTGeneric(ASTNode):
 	def __init__(self, line_number, token_type):
 		self.line_number = line_number
 		self.token_type = token_type
+		self.children = []
 
 # Statement node in AST
 class StatementNode(ASTNode):
@@ -57,13 +54,6 @@ class ExpressionNode(ASTNode):
 		self.children = children
 		pass
 
-# Addop node in AST
-class AddopNode(ASTNode):
-	def __init__(self, line_number, symbol):
-		self.line_number = line_number
-		self.symbol = symbol
-		self.token_type = "ADD_OP"
-
 # Term node in AST
 class Term(ASTNode):
 	pass
@@ -79,7 +69,7 @@ class FactorNode(ASTNode):
 		self.line_number = line_number
 		self.token_type = token_type
 		self.value = value
-		self.children = None
+		self.children = []
 
 
 	# Constructure for ID
@@ -87,7 +77,28 @@ class FactorNode(ASTNode):
 		self.line_number = line_number
 		self.token_type = token_type
 		self.label = label
-		self.children = None 
+		self.children = []
+
+	def prettyPrint(self, indent, last):
+		sys.stdout.write(indent)
+		
+		if last == True:
+			sys.stdout.write("\\--> ")
+			indent += "  "
+		else:
+			sys.stdout.write("|--> ",)
+			indent += "| "
+
+		try:
+			self.value
+		except NameError:
+			sys.stdout.write(self.label)
+		else:
+			sys.stdout.write(self.value)
+		
+		sys.stdout.write("\n")
+		for x in range(len(self.children)):
+			self.children[x].prettyPrint(indent, x == (len(self.children)-1))
 
 
 
@@ -104,6 +115,7 @@ class AddopNode(ASTNode):
 		self.line_number = line_number
 		self.token_type = "ADDOP_NODE"
 		self.symbol = symbol
+		self.children = []
 
 	def printNode(self):
 		print("Line Number: %d") % (self.line_number)
