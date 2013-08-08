@@ -1,3 +1,10 @@
+# Terminology has gotten mixed up between token_type and statement_type.
+# The correct use is token_type in the ASTNode class and statement type
+# should only be used in Statmenet nodes. Need to fix this.
+
+
+
+
 # Will be used as the general class case
 class ASTNode:
 	# Class constructor
@@ -49,7 +56,21 @@ class Term(ASTNode):
 
 # Factor class in AST (this on may need a little work)
 class FactorNode(ASTNode):
-	pass
+	# Constructure for 32_BIT_USIGN_INT
+	def __init__(self, line_number, statement_type, value):
+		self.line_number = line_number
+		self.statement_type = statement_type
+		this.value = value
+		self.children = None 
+
+	# Constructure for ID
+	def __init__(self, line_number, statement_type, label):
+		self.line_number = line_number
+		self.statement_type = statement_type
+		this.label = label
+		self.children = None 
+
+
 
 # Boolean expression class in AST
 class BooleanExpression(ASTNode):

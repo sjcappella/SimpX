@@ -235,12 +235,15 @@ def p_factor(p):
 		# ID
 		if isinstance(p[1], (int, long)):
 			print("32_BIT_USIGN_INT!!")
+			p[0] = ASTNode.FactorNode(line_number, "FACTOR", int(p[1]))
 		else:
 			print("IDENTIFIER!!")
-		print("Individual number or ID. " + str(p[1]))
+			p[0] = ASTNode.FactorNode(line_number, "FACTOR", p[1])		
 		pass
 	if len(p) == 3:
 		# unary_op factor
+		print("Unary operation on a factor.")
+		p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2]))
 		pass
 	if len(p) == 4:
 		# LPAREN expression RPAREN
