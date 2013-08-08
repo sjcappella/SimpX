@@ -64,20 +64,13 @@ class Term(ASTNode):
 # Should consider adding a factor type to distinguish between
 # factors of the same length
 class FactorNode(ASTNode):
-	# Constructure for 32_BIT_USIGN_INT
-	def __init__(self, line_number, token_type, value):
+	
+	# Constructor factors
+	def __init__(self, line_number, token_type, value, children):
 		self.line_number = line_number
 		self.token_type = token_type
 		self.value = value
-		self.children = []
-
-
-	# Constructure for ID
-	def __init__(self, line_number, token_type, label):
-		self.line_number = line_number
-		self.token_type = token_type
-		self.label = label
-		self.children = []
+		self.children = children
 
 	def prettyPrint(self, indent, last):
 		sys.stdout.write(indent)
@@ -89,16 +82,15 @@ class FactorNode(ASTNode):
 			sys.stdout.write("|--> ",)
 			indent += "| "
 
-		try:
-			self.value
-		except NameError:
-			sys.stdout.write(self.label)
+		if self.children == None:
+			sys.stdout.write(str(self.value))
 		else:
-			sys.stdout.write(self.value)
-		
+			sys.stdout.write("FACTOR")
+					
 		sys.stdout.write("\n")
-		for x in range(len(self.children)):
-			self.children[x].prettyPrint(indent, x == (len(self.children)-1))
+		if self.children != None:
+			for x in range(len(self.children)):
+				self.children[x].prettyPrint(indent, x == (len(self.children)-1))
 
 
 
@@ -122,6 +114,19 @@ class AddopNode(ASTNode):
 		print("Token Type:  %s") % (self.token_type)
 		print("Symbol:      %s") % (self.symbol)
 
+	def prettyPrint(self, indent, last):
+		sys.stdout.write(indent)
+		
+		if last == True:
+			sys.stdout.write("\\--> ")
+			indent += "  "
+		else:
+			sys.stdout.write("|--> ",)
+			indent += "| "
+
+		sys.stdout.write(self.symbol)
+		sys.stdout.write("\n")
+
 
 # Mulop node in AST
 class MulopNode(ASTNode):
@@ -135,6 +140,19 @@ class MulopNode(ASTNode):
 		print("Token Type:  %s") % (self.token_type)
 		print("Symbol:      %s") % (self.symbol)
 
+	def prettyPrint(self, indent, last):
+		sys.stdout.write(indent)
+		
+		if last == True:
+			sys.stdout.write("\\--> ")
+			indent += "  "
+		else:
+			sys.stdout.write("|--> ",)
+			indent += "| "
+
+		sys.stdout.write(self.symbol)
+		sys.stdout.write("\n")
+
 # Relationship Operator class in AST
 class RelopNode(ASTNode):
 	def __init__(self, line_number, symbol):
@@ -147,6 +165,18 @@ class RelopNode(ASTNode):
 		print("Token Type:  %s") % (self.token_type)
 		print("Symbol:      %s") % (self.symbol)
 
+	def prettyPrint(self, indent, last):
+		sys.stdout.write(indent)
+		
+		if last == True:
+			sys.stdout.write("\\--> ")
+			indent += "  "
+		else:
+			sys.stdout.write("|--> ",)
+			indent += "| "
+
+		sys.stdout.write(self.symbol)
+		sys.stdout.write("\n")
 
 # Unary Operator class in AST
 class UnaryNode(ASTNode):
@@ -159,4 +189,18 @@ class UnaryNode(ASTNode):
 		print("Line Number: %d") % (self.line_number)
 		print("Token Type:  %s") % (self.token_type)
 		print("Symbol:      %s") % (self.symbol)
+
+	def prettyPrint(self, indent, last):
+		sys.stdout.write(indent)
+		
+		if last == True:
+			sys.stdout.write("\\--> ")
+			indent += "  "
+		else:
+			sys.stdout.write("|--> ",)
+			indent += "| "
+
+		sys.stdout.write(self.symbol)
+		sys.stdout.write("\n")
+		
 

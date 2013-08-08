@@ -284,16 +284,16 @@ def p_factor(p):
 		# 32_BIT_USIGN_INT
 		if isinstance(p[1], (int, long)):
 			print("32_BIT_USIGN_INT factor.")
-			p[0] = ASTNode.FactorNode(line_number, "FACTOR", int(p[1]))
+			p[0] = ASTNode.FactorNode(line_number, "FACTOR", p[1], None)
 		# ID
 		else:
 			print("ID Factor")
-			p[0] = ASTNode.FactorNode(line_number, "FACTOR", p[1])		
+			p[0] = ASTNode.FactorNode(line_number, "FACTOR", p[1], None)		
 		pass
 	if len(p) == 3:
 		# unary_op factor
 		print("Unary operation on a factor.")
-		p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2]))
+		p[0] = ASTNode.FactorNode(line_number, "FACTOR", None, (p[1], p[2]))
 		pass
 	if len(p) == 4:
 		# LPAREN expression RPAREN
@@ -301,14 +301,14 @@ def p_factor(p):
 			print("Parens and factor.")
 			p[1] = ASTNode.ASTGeneric(line_number, "(")
 			p[3] = ASTNode.ASTGeneric(line_number, ")")
-			p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2], p[3]))
+			p[0] = ASTNode.FactorNode(line_number, "FACTOR", None, (p[1], p[2], p[3]))
 		if p[1] == 'get_input':
 			# GET_INPUT LPAREN RPAREN
 			print("GET_INPUT factor.")
 			p[1] = ASTNode.ASTGeneric(line_number, "get_input")
 			p[2] = ASTNode.ASTGeneric(line_number, "(")
 			p[3] = ASTNode.ASTGeneric(line_number, ")")
-			p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2], p[3]))
+			p[0] = ASTNode.FactorNode(line_number, "FACTOR", None, (p[1], p[2], p[3]))
 		pass
 	if len(p) == 5:
 		# LOAD LPAREN expression RPAREN
@@ -316,7 +316,7 @@ def p_factor(p):
 		p[1] = ASTNode.ASTGeneric(line_number, "load")
 		p[2] = ASTNode.ASTGeneric(line_number, "(")
 		p[4] = ASTNode.ASTGeneric(line_number, ")")
-		p[0] = ASTNode.FactorNode(line_number, "FACTOR", (p[1], p[2], p[3], p[4]))
+		p[0] = ASTNode.FactorNode(line_number, "FACTOR", None, (p[1], p[2], p[3], p[4]))
 		pass
 
 # Production rule for an ID so we can catch its information during production
@@ -324,8 +324,7 @@ def p_id(p):
 	'''id 			: ID'''
 	# Put into factor class
 	print("ID Factor")
-	p[1] = ASTNode.ASTGeneric(line_number, str(p[1]))
-	p[0] = ASTNode.FactorNode(line_number, "FACTOR", p[1])
+	p[0] = ASTNode.FactorNode(line_number, "FACTOR", p[1], None)
 	
 # Production rules for boolean expressions
 def p_bool_expression(p):
