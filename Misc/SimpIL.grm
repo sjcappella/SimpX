@@ -1,0 +1,97 @@
+!--- Operational Semantics
+"Start Symbol" = <program>
+               
+!--- KEYWORDS
+VAR = 'var'
+STORE = 'store'
+LOAD = 'load'
+GOTO = 'goto'
+ASSERT = 'assert'
+IF = 'if'
+THEN = 'then'
+ELSE = 'else'
+GET_INPUT = 'get_input'
+PRINT_OUTPUT = 'print_output'
+TRUE = 'true'
+FALSE = 'false'          
+
+<KEYWORD> ::= VAR | STORE | LOAD | GOTO | ASSERT | IF | THEN | ELSE | GET_INPUT | PRINT_OUTPUT | TRUE | FALSE
+           
+!--- Special Symbols
+ADD_OP = '+'     
+SUB_OP = '-'      
+MULT_OP = '*'       
+DIV_OP = '/'
+LEFT_PAREN = '('           
+RIGHT_PAREN = ')'
+INCREMENT = '++'
+DECREMENT = '--'
+ADDRESS = '&'
+MODULO = '%'
+LOGICAL_AND = '&&'
+XOR = '^'
+INCLUSIVE_OR = '|'
+LOGICAL_OR = '||'       
+LESS_THAN = '<'          
+LESS_THAN_EQUAL = '<='                
+GREATER_THAN = '>'             
+GREATER_THAN_EQUAL = '>='                   
+IS_EQUAL = '=='         
+NOT_EQUAL = '!='          
+ASSIGN_OP = ':='               
+COMMA = ','      
+
+          
+ID = {Letter}({Letter}|{Digit})*
+32_USIGN = {Digit}{Digit}*
+<UNARY_OP> ::= ADD_OP | SUB_OP | INCREMENT | DECREMENT | ADDRESS
+!--- <BINARY_OP> ::= ADD_OP | SUB_OP | MULT_OP | DIV_OP | ADDRESS | MODULO | XOR | INCLUSIVE_OR
+<BOOL_OP> ::= LESS_THAN | LESS_THAN_EQUAL | GREATER_THAN | GREATER_THAN_EQUAL | IS_EQUAL | NOT_EQUAL | LOGICAL_AND | LOGICAL_OR 
+      
+    
+     
+<program> ::= <statement-list>  
+           
+<statement-list> ::= <statement-list> <statement> 
+                  | <statement>
+                  
+<statement> ::= VAR ID
+             | VAR ID ASSIGN_OP <expression> 
+             | ID ASSIGN_OP <expression>
+             | STORE LEFT_PAREN <expression> COMMA <expression> RIGHT_PAREN
+             | GOTO <expression> 
+             | ASSERT <bool_statement>
+             | IF <bool_expression> THEN GOTO <expression> ELSE GOTO <expression>
+             | PRINT_OUTPUT LEFT_PAREN <expression> RIGHT_PAREN
+             
+<expression> ::= <expression> <add_op> <term> 
+              | <term>
+
+
+<add_op> ::= ADD_OP 
+          | SUB_OP      
+
+<term> ::= <term> <mulop> <factor> 
+        | <factor>
+
+<mulop> ::= MULT_OP | DIV_OP | ADDRESS | MODULO | XOR | INCLUSIVE_OR
+
+<factor> ::= <UNARY_OP> <factor>
+          | LEFT_PAREN <expression> RIGHT_PAREN 
+          | 32_USIGN 
+          | ID
+          | GET_INPUT LEFT_PAREN RIGHT_PAREN 
+          | LOAD LEFT_PAREN <expression> RIGHT_PAREN
+              
+
+              
+<bool_expression> ::= <bool_expression> <BOOL_OP> <bool_statement> 
+                   | <bool_statement>
+                   
+<bool_statement> ::= LEFT_PAREN <bool_expression> RIGHT_PAREN 
+                  | LEFT_PAREN <expression> RIGHT_PAREN
+                  | TRUE
+                  | FALSE
+               
+
+
