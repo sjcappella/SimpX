@@ -13,3 +13,7 @@ This file will be used as a list of items that must be addressed.
 [ ] Build symbol table while generating IR
 
 [ ] Create instructions that will ultimately be executed on VM and used for analysis
+
+[ ] Add support for comments
+
+[ ] Create example programs
