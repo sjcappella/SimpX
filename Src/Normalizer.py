@@ -1,9 +1,3 @@
-#class Normalizer:
-	# Constructor function
-#	def __init__(self, ASTList):
-#	self.ASTList = ASTList
-#	normalize()
-
 t_count = 0
 temp_val = ""
 code = ""

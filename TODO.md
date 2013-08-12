@@ -17,3 +17,9 @@ This file will be used as a list of items that must be addressed.
 [ ] Add support for comments
 
 [ ] Create example programs
+
+[ ] Develop unit cases
+
+[ ] Convert console I/O to file I/O
+
+[ ] Add error checking and reporting
