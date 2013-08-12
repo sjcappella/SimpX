@@ -109,10 +109,21 @@ def factorNodes(ASTNode):
 		symbol = ASTNode.children[0].symbol
 		temp_val_1 = temp_val
 		temp_val = "t_"+ str(t_count)
+		# Negate operation
 		if symbol == "-":
 			code += "\t" + temp_val + " := -1 * " + temp_val_1 + "\n"
-		else:
+		# Positive operation
+		if symbol == "+":
 			code += "\t" + temp_val + " := 1 * " + temp_val_1 + "\n"
+		# Increment operation
+		if symbol == "++":
+			code += "\t" + temp_val + " := " + temp_val_1 + " + 1\n"
+		# Decrement operation
+		if symbol == "--":
+			code += "\t" + temp_val + " := " + temp_val_1 + " - 1\n"
+		# Dereference operation (get value at that memory address)
+		if symbol == "&":
+			code += "\t" + temp_val + " := load( " + temp_val_1 + " )\n"
 		t_count += 1 
 	
 	# Check for a paren expression
