@@ -369,7 +369,9 @@ def parse(source_code, line):
 	while True:
 		tok = lexer.token()
 		if not tok: break      # No more input
-		print tok
+		
+		# Print for debugging
+		# print tok
 
 	# Build the parser
 	parser = yacc.yacc()

@@ -1,5 +1,6 @@
 import sys
 import Parser as Parser
+import Normalizer as Normalizer
 
 # Function to perform lexical analysis and parsing of source code
 def lexAndParse(source_path):
@@ -24,6 +25,7 @@ def lexAndParse(source_path):
    ASTs = []
    for x in range(len(source_code)):
       AST = Parser.parse(source_code[x], x+1)
+      AST.prettyPrint("", True)
       ASTs.append(AST)
 
    return ASTs
@@ -31,10 +33,12 @@ def lexAndParse(source_path):
 def main(argv):
    
    if (len(argv)) < 2:
-   	print("No input file given. Quitting.")
-   	exit()
+      print("No input file given. Quitting.")
+      exit()
    else:
-   	lexAndParse(argv[1])
+      ASTs = lexAndParse(argv[1])
+      IR = Normalizer.normalize(ASTs)
+
    
    
 
