@@ -116,7 +116,6 @@ AST = None
 def p_start(p):
 	'''start	: statement_list'''
 	p[0] = p[1]
-	#p[0].prettyPrint("", True)
 	global AST
 	AST = p[0]
 
@@ -205,7 +204,6 @@ def p_expression(p):
 	# Production rules of length 2
 	if len(p) == 2:
 		# term
-		print("Individual term.")
 		p[0] = p[1]
 		pass
 	# Production rules of length 4
@@ -220,10 +218,8 @@ def p_add_op(p):
 	'''add_op 		: PLUS
 					| MINUS'''
 	if p[1] == '+':
-		print("Addition operation found.")
 		p[0] = ASTNode.AddopNode(line_number, '+')
 	if p[1] == '-':
-		print("Subtraction operation found.")
 		p[0] = ASTNode.AddopNode(line_number, '-')
 	
 
@@ -235,13 +231,11 @@ def p_term(p):
 	# Production rules of length 2
 	if len(p) == 2:
 		# factor
-		print("Individual factor. " + str(p[1]))
 		p[0] = p[1]
 		pass
 	# Production rules of length 4
 	if len(p) == 4:
 		# term mulop factor
-		print("Term with multiplication/division.")
 		p[0] = ASTNode.TermNode(line_number, "TERM", (p[1], p[2], p[3]))
 		pass
 
@@ -254,22 +248,16 @@ def p_mulop(p):
 					| INCLUSIVE_OR
 					| ADDRESS'''
 	if p[1] == '*':
-		print("Multiplication operation.")
 		p[0] = ASTNode.MulopNode(line_number, '*')
 	if p[1] == '/':
-		print("Division operation.")
 		p[0] = ASTNode.MulopNode(line_number, '/')
 	if p[1] == '%':
-		print("Modulus operation.")
 		p[0] = ASTNode.MulopNode(line_number, '%')
 	if p[1] == '^':
-		print("XOR operation.")
 		p[0] = ASTNode.MulopNode(line_number, '^')
 	if p[1] == '|':
-		print("Inclusive OR operation.")
 		p[0] = ASTNode.MulopNode(line_number, '|')
 	if p[1] == '&':
-		print("AND operation.")
 		p[0] = ASTNode.MulopNode(line_number, '&')
 
 # Production rules for factors
@@ -393,5 +381,7 @@ def parse(source_code, line):
 	# Running the parser
 	parser.parse(source_code)
 	global AST
-	AST.prettyPrint("", True)
+	# AST.prettyPrint("", True)
+
+	return AST
 	

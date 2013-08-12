@@ -1,3 +1,6 @@
 # Don't need these files in the repo
 *.pyc
 parsetab.py
+parser.out
+SimpIL.egt
+

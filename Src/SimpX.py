@@ -21,9 +21,12 @@ def lexAndParse(source_path):
       print(source_code[x])
 
    # Send source code for lexical analysis and parsing
+   ASTs = []
    for x in range(len(source_code)):
-      Parser.parse(source_code[x], x+1)
+      AST = Parser.parse(source_code[x], x+1)
+      ASTs.append(AST)
 
+   return ASTs
 
 def main(argv):
    
