@@ -2,12 +2,15 @@ var z := 5 + 7 * 22
 var y := 9
 var x
 var x := 5 + -6
-var a := 5 * load(4 * 6)
+var a := 5 * load(4 ^ 6)
 var c := (5 + 7 * (6 + 10))
 var b := 5 * 6 + get_input()
+var variable
+variable := 6 + 5 + 9 * 10
 store(x, 6)
+store(x+6, 4+6+9)
 goto 5
 assert x < 4
-if ( 5 < 7) then goto 3 else goto 9
-print_output(5)
+if ( 5 + 6 *3 >= 7%4) then goto 5*7*3 else goto 9-2
+print_output(5 * (456))
 var x := 7 + (8 + 9) * 10 + &x * load(4)

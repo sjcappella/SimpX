@@ -35,41 +35,75 @@ def convertToIRRec(ASTNode):
 		expressionNodes(ASTNode)
 	if ASTNode.token_type == "TERM":
 		termNodes(ASTNode)
-	else:
-		print(ASTNode.token_type)
-		
-
+	if ASTNode.token_type == "BOOLEAN_EXPRESSION":
+		booleanNodes(ASTNode)
+	
 # Function to handle statement nodes
 def statementNodes(ASTNode):
 	global code, temp_val, t_count
+	# Generate code for declaring a new variable
+	if ASTNode.statement_type == "VAR_ID":
+		code += ("\tvar_" + ASTNode.children[1].value + "\n")
+	
+	# Generate code for goto statements
+	if ASTNode.statement_type == "GOTO":
+		convertToIRRec(ASTNode.children[1])
+		code += "\tgoto( BB_" + temp_val + ":BEGIN )\n"
+
+	# Generate code for assert statements
+	if ASTNode.statement_type == "ASSERT":
+		convertToIRRec(ASTNode.children[1])
+		code += "\tassert( " + temp_val + " )\n"
+
+	# Generate code for assigning an old variable
+	if ASTNode.statement_type == "ASSIGN":
+		convertToIRRec(ASTNode.children[2])
+		code += ("\tvar_" + ASTNode.children[0].value + " := " + temp_val + "\n")
+
+	# Generate code for assigning a new variable
 	if ASTNode.statement_type == "ASSIGN_NEW":
 		# Make sure to add variable to symbol table 
 		convertToIRRec(ASTNode.children[3])
 		code += ("\tvar_" + ASTNode.children[1].value + " := " + temp_val + "\n") 
-		pass
-	if ASTNode.statement_type == "VAR_ID":
-		code += ("\tvar_" + ASTNode.children[1].value + "\n")
-		pass
-	if ASTNode.statement_type == "ASSIGN":
-		pass
-	if ASTNode.statement_type == "STORE":
-		pass
-	if ASTNode.statement_type == "GOTO":
-		pass
-	if ASTNode.statement_type == "ASSERT":
-		pass
-	if ASTNode.statement_type == "BOOLEAN":
-		pass
-	if ASTNode.statement_type == "PRINT_OUTPUT":
-		pass
 	
+	# Generate code for printing statements
+	if ASTNode.statement_type == "PRINT_OUTPUT":
+		convertToIRRec(ASTNode.children[2])
+		code += "\tprint_output( " + temp_val + " )\n"
+		
+	# Generate code for store statements
+	if ASTNode.statement_type == "STORE":
+		convertToIRRec(ASTNode.children[2])
+		temp_val_1 = temp_val
+		convertToIRRec(ASTNode.children[4])
+		temp_val_2 = temp_val
+		code += "\tstore( " + temp_val_1 + " , " + temp_val_2 + " )\n"
+	
+	# Generate code for boolean expressions
+	if ASTNode.statement_type == "BOOLEAN":
+		convertToIRRec(ASTNode.children[2])
+		temp_val_1 = temp_val
+		convertToIRRec(ASTNode.children[6])
+		temp_val_2 = temp_val
+		convertToIRRec(ASTNode.children[9])
+		temp_val_3 = temp_val
+		code += "\tif( " + temp_val_1 + " ):\n"
+		code += "\tgoto( BB_" + temp_val_2 + ":BEGIN )\n"
+		code += "\telse goto( BB_" + temp_val_3 + ":BEGIN )\n"
+			
 # Function to handle factor nodes
 def factorNodes(ASTNode):
 	global code, temp_val, t_count
+	
+	# Check for 32-Bit usigned integers
 	if ASTNode.factor_type == "32_BIT_USIGN_INT":
 		temp_val = str(ASTNode.value)
+	
+	# Check for variables
 	if ASTNode.factor_type == "ID":
 		temp_val = "var_" + str(ASTNode.value)
+	
+	# Check for a unary operation
 	if ASTNode.factor_type == "UNARY_FACTOR":
 		convertToIRRec(ASTNode.children[1])
 		symbol = ASTNode.children[0].symbol
@@ -80,21 +114,25 @@ def factorNodes(ASTNode):
 		else:
 			code += "\t" + temp_val + " := 1 * " + temp_val_1 + "\n"
 		t_count += 1 
+	
+	# Check for a paren expression
 	if ASTNode.factor_type == "PAREN_EXPRESSION":
 		# Might need some logic here
 		convertToIRRec(ASTNode.children[1])
+	
+	# Check for an input statement
 	if ASTNode.factor_type == "GET_INPUT":
 		temp_val = "t_" + str(t_count)
 		code += "\t" + temp_val + " := get_input()\n" 
 		t_count += 1
+	
+	# Check for a load statement
 	if ASTNode.factor_type == "LOAD":
 		convertToIRRec(ASTNode.children[2])
 		temp_val_1 = temp_val
 		temp_val = "t_" + str(t_count)
 		code += "\t" + temp_val + " := load( " + temp_val_1 + " )\n"
 		t_count += 1
-
-
 
 # Function to handle expression nodes
 def expressionNodes(ASTNode):
@@ -108,8 +146,6 @@ def expressionNodes(ASTNode):
 	code += "\t" + temp_val + " := " + temp_val_1 + " " + symbol + " " + temp_val_2 + "\n"
 	t_count += 1
 
-
-
 # Function to handle term nodes
 def termNodes(ASTNode):
 	global code, temp_val, t_count
@@ -121,5 +157,15 @@ def termNodes(ASTNode):
 	temp_val = "t_" + str(t_count)
 	code += "\t" + temp_val + " := " + temp_val_1 + " " + symbol + " " + temp_val_2 + "\n"
 	t_count += 1
+
+# Function to handle boolean nodes
+def booleanNodes(ASTNode):
+	global code, temp_val, t_count
+	convertToIRRec(ASTNode.children[0])
+	temp_val_1 = temp_val
+	convertToIRRec(ASTNode.children[2])
+	temp_val_2 = temp_val
+	symbol = ASTNode.children[1].symbol
+	temp_val = temp_val_1 + " " + symbol + " " + temp_val_2
 
 
