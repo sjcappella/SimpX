@@ -2,7 +2,7 @@ import sys
 
 # Will be used as the general class case
 class ASTNode:
-	# Class constructor
+	# Class function
 	def __init__(self, line_number, token_type, children):
 		self.line_number = line_number
 		self.token_type = token_type
@@ -60,15 +60,16 @@ class TermNode(ASTNode):
 
 
 
-# Factor class in AST (this on may need a little work)
+# Factor class in AST (this may need a little work)
 # Should consider adding a factor type to distinguish between
 # factors of the same length
 class FactorNode(ASTNode):
 	
 	# Constructor factors
-	def __init__(self, line_number, token_type, value, children):
+	def __init__(self, line_number, token_type, factor_type, value, children):
 		self.line_number = line_number
 		self.token_type = token_type
+		self.factor_type = factor_type
 		self.value = value
 		self.children = children
 

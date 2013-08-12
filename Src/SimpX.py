@@ -19,7 +19,7 @@ def lexAndParse(source_path):
    # Print out the original source code
    print("Source Code to execute and analyze:")
    for x in range(len(source_code)):
-      print(source_code[x])
+      sys.stdout.write(source_code[x])
 
    # Send source code for lexical analysis and parsing
    ASTs = []
