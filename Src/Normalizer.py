@@ -1,7 +1,11 @@
+import VMInstruction
+import shlex
+
 t_count = 0
 temp_val = ""
 code = ""
 symbolTable = dict()
+instructions = []
 
 
 # Main function to call to normalize the  code
@@ -12,13 +16,19 @@ def normalize(ASTList):
 	print(code)
 	for key, value in symbolTable.items():
 		print(key, value)
+	for x in range(len(instructions)):
+		instructions[x].printInstruction()
 
 # Conver an AST to IR
 def convertToIR(AST, block_ID):
-	global code
+	global code, instructions
+	code_segment = "BB_" + str(block_ID) + "BEGIN"
 	code += ("BB_%d:BEGIN\n") % (block_ID)
+	instructions.append(VMInstruction.Instruction(code_segment, None))
 	convertToIRRec(AST)
 	code += ("BB_%d:END\n") % (block_ID)
+	code_segment = "BB_" + str(block_ID) + "END"
+	instructions.append(VMInstruction.Instruction(code_segment, None))
 	
 # Recursive function to convert to IR
 def convertToIRRec(ASTNode):
@@ -40,18 +50,22 @@ def statementNodes(ASTNode):
 	global code, temp_val, t_count, symbolTable
 	# Generate code for declaring a new variable
 	if ASTNode.statement_type == "VAR_ID":
-		code += ("\tvar_" + ASTNode.children[1].value + "\n")
-		symbolTable['var_' + ASTNode.children[1].value] = '0'
+		var_id = "var_" + ASTNode.children[1].value
+		code += ("\t" + var_id + "\n")
+		symbolTable[var_id] = ''
+		instructions.append(VMInstruction.Instruction("VAR_ID", (var_id, "")))
 	
 	# Generate code for goto statements
 	if ASTNode.statement_type == "GOTO":
 		convertToIRRec(ASTNode.children[1])
 		code += "\tgoto( BB_" + temp_val + ":BEGIN )\n"
+		instructions.append(VMInstruction.Instruction("GOTO", ("BB_" + temp_val + ":BEGIN", "")))
 
 	# Generate code for assert statements
 	if ASTNode.statement_type == "ASSERT":
 		convertToIRRec(ASTNode.children[1])
 		code += "\tassert( " + temp_val + " )\n"
+		instructions.append(VMInstruction.Instruction("ASSERT", shlex.split(temp_val)))
 
 	# Generate code for assigning an old variable
 	if ASTNode.statement_type == "ASSIGN":

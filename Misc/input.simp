@@ -19,3 +19,4 @@ var counter := 0
 store(memSet + x, 41)
 x := ++x
 if (x < 8) then goto 19 else goto 22
+var testThisVar
