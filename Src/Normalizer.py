@@ -84,7 +84,7 @@ def statementNodes(ASTNode):
 		var_id = "var_" + ASTNode.children[1].value
 		code += ("\t" + var_id + " := " + temp_val + "\n")
 		symbolTable[var_id] = temp_val
-		instructions.append(VMInstruction.Instruction("ASSIGN_NEW", (var_id, temp_val))) 
+		instructions.append(VMInstruction.Instruction("ASSIGN", (var_id, temp_val))) 
 	
 	# Generate code for printing statements
 	if ASTNode.statement_type == "PRINT_OUTPUT":
@@ -114,7 +114,9 @@ def statementNodes(ASTNode):
 		code += "\tif( " + temp_val_1 + " ):\n"
 		code += "\tgoto( " + block_1 + " )\n"
 		code += "\telse goto( " + block_2 + " )\n"
-		instructions.append(VMInstruction.Instruction("BOOLEAN", (temp_val_1, block_1, block_2)))
+		# TODO: FIX THIS SO THE OUTPUT IS CORRECT!!!
+		temp_val_1 = shlex.split(temp_val_1)
+		instructions.append(VMInstruction.Instruction("BOOLEAN", (temp_val_1)))#, block_1, block_2)))
 			
 # Function to handle factor nodes
 def factorNodes(ASTNode):
@@ -137,19 +139,23 @@ def factorNodes(ASTNode):
 		# Negate operation
 		if symbol == "-":
 			code += "\t" + temp_val + " := -1 * " + temp_val_1 + "\n"
-			instructions.append(VMInstruction.Instruction("UNARY", (temp_val, "-")))
+			instructions.append(VMInstruction.Instruction("OP", (temp_val, "-1", "*", temp_val_1)))
 		# Positive operation
 		if symbol == "+":
 			code += "\t" + temp_val + " := 1 * " + temp_val_1 + "\n"
+			instructions.append(VMInstruction.Instruction("OP", (temp_val, "1", "*", temp_val_1)))
 		# Increment operation
 		if symbol == "++":
 			code += "\t" + temp_val + " := " + temp_val_1 + " + 1\n"
+			instructions.append(VMInstruction.Instruction("OP", (temp_val, temp_val, "+", "1")))
 		# Decrement operation
 		if symbol == "--":
 			code += "\t" + temp_val + " := " + temp_val_1 + " - 1\n"
+			instructions.append(VMInstruction.Instruction("OP", (temp_val, temp_val, "+", "1")))
 		# Dereference operation (get value at that memory address)
 		if symbol == "&":
-			code += "\t" + temp_val + " := load( " + temp_val_1 + " )\n"
+			code += "\tload( " + temp_val + " , " + temp_val_1 + " )\n"
+			instructions.append(VMInstruction.Instruction("LOAD", (temp_val, temp_val_1)))
 		t_count += 1 
 		# Add variable to symbol table
 		symbolTable[temp_val] = ''
@@ -166,16 +172,18 @@ def factorNodes(ASTNode):
 		t_count += 1
 		# Add variable to symbol table
 		symbolTable[temp_val] = ''
+		instructions.append(VMInstruction.Instruction("INPUT", (temp_val, "")))
 	
 	# Check for a load statement
 	if ASTNode.factor_type == "LOAD":
 		convertToIRRec(ASTNode.children[2])
 		temp_val_1 = temp_val
 		temp_val = "t_" + str(t_count)
-		code += "\t" + temp_val + " := load( " + temp_val_1 + " )\n"
+		code += "\tload( " + temp_val + " , " + temp_val_1 + " )\n"
 		t_count += 1
 		# Add variable to symbol table
 		symbolTable[temp_val] = ''
+		instructions.append(VMInstruction.Instruction("LOAD", (temp_val, temp_val_1)))
 
 # Function to handle expression nodes
 def expressionNodes(ASTNode):
@@ -190,6 +198,7 @@ def expressionNodes(ASTNode):
 	t_count += 1
 	# Add variable to the symbol table
 	symbolTable[temp_val] = ''
+	instructions.append(VMInstruction.Instruction("OP", (temp_val, temp_val_1, symbol, temp_val_2)))
 
 # Function to handle term nodes
 def termNodes(ASTNode):
@@ -204,6 +213,7 @@ def termNodes(ASTNode):
 	t_count += 1
 	# Add variable to the symbol table
 	symbolTable[temp_val] = ''
+	instructions.append(VMInstruction.Instruction("OP", (temp_val, temp_val_1, symbol, temp_val_2)))
 
 # Function to handle boolean nodes
 def booleanNodes(ASTNode):
