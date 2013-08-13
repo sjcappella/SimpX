@@ -13,21 +13,24 @@ def normalize(ASTList):
 	global code
 	for x in range(len(ASTList)):
 		convertToIR(ASTList[x], x+1) 
+	print("===== IR CODE =====")
 	print(code)
+	print("===== SYMBOL TABLE =====")
 	for key, value in symbolTable.items():
 		print(key, value)
+	print("===== VM INSTRUCTIONS =====")
 	for x in range(len(instructions)):
 		instructions[x].printInstruction()
 
 # Conver an AST to IR
 def convertToIR(AST, block_ID):
 	global code, instructions
-	code_segment = "BB_" + str(block_ID) + "BEGIN"
+	code_segment = "BB_" + str(block_ID) + ":BEGIN"
 	code += ("BB_%d:BEGIN\n") % (block_ID)
 	instructions.append(VMInstruction.Instruction(code_segment, None))
 	convertToIRRec(AST)
 	code += ("BB_%d:END\n") % (block_ID)
-	code_segment = "BB_" + str(block_ID) + "END"
+	code_segment = "BB_" + str(block_ID) + ":END"
 	instructions.append(VMInstruction.Instruction(code_segment, None))
 	
 # Recursive function to convert to IR
@@ -70,19 +73,24 @@ def statementNodes(ASTNode):
 	# Generate code for assigning an old variable
 	if ASTNode.statement_type == "ASSIGN":
 		convertToIRRec(ASTNode.children[2])
-		code += ("\tvar_" + ASTNode.children[0].value + " := " + temp_val + "\n")
+		var_id = "var_" + ASTNode.children[0].value
+		code += ("\t" + var_id + " := " + temp_val + "\n")
+		instructions.append(VMInstruction.Instruction("ASSIGN", (var_id, temp_val)))
 
 	# Generate code for assigning a new variable
 	if ASTNode.statement_type == "ASSIGN_NEW":
 		# Make sure to add variable to symbol table 
 		convertToIRRec(ASTNode.children[3])
-		code += ("\tvar_" + ASTNode.children[1].value + " := " + temp_val + "\n")
-		symbolTable['var_' + ASTNode.children[1].value] = temp_val 
+		var_id = "var_" + ASTNode.children[1].value
+		code += ("\t" + var_id + " := " + temp_val + "\n")
+		symbolTable[var_id] = temp_val
+		instructions.append(VMInstruction.Instruction("ASSIGN_NEW", (var_id, temp_val))) 
 	
 	# Generate code for printing statements
 	if ASTNode.statement_type == "PRINT_OUTPUT":
 		convertToIRRec(ASTNode.children[2])
 		code += "\tprint_output( " + temp_val + " )\n"
+		instructions.append(VMInstruction.Instruction("PRINT_OUTPUT", (temp_val, "")))
 		
 	# Generate code for store statements
 	if ASTNode.statement_type == "STORE":
@@ -91,6 +99,7 @@ def statementNodes(ASTNode):
 		convertToIRRec(ASTNode.children[4])
 		temp_val_2 = temp_val
 		code += "\tstore( " + temp_val_1 + " , " + temp_val_2 + " )\n"
+		instructions.append(VMInstruction.Instruction("STORE", (temp_val_1, temp_val_2)))
 	
 	# Generate code for boolean expressions
 	if ASTNode.statement_type == "BOOLEAN":
@@ -100,9 +109,12 @@ def statementNodes(ASTNode):
 		temp_val_2 = temp_val
 		convertToIRRec(ASTNode.children[9])
 		temp_val_3 = temp_val
+		block_1 = "BB_" + temp_val_2 + ":BEGIN"
+		block_2 = "BB_" + temp_val_3 + ":BEGIN"
 		code += "\tif( " + temp_val_1 + " ):\n"
-		code += "\tgoto( BB_" + temp_val_2 + ":BEGIN )\n"
-		code += "\telse goto( BB_" + temp_val_3 + ":BEGIN )\n"
+		code += "\tgoto( " + block_1 + " )\n"
+		code += "\telse goto( " + block_2 + " )\n"
+		instructions.append(VMInstruction.Instruction("BOOLEAN", (temp_val_1, block_1, block_2)))
 			
 # Function to handle factor nodes
 def factorNodes(ASTNode):
@@ -125,6 +137,7 @@ def factorNodes(ASTNode):
 		# Negate operation
 		if symbol == "-":
 			code += "\t" + temp_val + " := -1 * " + temp_val_1 + "\n"
+			instructions.append(VMInstruction.Instruction("UNARY", (temp_val, "-")))
 		# Positive operation
 		if symbol == "+":
 			code += "\t" + temp_val + " := 1 * " + temp_val_1 + "\n"
