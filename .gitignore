@@ -4,3 +4,6 @@ parsetab.py
 parser.out
 SimpIL.egt
 
+# We won't need this anymore but I don't want to delete it quite yet
+Src\Lexer.py
+
