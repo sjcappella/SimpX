@@ -10,9 +10,9 @@ This file will be used as a list of items that must be addressed.
 
 [x] Generate IR code
 
-[ ] Build symbol table while generating IR
+[x] Build symbol table while generating IR
 
-[ ] Create instructions that will ultimately be executed on VM and used for analysis
+[ ] Create instructions that will ultimately be executed on the VM and used for analysis
 
 [ ] Add support for comments
 

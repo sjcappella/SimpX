@@ -6,7 +6,7 @@ import Normalizer as Normalizer
 def lexAndParse(source_path):
    # Open source code file
    file = open(source_path)
-   
+
    # Read in source code line by line
    source_code = []
    while 1:
@@ -31,7 +31,7 @@ def lexAndParse(source_path):
    return ASTs
 
 def main(argv):
-   
+
    if (len(argv)) < 2:
       print("No input file given. Quitting.")
       exit()
@@ -39,8 +39,8 @@ def main(argv):
       ASTs = lexAndParse(argv[1])
       IR = Normalizer.normalize(ASTs)
 
-   
-   
+
+
 
 if __name__ == "__main__":
     main(sys.argv)
