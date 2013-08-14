@@ -114,9 +114,9 @@ def statementNodes(ASTNode):
 		code += "\tif( " + temp_val_1 + " ):\n"
 		code += "\tgoto( " + block_1 + " )\n"
 		code += "\telse goto( " + block_2 + " )\n"
-		# TODO: FIX THIS SO THE OUTPUT IS CORRECT!!!
 		temp_val_1 = shlex.split(temp_val_1)
-		instructions.append(VMInstruction.Instruction("BOOLEAN", (temp_val_1)))#, block_1, block_2)))
+		temp_val_1 = tuple(temp_val_1)
+		instructions.append(VMInstruction.Instruction("BOOLEAN", (temp_val_1 + (block_1,) + (block_2,))))
 			
 # Function to handle factor nodes
 def factorNodes(ASTNode):
