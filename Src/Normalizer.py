@@ -22,6 +22,9 @@ def normalize(ASTList):
 	for x in range(len(instructions)):
 		instructions[x].printInstruction()
 
+	# Should do some file output for the IR, Symbol Table and VM Instructions
+	return (instructions, symbolTable)
+
 # Conver an AST to IR
 def convertToIR(AST, block_ID):
 	global code, instructions

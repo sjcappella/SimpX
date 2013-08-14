@@ -1,6 +1,7 @@
 import sys
 import Parser as Parser
 import Normalizer as Normalizer
+import VM as VM
 
 # Function to perform lexical analysis and parsing of source code
 def lexAndParse(source_path):
@@ -37,7 +38,10 @@ def main(argv):
       exit()
    else:
       ASTs = lexAndParse(argv[1])
-      IR = Normalizer.normalize(ASTs)
+      Instructions_and_Symbols = Normalizer.normalize(ASTs)
+      inststructions = Instructions_and_Symbols[0]
+      symbols = Instructions_and_Symbols[1]
+      VM.run(inststructions, symbols, True, True)
 
 
 
