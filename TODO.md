@@ -12,7 +12,7 @@ This file will be used as a list of items that must be addressed.
 
 [x] Build symbol table while generating IR
 
-[ ] Create instructions that will ultimately be executed on the VM and used for analysis
+[x] Create instructions that will ultimately be executed on the VM and used for analysis
 
 [ ] Add support for comments in input programs
 
