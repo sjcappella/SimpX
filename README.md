@@ -13,7 +13,7 @@ More options will be added later.
 
 ### Input Language Specification:
 #### Variables:
-All variables that are used but have not been initialized/declared will automatically be assumed to be 0.
+All variables that are used but have not been initialized/declared will be evaluated to be 0 by the interpreter.
 
 #### Using Memory
 The following statements are equivalent:

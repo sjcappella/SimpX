@@ -11,3 +11,4 @@ variable := 6 + 5 + 9 * 10
 store(x, 6)
 store(x+6, 4+6+9)
 assert x < 4
+print_output(x)

@@ -37,7 +37,9 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 			print("Assertion fail! Quitting.")
 			break
 
-	
+	for key, value in symbolTable.items():
+		print(key, value)
+	return symbolTable
 		
 
 # Function to execute each instruction
@@ -75,7 +77,7 @@ def __execute(instructions, programCounter, symbolTable, memory):
 		programState = __booleanInst(instructions, programCounter, symbolTable, memory)
 	# Check for terminate statement
 	elif instruction.instruction_type == "TERMINATE_PROGRAM":
-		programState = (-2, programCounter, symbolTable, memory)
+		programState = (-2, symbolTable, memory)
 	# Keep the program going even if we don't recognize the instruction (consider error instead)
 	else:
 		programState = (programCounter + 1, symbolTable, memory)
@@ -280,7 +282,6 @@ def __booleanInst(instructions, programCounter, symbolTable, memory):
 
 # Function to perform symbol table looks
 def __symTableLookUp(label, symbolTable):
-	print(label)
 	try:
 		int(label)
 		return int(label)

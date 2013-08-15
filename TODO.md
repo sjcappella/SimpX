@@ -14,6 +14,8 @@ This file will be used as a list of items that must be addressed.
 
 [x] Create instructions that will ultimately be executed on the VM and used for analysis
 
+[x] Implement VM
+
 [ ] Add support for comments in input programs
 
 [ ] Create example programs
