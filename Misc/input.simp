@@ -1,5 +1,3 @@
-x := 1
-goto(x)
-goto(x)
-goto(5 + 5)
-goto(5 + x)
+assert x < 4
+var x := 3
+if (x < 8) then goto 19 else goto 22

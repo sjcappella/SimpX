@@ -10,7 +10,7 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 	performTaint = l_performTaint
 	performSE = l_performSE
 
-	memory = []
+	memory = [None] * 65536
 	programCounter = 0
 
 	print("Execute Loop Start")
@@ -30,6 +30,12 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 			break
 		if programCounter == -2:
 			print("Program terminated successfully.")
+			break
+		if programCounter == -3:
+			print("Segmentation Fault!")
+			break
+		if programCounter == -4:
+			print("Assertion fail! Quitting.")
 			break
 		
 
@@ -57,12 +63,15 @@ def __execute(instructions, programCounter, symbolTable, memory):
 	# Store 
 	elif instruction.instruction_type == "STORE":
 		programState = __storeInst(instruction, programCounter, symbolTable, memory)
+	# Load
+	elif instruction.instruction_type == "LOAD":
+		programState = __loadInst(instruction, programCounter, symbolTable, memory)
 	# Assert
 	elif instruction.instruction_type == "ASSERT":
 		programState = __assertInst(instruction, programCounter, symbolTable, memory)
 	# Boolean (must take all the instructions to calculate where to return to)
 	elif instruction.instruction_type == "BOOLEAN":
-		programState = __booleanInst(instruction, programCounter, symbolTable, memory)
+		programState = __booleanInst(instructions, programCounter, symbolTable, memory)
 	elif instruction.instruction_type == "TERMINATE_PROGRAM":
 		programState = (-2, programCounter, symbolTable, memory)
 	else:
@@ -157,7 +166,8 @@ def __assignInst(instruction, programCounter, symbolTable, memory):
 # Function to perform goto instructions
 def __gotoInst(instructions, programCounter, symbolTable, memory):
 	print("Executing goto instruction.")
-	target_address = "BB_" + str(__symTableLookUp(instructions[programCounter].data[0], symbolTable)) + ":BEGIN"
+	instruction = instructions[programCounter]
+	target_address = "BB_" + str(__symTableLookUp(instruction.data[0], symbolTable)) + ":BEGIN"
 	# If we don't find the destination, then we need to crash
 	programCounter = -1
 	for x in range(len(instructions)):
@@ -169,17 +179,102 @@ def __gotoInst(instructions, programCounter, symbolTable, memory):
 # Function to perform store instructions
 def __storeInst(instruction, programCounter, symbolTable, memory):
 	print("Executing store instruction.")
-	return (programCounter + 1, symbolTable, memory)
+	destination = __symTableLookUp(instruction.data[0], symbolTable)
+	value = __symTableLookUp(instruction.data[1], symbolTable)
+	memory[destination] = value
+	programCounter += 1
+	return (programCounter, symbolTable, memory)
+
+# Function to perform load instructions
+def __loadInst(instruction, programCounter, symbolTable, memory):
+	print("Executing load instruction.")
+	mem_index = __symTableLookUp(instruction.data[1], symbolTable)
+	if (memory[mem_index] == None or mem_index < 0):
+		programCounter = -3
+	else:
+		symbolTable[instruction.data[0]] = memory[mem_index]
+		programCounter += 1
+
+	return (programCounter, symbolTable, memory)
 
 # Function to perform assert instructions
 def __assertInst(instruction, programCounter, symbolTable, memory):
 	print("Executing assert instruction.")
-	return (programCounter + 1, symbolTable, memory)
+	lhs = __symTableLookUp(instruction.data[0], symbolTable)
+	rhs = __symTableLookUp(instruction.data[2], symbolTable)
+	if instruction.data[1] == '==':
+		if lhs == rhs:
+			programCounter += 1
+		else:
+			programCounter = -4
+	if instruction.data[1] == '!=':
+		if lhs != rhs:
+			programCounter += 1
+		else:
+			programCounter = -4
+	if instruction.data[1] == '<':
+		if lhs < rhs:
+			programCounter += 1
+		else:
+			programCounter = -4
+	if instruction.data[1] == '>':
+		if lhs > rhs:
+			programCounter += 1
+		else:
+			programCounter = -4
+	if instruction.data[1] == '<=':
+		if lhs <= rhs:
+			programCounter += 1
+		else:
+			programCounter = -4
+	if instruction.data[1] == '>=':
+		if lhs >= rhs:
+			programCounter += 1
+		else:
+			programCounter = -4
+	
+	return (programCounter, symbolTable, memory)
 
 # Function to perform boolean instructions
-def __booleanInst(instruction, programCounter, symbolTable, memory):
+def __booleanInst(instructions, programCounter, symbolTable, memory):
 	print("Executing boolean instruction.")
-	return (programCounter + 1, symbolTable, memory)
+	instruction = instructions[programCounter]
+	lhs = __symTableLookUp(instruction.data[0], symbolTable)
+	rhs = __symTableLookUp(instruction.data[2], symbolTable)
+	
+	take_true = False
+	if instruction.data[1] == '==':
+		if lhs == rhs:
+			take_true = True
+	if instruction.data[1] == '!=':
+		if lhs != rhs:
+			take_true = True
+	if instruction.data[1] == '<':
+		if lhs < rhs:
+			take_true = True
+	if instruction.data[1] == '>':
+		if lhs > rhs:
+			take_true == True
+	if instruction.data[1] == '<=':
+		if lhs <= rhs:
+			take_true == True
+	if instruction.data[1] == '>=':
+		if lhs >= rhs:
+			take_true == True
+
+	if take_true == True:
+		target_address = "BB_" + str(__symTableLookUp(instruction.data[3], symbolTable)) + ":BEGIN"
+	else:
+		target_address = "BB_" + str(__symTableLookUp(instruction.data[4], symbolTable)) + ":BEGIN"
+
+	# If we don't find the destination, then we need to crash
+	programCounter = -3
+	for x in range(len(instructions)):
+		if instructions[x].instruction_type == target_address: 
+			print("Jumping to: %s") % (target_address)
+			programCounter = x
+
+	return (programCounter, symbolTable, memory)
 
 # Function to perform symbol table looks
 def __symTableLookUp(label, symbolTable):

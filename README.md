@@ -12,6 +12,10 @@ Running this platform should be relatively easy. Clone the project onto your loc
 More options will be added later. 
 
 ### Input Language Specification:
+# Variables:
+All variables that are used but have not been initialized/declared will automatically be assumed to be 0.
+
+# Using Memory
 The following statements are equivalent:
 
 	var y := load(4)
@@ -26,4 +30,4 @@ And the same as:
 	var x := 4
 	var y := &x
 
-Both operations will consult the interpreters dynamic memory and retrieve the value located at that memory location.
+Each operation will consult the interpreters dynamic memory and retrieve the value located at that memory location.
