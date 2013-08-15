@@ -330,8 +330,8 @@ def p_rel_op(p):
 	if p[1] == "!=":
 		p[0] = ASTNode.RelopNode(line_number, '!=')
 	if p[1] == '<':
-		p[0] = ASTNode.RelopNode(line_number, '<')
-	if p[1] == '>':
+		p[0] = ASTNode.RelopNode(line_number, '<'
+)	if p[1] == '>':
 		p[0] = ASTNode.RelopNode(line_number, '>')
 	if p[1] == '<=':
 		p[0] = ASTNode.RelopNode(line_number, '<=')
@@ -376,15 +376,9 @@ def parse(source_code, line):
 	# Build the parser
 	parser = yacc.yacc()
 
-	# Parse the source code
-	# For testing the parser
-	#p = parser.parse(source_code, debug=True, tracking=True)
-
 	# Running the parser
 	parser.parse(source_code)
+
+	# Refer to the global AST Set by YACC and return
 	global AST
-	# AST.prettyPrint("", True)
-
-
 	return AST
-	

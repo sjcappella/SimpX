@@ -229,4 +229,3 @@ def booleanNodes(ASTNode):
 	temp_val_2 = temp_val
 	symbol = ASTNode.children[1].symbol
 	temp_val = temp_val_1 + " " + symbol + " " + temp_val_2
-

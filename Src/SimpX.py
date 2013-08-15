@@ -43,8 +43,6 @@ def main(argv):
       symbols = Instructions_and_Symbols[1]
       symbols = VM.run(inststructions, symbols, True, True)
       
-
-
-
+# Check for main function call      
 if __name__ == "__main__":
     main(sys.argv)

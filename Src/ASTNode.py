@@ -203,5 +203,3 @@ class UnaryNode(ASTNode):
 
 		sys.stdout.write(self.symbol)
 		sys.stdout.write("\n")
-		
-
