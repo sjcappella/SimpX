@@ -10,3 +10,13 @@ Running this platform should be relatively easy. Clone the project onto your loc
 	$ python SimpX.py <path/to/input/file.input>
 
 More options will be added later. 
+
+### Input Language Specification:
+The following statements are equivalent:
+
+	var y := load(4)
+
+	var x := 4
+	var y := &x
+
+Both operations will consult the interpreters dynamic memory and retrieve the value located at that memory location.

@@ -14,7 +14,7 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 	programCounter = 0
 
 	print("Execute Loop Start")
-	while programCounter != -1:
+	while True:
 		#print(programCounter)
 		# Execute the next instruction and return the updated progarm state
 		programState = __execute(instructions, programCounter, symbolTable, memory)
@@ -25,6 +25,9 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 		memory = programState[2]
 
 
+		if programCounter == -1:
+			print("Program encounter an error! Aborted!")
+			break
 		if programCounter == -2:
 			print("Program terminated successfully.")
 			break
@@ -33,7 +36,6 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 # Function to execute each instruction
 def __execute(instructions, programCounter, symbolTable, memory):
 	instruction = instructions[programCounter]
-
 	# Perform unary operation
 	if instruction.instruction_type == "UN_OP":
 		programState = __unOpInst(instruction, programCounter, symbolTable, memory)
@@ -49,16 +51,16 @@ def __execute(instructions, programCounter, symbolTable, memory):
 	# Assign values
 	elif instruction.instruction_type == "ASSIGN":
 		programState = __assignInst(instruction, programCounter, symbolTable, memory)
-	# Goto
+	# Goto (must take all the instructions to calculate where to return to)
 	elif instruction.instruction_type == "GOTO":
-		programState = __gotoInst(instruction, programCounter, symbolTable, memory)
+		programState = __gotoInst(instructions, programCounter, symbolTable, memory)
 	# Store 
 	elif instruction.instruction_type == "STORE":
 		programState = __storeInst(instruction, programCounter, symbolTable, memory)
 	# Assert
 	elif instruction.instruction_type == "ASSERT":
 		programState = __assertInst(instruction, programCounter, symbolTable, memory)
-	# Boolean
+	# Boolean (must take all the instructions to calculate where to return to)
 	elif instruction.instruction_type == "BOOLEAN":
 		programState = __booleanInst(instruction, programCounter, symbolTable, memory)
 	elif instruction.instruction_type == "TERMINATE_PROGRAM":
@@ -73,32 +75,96 @@ def __execute(instructions, programCounter, symbolTable, memory):
 # Function to perform the unary operation instructions
 def __unOpInst(instruction, programCounter, symbolTable, memory):
 	print("Executing unary op instruction.")
-	return (programCounter + 1, symbolTable, memory)
+	lhs = __symTableLookUp(instruction.data[1], symbolTable)
+	rhs = __symTableLookUp(instruction.data[3], symbolTable)
+	instruction.printInstruction()
+	print("Unary op on %d and %d.") % (lhs, rhs)
+	
+	if instruction.data[2] == '*':
+		answer = lhs * rhs
+	if instruction.data[2] == '+':
+		answer = lhs + rhs
+	if instruction.data[2] == '-':
+		answer = lhs - rhs
+
+	symbolTable[instruction.data[0]] = answer
+
+	programCounter += 1
+	return (programCounter, symbolTable, memory)
 
 # Function to perform the binary operation instructions
 def __binOpInst(instruction, programCounter, symbolTable, memory):
 	print("Executing binary op instruction.")
-	return (programCounter + 1, symbolTable, memory)
+	lhs = __symTableLookUp(instruction.data[1], symbolTable)
+	rhs = __symTableLookUp(instruction.data[3], symbolTable)
+	instruction.printInstruction()
+	print("Binary op on %d and %d.") % (lhs, rhs)
+	
+	if instruction.data[2] == '*':
+		answer = lhs * rhs
+	if instruction.data[2] == '/':
+		answer = math.floor(lhs / rhs)
+	if instruction.data[2] == '+':
+		answer = lhs + rhs
+	if instruction.data[2] == '-':
+		answer = lhs - rhs
+	if instruction.data[2] == '^':
+		answer = lhs ^ rhs
+	if instruction.data[2] == '|':
+		answer = lhs | rhs
+	if instruction.data[2] == '&':
+		answer = lhs & rhs
+	if instruction.data[2] == '%':
+		answer = lhs % rhs
+
+	symbolTable[instruction.data[0]] = answer
+
+	programCounter += 1
+	return (programCounter, symbolTable, memory)
 
 # Function to perform the input operation instructions
 def __inputInst(instruction, programCounter, symbolTable, memory):
 	print("Executing input instruction.")
-	return (programCounter + 1, symbolTable, memory)
+	print("User input interrupt! Enter an integer:")
+	while True:
+		try:
+			user_input = int(raw_input())
+			break
+		except ValueError:
+			print("ONLY INTEGERS ACCEPTED!")
+			print("Enter an integer:")
+	
+	symbolTable[instruction.data[0]] = user_input
+	programCounter += 1
+	return (programCounter, symbolTable, memory)
 
 # Function to perform output instructions
 def __printOutInst(instruction, programCounter, symbolTable, memory):
 	print("Executing print instruction.")
-	return (programCounter + 1, symbolTable, memory)
+	print("Console output interrupt.")
+	value = __symTableLookUp(instruction.data[0], symbolTable)
+	print(">>> %d") % (value)
+	programCounter += 1
+	return (programCounter, symbolTable, memory)
 
 # Function perform assignment instructions
 def __assignInst(instruction, programCounter, symbolTable, memory):
 	print("Executing assign instruction.")
-	return (programCounter + 1, symbolTable, memory)
+	symbolTable[instruction.data[0]] = __symTableLookUp(instruction.data[1], symbolTable)
+	programCounter += 1
+	return (programCounter, symbolTable, memory)
 
 # Function to perform goto instructions
-def __gotoInst(instruction, programCounter, symbolTable, memory):
+def __gotoInst(instructions, programCounter, symbolTable, memory):
 	print("Executing goto instruction.")
-	return (programCounter + 1, symbolTable, memory)
+	target_address = "BB_" + str(__symTableLookUp(instructions[programCounter].data[0], symbolTable)) + ":BEGIN"
+	# If we don't find the destination, then we need to crash
+	programCounter = -1
+	for x in range(len(instructions)):
+		if instructions[x].instruction_type == target_address: 
+			print("Jumping to: %s") % (target_address)
+			programCounter = x
+	return (programCounter, symbolTable, memory)
 
 # Function to perform store instructions
 def __storeInst(instruction, programCounter, symbolTable, memory):
@@ -114,3 +180,18 @@ def __assertInst(instruction, programCounter, symbolTable, memory):
 def __booleanInst(instruction, programCounter, symbolTable, memory):
 	print("Executing boolean instruction.")
 	return (programCounter + 1, symbolTable, memory)
+
+# Function to perform symbol table looks
+def __symTableLookUp(label, symbolTable):
+	print(label)
+	try:
+		int(label)
+		return int(label)
+	except:
+		if label in symbolTable:
+			if symbolTable[label] == '':
+				return 0
+			else:
+				return int(symbolTable[label])
+		else:
+			return 0

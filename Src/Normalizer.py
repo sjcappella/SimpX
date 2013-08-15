@@ -67,7 +67,7 @@ def statementNodes(ASTNode):
 	if ASTNode.statement_type == "GOTO":
 		convertToIRRec(ASTNode.children[1])
 		code += "\tgoto( BB_" + temp_val + ":BEGIN )\n"
-		instructions.append(VMInstruction.Instruction("GOTO", ("BB_" + temp_val + ":BEGIN", "")))
+		instructions.append(VMInstruction.Instruction("GOTO", (temp_val, "")))
 
 	# Generate code for assert statements
 	if ASTNode.statement_type == "ASSERT":
@@ -121,7 +121,7 @@ def statementNodes(ASTNode):
 		code += "\telse goto( " + block_2 + " )\n"
 		temp_val_1 = shlex.split(temp_val_1)
 		temp_val_1 = tuple(temp_val_1)
-		instructions.append(VMInstruction.Instruction("BOOLEAN", (temp_val_1 + (block_1,) + (block_2,))))
+		instructions.append(VMInstruction.Instruction("BOOLEAN", (temp_val_1 + (temp_val_2,) + (temp_val_3,))))
 			
 # Function to handle factor nodes
 def factorNodes(ASTNode):
