@@ -12,7 +12,9 @@ instructions = []
 def normalize(ASTList):
 	global code
 	for x in range(len(ASTList)):
-		convertToIR(ASTList[x], x+1) 
+		convertToIR(ASTList[x], x+1)
+	code += ("TERMINATE_PROGRAM\n")
+	instructions.append(VMInstruction.Instruction("TERMINATE_PROGRAM", None)) 
 	print("===== IR CODE =====")
 	print(code)
 	print("===== SYMBOL TABLE =====")
@@ -142,19 +144,19 @@ def factorNodes(ASTNode):
 		# Negate operation
 		if symbol == "-":
 			code += "\t" + temp_val + " := -1 * " + temp_val_1 + "\n"
-			instructions.append(VMInstruction.Instruction("OP", (temp_val, "-1", "*", temp_val_1)))
+			instructions.append(VMInstruction.Instruction("UN_OP", (temp_val, "-1", "*", temp_val_1)))
 		# Positive operation
 		if symbol == "+":
 			code += "\t" + temp_val + " := 1 * " + temp_val_1 + "\n"
-			instructions.append(VMInstruction.Instruction("OP", (temp_val, "1", "*", temp_val_1)))
+			instructions.append(VMInstruction.Instruction("UN_OP", (temp_val, "1", "*", temp_val_1)))
 		# Increment operation
 		if symbol == "++":
 			code += "\t" + temp_val + " := " + temp_val_1 + " + 1\n"
-			instructions.append(VMInstruction.Instruction("OP", (temp_val, temp_val, "+", "1")))
+			instructions.append(VMInstruction.Instruction("UN_OP", (temp_val, temp_val, "+", "1")))
 		# Decrement operation
 		if symbol == "--":
 			code += "\t" + temp_val + " := " + temp_val_1 + " - 1\n"
-			instructions.append(VMInstruction.Instruction("OP", (temp_val, temp_val, "+", "1")))
+			instructions.append(VMInstruction.Instruction("UN_OP", (temp_val, temp_val, "+", "1")))
 		# Dereference operation (get value at that memory address)
 		if symbol == "&":
 			code += "\tload( " + temp_val + " , " + temp_val_1 + " )\n"
@@ -201,7 +203,7 @@ def expressionNodes(ASTNode):
 	t_count += 1
 	# Add variable to the symbol table
 	symbolTable[temp_val] = ''
-	instructions.append(VMInstruction.Instruction("OP", (temp_val, temp_val_1, symbol, temp_val_2)))
+	instructions.append(VMInstruction.Instruction("BIN_OP", (temp_val, temp_val_1, symbol, temp_val_2)))
 
 # Function to handle term nodes
 def termNodes(ASTNode):
@@ -216,7 +218,7 @@ def termNodes(ASTNode):
 	t_count += 1
 	# Add variable to the symbol table
 	symbolTable[temp_val] = ''
-	instructions.append(VMInstruction.Instruction("OP", (temp_val, temp_val_1, symbol, temp_val_2)))
+	instructions.append(VMInstruction.Instruction("BIN_OP", (temp_val, temp_val_1, symbol, temp_val_2)))
 
 # Function to handle boolean nodes
 def booleanNodes(ASTNode):
