@@ -12,7 +12,7 @@ Running this platform should be relatively easy. Clone the project onto your loc
 More options will be added later. 
 
 ### Input Language Specification:
-# Variables:
+#### Variables:
 All variables that are used but have not been initialized/declared will automatically be assumed to be 0.
 
 #### Using Memory
