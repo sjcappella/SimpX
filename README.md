@@ -15,7 +15,7 @@ More options will be added later.
 # Variables:
 All variables that are used but have not been initialized/declared will automatically be assumed to be 0.
 
-# Using Memory
+#### Using Memory
 The following statements are equivalent:
 
 	var y := load(4)
@@ -30,4 +30,4 @@ And the same as:
 	var x := 4
 	var y := &x
 
-Each operation will consult the interpreters dynamic memory and retrieve the value located at that memory location.
+Each operation will consult the interpreter's dynamic memory and retrieve the value located at that memory location.

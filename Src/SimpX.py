@@ -41,8 +41,8 @@ def main(argv):
       Instructions_and_Symbols = Normalizer.normalize(ASTs)
       inststructions = Instructions_and_Symbols[0]
       symbols = Instructions_and_Symbols[1]
-      VM.run(inststructions, symbols, True, True)
-
+      symbols = VM.run(inststructions, symbols, True, True)
+      
 
 
 

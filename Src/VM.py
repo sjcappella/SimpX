@@ -3,19 +3,18 @@ performSE = False
 
 # Function to run the virtual machine
 def run(instructions, symbolTable, l_performTaint, l_performSE):
-	#self.instructions = instructions
-	#self.symbolTable = symbolTable
-	
+
+	# Will enable or disable taint analysis and symbolic execution
 	global performTaint, performSE
 	performTaint = l_performTaint
 	performSE = l_performSE
 
+	# Initialize memory and the program counter
 	memory = [None] * 65536
 	programCounter = 0
 
 	print("Execute Loop Start")
 	while True:
-		#print(programCounter)
 		# Execute the next instruction and return the updated progarm state
 		programState = __execute(instructions, programCounter, symbolTable, memory)
 		
@@ -24,7 +23,7 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 		symbolTable = programState[1]
 		memory = programState[2]
 
-
+		# Check our program's status
 		if programCounter == -1:
 			print("Program encounter an error! Aborted!")
 			break
@@ -37,6 +36,8 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 		if programCounter == -4:
 			print("Assertion fail! Quitting.")
 			break
+
+	
 		
 
 # Function to execute each instruction
@@ -72,12 +73,13 @@ def __execute(instructions, programCounter, symbolTable, memory):
 	# Boolean (must take all the instructions to calculate where to return to)
 	elif instruction.instruction_type == "BOOLEAN":
 		programState = __booleanInst(instructions, programCounter, symbolTable, memory)
+	# Check for terminate statement
 	elif instruction.instruction_type == "TERMINATE_PROGRAM":
 		programState = (-2, programCounter, symbolTable, memory)
+	# Keep the program going even if we don't recognize the instruction (consider error instead)
 	else:
 		programState = (programCounter + 1, symbolTable, memory)
 		
-
 	# Return the updated program state
 	return programState
 
@@ -86,9 +88,8 @@ def __unOpInst(instruction, programCounter, symbolTable, memory):
 	print("Executing unary op instruction.")
 	lhs = __symTableLookUp(instruction.data[1], symbolTable)
 	rhs = __symTableLookUp(instruction.data[3], symbolTable)
-	instruction.printInstruction()
-	print("Unary op on %d and %d.") % (lhs, rhs)
-	
+
+	# Check for correct operation symbol
 	if instruction.data[2] == '*':
 		answer = lhs * rhs
 	if instruction.data[2] == '+':
@@ -96,6 +97,7 @@ def __unOpInst(instruction, programCounter, symbolTable, memory):
 	if instruction.data[2] == '-':
 		answer = lhs - rhs
 
+	# Update the answer
 	symbolTable[instruction.data[0]] = answer
 
 	programCounter += 1
@@ -106,9 +108,8 @@ def __binOpInst(instruction, programCounter, symbolTable, memory):
 	print("Executing binary op instruction.")
 	lhs = __symTableLookUp(instruction.data[1], symbolTable)
 	rhs = __symTableLookUp(instruction.data[3], symbolTable)
-	instruction.printInstruction()
-	print("Binary op on %d and %d.") % (lhs, rhs)
 	
+	# Check for corret operation symbol
 	if instruction.data[2] == '*':
 		answer = lhs * rhs
 	if instruction.data[2] == '/':
@@ -126,6 +127,7 @@ def __binOpInst(instruction, programCounter, symbolTable, memory):
 	if instruction.data[2] == '%':
 		answer = lhs % rhs
 
+	# Update the answer
 	symbolTable[instruction.data[0]] = answer
 
 	programCounter += 1
