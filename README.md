@@ -16,6 +16,13 @@ The following statements are equivalent:
 
 	var y := load(4)
 
+Is the same as:
+
+	var x := 4
+	var y := load(x)
+
+And the same as:
+	
 	var x := 4
 	var y := &x
 
