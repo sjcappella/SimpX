@@ -330,8 +330,8 @@ def p_rel_op(p):
 	if p[1] == "!=":
 		p[0] = ASTNode.RelopNode(line_number, '!=')
 	if p[1] == '<':
-		p[0] = ASTNode.RelopNode(line_number, '<'
-)	if p[1] == '>':
+		p[0] = ASTNode.RelopNode(line_number, '<')
+	if p[1] == '>':
 		p[0] = ASTNode.RelopNode(line_number, '>')
 	if p[1] == '<=':
 		p[0] = ASTNode.RelopNode(line_number, '<=')

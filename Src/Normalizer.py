@@ -40,7 +40,6 @@ def convertToIR(AST, block_ID):
 	
 # Recursive function to convert to IR
 def convertToIRRec(ASTNode):
-	# Can remove this after testing
 	global code
 	if ASTNode.token_type == "STATEMENT":
 		statementNodes(ASTNode)

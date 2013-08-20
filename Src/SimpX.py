@@ -26,8 +26,9 @@ def lexAndParse(source_path):
    ASTs = []
    for x in range(len(source_code)):
       AST = Parser.parse(source_code[x], x+1)
-      AST.prettyPrint("", True)
-      ASTs.append(AST)
+      if AST != None:
+         AST.prettyPrint("", True)
+         ASTs.append(AST)
 
    return ASTs
 

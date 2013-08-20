@@ -37,8 +37,10 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 			print("Assertion fail! Quitting.")
 			break
 
+	print("\nFinal variable values:")
 	for key, value in symbolTable.items():
-		print(key, value)
+		if key[0] != 't':
+			print("%s = %s") % (key[4:], value)
 	return symbolTable
 		
 
@@ -280,7 +282,7 @@ def __booleanInst(instructions, programCounter, symbolTable, memory):
 
 	return (programCounter, symbolTable, memory)
 
-# Function to perform symbol table looks
+# Function to perform symbol table look ups
 def __symTableLookUp(label, symbolTable):
 	try:
 		int(label)
