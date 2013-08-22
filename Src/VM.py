@@ -1,5 +1,9 @@
+import TaintAnalysis as TaintAnalysis
+import SymbolicExecution as SymbolicExecution
+
 performTaint = False
 performSE = False
+taint = None
 
 # Function to run the virtual machine
 def run(instructions, symbolTable, l_performTaint, l_performSE):
@@ -8,6 +12,9 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 	global performTaint, performSE
 	performTaint = l_performTaint
 	performSE = l_performSE
+	if (performTaint):
+		global taint
+		taint = TaintAnalysis.TaintAnalysis()
 
 	# Initialize memory and the program counter
 	memory = [None] * 65536
@@ -37,10 +44,15 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 			print("Assertion fail! Quitting.")
 			break
 
-	print("\nFinal variable values:")
+	print("\nFinal Variable Values:")
 	for key, value in symbolTable.items():
 		if key[0] != 't':
 			print("%s = %s") % (key[4:], value)
+	if (performTaint):
+		print("\nFinal Taint Values:")
+		global taint
+		taint.printTaintedResults()
+
 	return symbolTable
 		
 
@@ -104,6 +116,11 @@ def __unOpInst(instruction, programCounter, symbolTable, memory):
 	# Update the answer
 	symbolTable[instruction.data[0]] = answer
 
+	# Perform taint analysis if option is set
+	if (performTaint):
+		global taint
+		taint.propagateTaintBinOp(instruction.data[0], instruction.data[1], instruction.data[3], instruction.data[2])
+
 	programCounter += 1
 	return (programCounter, symbolTable, memory)
 
@@ -134,6 +151,11 @@ def __binOpInst(instruction, programCounter, symbolTable, memory):
 	# Update the answer
 	symbolTable[instruction.data[0]] = answer
 
+	# Perform taint analysis if option is set
+	if (performTaint):
+		global taint
+		taint.propagateTaintBinOp(instruction.data[0], instruction.data[1], instruction.data[3], instruction.data[2])
+
 	programCounter += 1
 	return (programCounter, symbolTable, memory)
 
@@ -150,6 +172,12 @@ def __inputInst(instruction, programCounter, symbolTable, memory):
 			print("Enter an integer:")
 	
 	symbolTable[instruction.data[0]] = user_input
+	
+	# Perform taint analysis if option is set
+	if (performTaint):
+		global taint
+		taint.propagateTaintInput(instruction.data[0])
+
 	programCounter += 1
 	return (programCounter, symbolTable, memory)
 
@@ -166,6 +194,12 @@ def __printOutInst(instruction, programCounter, symbolTable, memory):
 def __assignInst(instruction, programCounter, symbolTable, memory):
 	print("Executing assign instruction.")
 	symbolTable[instruction.data[0]] = __symTableLookUp(instruction.data[1], symbolTable)
+	
+	# Perform taint analysis if option is set
+	if (performTaint):
+		global taint
+		taint.propagateTaintAssign(instruction.data[0], instruction.data[1])
+
 	programCounter += 1
 	return (programCounter, symbolTable, memory)
 
@@ -188,6 +222,12 @@ def __storeInst(instruction, programCounter, symbolTable, memory):
 	destination = __symTableLookUp(instruction.data[0], symbolTable)
 	value = __symTableLookUp(instruction.data[1], symbolTable)
 	memory[destination] = value
+	
+	# Propagate taint if option is set
+	if (performTaint):
+		global taint
+		taint.propagateTaintStore(destination, instruction.data[1])
+
 	programCounter += 1
 	return (programCounter, symbolTable, memory)
 
@@ -200,6 +240,11 @@ def __loadInst(instruction, programCounter, symbolTable, memory):
 	else:
 		symbolTable[instruction.data[0]] = memory[mem_index]
 		programCounter += 1
+
+	# Propagate taint if option is set
+	if (performTaint):
+		global taint
+		taint.propagateTaintLoad(mem_index, instruction.data[0])
 
 	return (programCounter, symbolTable, memory)
 
