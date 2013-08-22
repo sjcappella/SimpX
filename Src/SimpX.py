@@ -22,6 +22,8 @@ def lexAndParse(source_path):
    for x in range(len(source_code)):
       sys.stdout.write(source_code[x])
 
+   print("\n")
+
    # Send source code for lexical analysis and parsing
    ASTs = []
    for x in range(len(source_code)):
@@ -40,9 +42,9 @@ def main(argv):
    else:
       ASTs = lexAndParse(argv[1])
       Instructions_and_Symbols = Normalizer.normalize(ASTs)
-      inststructions = Instructions_and_Symbols[0]
+      instructions = Instructions_and_Symbols[0]
       symbols = Instructions_and_Symbols[1]
-      symbols = VM.run(inststructions, symbols, True, True)
+      symbols = VM.run(instructions, symbols, True, True)
       
 # Check for main function call      
 if __name__ == "__main__":

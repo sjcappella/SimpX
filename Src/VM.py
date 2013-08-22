@@ -1,3 +1,4 @@
+import sys
 import TaintAnalysis as TaintAnalysis
 import SymbolicExecution as SymbolicExecution
 
@@ -164,11 +165,12 @@ def __inputInst(instruction, programCounter, symbolTable, memory):
 	print("Executing input instruction.")
 	print("User input interrupt! Enter an integer:")
 	while True:
+		sys.stdout.write(">>> ")
 		try:
 			user_input = int(raw_input())
 			break
 		except ValueError:
-			print("ONLY INTEGERS ACCEPTED!")
+			print("\nONLY INTEGERS ACCEPTED!")
 			print("Enter an integer:")
 	
 	symbolTable[instruction.data[0]] = user_input
