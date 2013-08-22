@@ -18,20 +18,20 @@ def lexAndParse(source_path):
          source_code.append(line)
 
    # Print out the original source code
-   print("Source Code to execute and analyze:")
+   print("\n::======= INPUT SOURCE CODE START =======::\n")
    for x in range(len(source_code)):
       sys.stdout.write(source_code[x])
-
-   print("\n")
-
+   print("\n::======= INPUT SOURCE CODE END =======::\n")
+   
    # Send source code for lexical analysis and parsing
+   print("\n::======= ASTs START =======::\n")   
    ASTs = []
    for x in range(len(source_code)):
       AST = Parser.parse(source_code[x], x+1)
       if AST != None:
          AST.prettyPrint("", True)
          ASTs.append(AST)
-
+   print("\n::======= ASTs END =======::\n")
    return ASTs
 
 def main(argv):

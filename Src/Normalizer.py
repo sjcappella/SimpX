@@ -15,14 +15,17 @@ def normalize(ASTList):
 		convertToIR(ASTList[x], x+1)
 	code += ("TERMINATE_PROGRAM\n")
 	instructions.append(VMInstruction.Instruction("TERMINATE_PROGRAM", None)) 
-	print("===== IR CODE =====")
+	print("\n::======= IR CODE BEGIN =======::\n")
 	print(code)
-	print("===== SYMBOL TABLE =====")
+	print("\n::======= IR CODE END =======::\n")
+	print("\n::======= SYMBOL TABLE START =======::\n")
 	for key, value in symbolTable.items():
 		print(key, value)
-	print("===== VM INSTRUCTIONS =====")
+	print("\n::======= SYMBOL TABLE END =======::\n")
+	print("\n::======= VM INSTRUCTIONS START =======::\n")
 	for x in range(len(instructions)):
 		instructions[x].printInstruction()
+	print("\n::======= VM INSTRUCTIONS END =======::\n")
 
 	# Should do some file output for the IR, Symbol Table and VM Instructions
 	return (instructions, symbolTable)

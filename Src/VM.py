@@ -21,7 +21,7 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 	memory = [None] * 65536
 	programCounter = 0
 
-	print("Execute Loop Start")
+	print("\n::======= EXECUTE LOOP STARTED =======::\n")
 	while True:
 		# Execute the next instruction and return the updated progarm state
 		programState = __execute(instructions, programCounter, symbolTable, memory)
@@ -45,12 +45,14 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 			print("Assertion fail! Quitting.")
 			break
 
-	print("\nFinal Variable Values:")
+	print("\n::======= EXECUTE LOOP END =======::\n")
+	print("::======= MACHINE END STATE =======::\n")
+	print("\n::VARIABLES::\n")
 	for key, value in symbolTable.items():
 		if key[0] != 't':
 			print("%s = %s") % (key[4:], value)
 	if (performTaint):
-		print("\nFinal Taint Values:")
+		print("\n::== TAINT STATUS ==::")
 		global taint
 		taint.printTaintedResults()
 
@@ -211,7 +213,7 @@ def __gotoInst(instructions, programCounter, symbolTable, memory):
 	instruction = instructions[programCounter]
 	target_address = "BB_" + str(__symTableLookUp(instruction.data[0], symbolTable)) + ":BEGIN"
 	# If we don't find the destination, then we need to crash
-	programCounter = -1
+	programCounter = -3
 	for x in range(len(instructions)):
 		if instructions[x].instruction_type == target_address: 
 			print("Jumping to: %s") % (target_address)
