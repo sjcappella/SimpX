@@ -47,8 +47,10 @@ class TaintAnalysis:
 		else:
 			self.symbolTable[label] = False
 
-
-
+	# Function to see if we are jumping to an address that has been tainted
+	def taintedJump(self, destination):
+		if (TaintAnalysis.isTaintedSym(self, destination)):
+			print(" <<< UNSAFE JUMP! VALUE HAS BEEN TAINTED! >>>")
 
 
 	# Function to see if a symbol is tainted or not 
@@ -60,7 +62,7 @@ class TaintAnalysis:
 		except:
 			if symbol in self.symbolTable:
 				return self.symbolTable[symbol]
-			# May not want this. Need to test.
+			# Adding value and saying it is not tainted
 			else:
 				self.symbolTable[symbol] = False
 				return False
@@ -70,7 +72,7 @@ class TaintAnalysis:
 		# We are using a dictionary, so the index value will actually be a string
 		if str(index) in self.memory:
 			return self.memory[str(index)]
-		# May not want this. Need to test. May want to add?
+		# Adding value and saying it is not tainted
 		else:
 			self.symbolTable[index] = False
 			return False

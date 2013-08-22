@@ -214,6 +214,11 @@ def __gotoInst(instructions, programCounter, symbolTable, memory):
 		if instructions[x].instruction_type == target_address: 
 			print("Jumping to: %s") % (target_address)
 			programCounter = x
+	
+	# Check for tainted jump
+	if (performTaint):
+		taint.taintedJump(instruction.data[0])
+
 	return (programCounter, symbolTable, memory)
 
 # Function to perform store instructions
