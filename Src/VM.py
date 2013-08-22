@@ -113,7 +113,7 @@ def __binOpInst(instruction, programCounter, symbolTable, memory):
 	lhs = __symTableLookUp(instruction.data[1], symbolTable)
 	rhs = __symTableLookUp(instruction.data[3], symbolTable)
 	
-	# Check for corret operation symbol
+	# Check for correct operation symbol
 	if instruction.data[2] == '*':
 		answer = lhs * rhs
 	if instruction.data[2] == '/':
