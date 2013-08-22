@@ -16,6 +16,10 @@ This file will be used as a list of items that must be addressed.
 
 [x] Implement VM
 
+[x] Add dynamic taint tracking capabilities
+
+[x] Determine when jump target is influenced by tainted input
+
 [ ] Add support for comments in input programs
 
 [ ] Create example programs
