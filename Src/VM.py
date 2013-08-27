@@ -46,11 +46,16 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 			break
 
 	print("\n::======= EXECUTE LOOP END =======::\n")
-	print("::======= MACHINE END STATE =======::\n")
+	print("::======= MACHINE END STATE =======::")
 	print("\n::VARIABLES::\n")
 	for key, value in symbolTable.items():
 		if key[0] != 't':
 			print("%s = %s") % (key[4:], value)
+	print("\n::MEMORY::\n")
+	for x in range(len(memory)):
+		if memory[x] != None:
+			print("Memory[ %d ] = %d") % (x, memory[x])
+	print("\n")
 	if (performTaint):
 		print("\n::== TAINT STATUS ==::")
 		global taint
@@ -235,7 +240,7 @@ def __storeInst(instruction, programCounter, symbolTable, memory):
 	# Propagate taint if option is set
 	if (performTaint):
 		global taint
-		taint.propagateTaintStore(int(destination), instruction.data[1])
+		taint.propagateTaintStore(destination, instruction.data[1])
 
 	programCounter += 1
 	return (programCounter, symbolTable, memory)

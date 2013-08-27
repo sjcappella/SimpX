@@ -71,13 +71,13 @@ class TaintAnalysis:
 			return self.memory[str(index)]
 		# Adding value and saying it is not tainted
 		else:
-			self.memory[index] = False
+			self.memory[str(index)] = False
 			return False
 
 	# Function to print tainted results
 	def printTaintedResults(self):
 		# Symbols
-		print("\n::SYMBOLS::")
+		print("\n::VARIABLES::")
 		for key, value in self.symbolTable.items():
 			print(key, value)
 
