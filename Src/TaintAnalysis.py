@@ -79,9 +79,9 @@ class TaintAnalysis:
 		# Symbols
 		print("\n::VARIABLES::")
 		for key, value in self.symbolTable.items():
-			print(key, value)
+			print("%s = %s") % (key, value)
 
 		# Memory
 		print("\n::MEMORY::")
 		for key, value in self.memory.items():
-			print(key, value)
+			print("Memory[ %s ] = %s") % (key, value)
