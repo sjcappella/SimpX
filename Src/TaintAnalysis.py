@@ -32,9 +32,9 @@ class TaintAnalysis:
 	def propagateTaintStore(self, memoryDestination, label):
 		if (TaintAnalysis.isTaintedSym(self, label)):
 			print("[ TAINT ] Propagating taint from %s to memory address %s.") % (str(label), str(memoryDestination))
-			self.memory[memoryDestination] = True
+			self.memory[str(memoryDestination)] = True
 		else:
-			self.memory[memoryDestination] = False
+			self.memory[str(memoryDestination)] = False
 
 	# Function to handle taint propagation based on load instructions
 	def propagateTaintLoad(self, memorySource, label):
@@ -71,7 +71,7 @@ class TaintAnalysis:
 			return self.memory[str(index)]
 		# Adding value and saying it is not tainted
 		else:
-			self.symbolTable[index] = False
+			self.memory[index] = False
 			return False
 
 	# Function to print tainted results

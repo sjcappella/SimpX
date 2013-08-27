@@ -1,5 +1,4 @@
-var x := 0
-x := ++x
-print_output(x)
-if (x < 100) then goto 2 else goto 5
-assert x == 100
+var x := get_input()
+store(1, x)
+var y := load(1)
+print_output(y)

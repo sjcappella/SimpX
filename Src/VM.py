@@ -235,7 +235,7 @@ def __storeInst(instruction, programCounter, symbolTable, memory):
 	# Propagate taint if option is set
 	if (performTaint):
 		global taint
-		taint.propagateTaintStore(destination, instruction.data[1])
+		taint.propagateTaintStore(int(destination), instruction.data[1])
 
 	programCounter += 1
 	return (programCounter, symbolTable, memory)

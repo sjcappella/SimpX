@@ -20,6 +20,10 @@ This file will be used as a list of items that must be addressed.
 
 [x] Determine when jump target is influenced by tainted input
 
+[ ] Add symbolic execution functionality
+
+[ ] Interface with constraint solver
+
 [ ] Add support for comments in input programs
 
 [ ] Create example programs
