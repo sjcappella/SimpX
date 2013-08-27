@@ -1,0 +1,11 @@
+var x := 1 + 2 + 1
+var y := 3 * 4 + x
+var z := get_input()
+var a := x + y - z
+var b := 0
+var c := a + b
+b := a * c
+var d := b + b
+store(x, z)
+var a := load(x)
+goto 1 + b
