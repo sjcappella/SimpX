@@ -46,7 +46,7 @@ def main(argv):
       instructions = Instructions_and_Symbols[0]
       symbols = Instructions_and_Symbols[1]
       symbols = VM.run(instructions, symbols, True, True)
-      si = SymbolicExecution.SymbolicInterpreter(instructions, 0, symbols, None, "")
+      si = SymbolicExecution.SymbolicInterpreter(instructions, 0, symbols, None, "", 0)
       si.run()
 
       

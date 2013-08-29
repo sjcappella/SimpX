@@ -3,13 +3,14 @@ import time
 
 # Extend the thread class for the symbolic interpreter
 class SymbolicInterpreter(threading.Thread):
-	def __init__(self, instructions, currentInstruction, symVariables, symMemory, precondition):
+	def __init__(self, instructions, currentInstruction, symVariables, symMemory, precondition, symbolCount):
 		threading.Thread.__init__(self)
 		self.instructions = instructions
 		self.currentInstruction = currentInstruction
 		self.symVariables = symVariables
 		self.symMemory = symMemory
 		self.precondition = precondition
+		self.symbolCount = symbolCount
 
 	def run(self):
 		print("\n\nSymbolic Execution")
@@ -24,6 +25,11 @@ class SymbolicInterpreter(threading.Thread):
 			# Check
 			if programCounter == -2:
 				break
+
+		print("Path Condition:")
+		self.precondition = "(" + self.precondition + ")"
+		print(self.precondition)
+
 
 	def __execute(self, programCounter):
 		instruction = self.instructions[programCounter]
@@ -84,9 +90,11 @@ class SymbolicInterpreter(threading.Thread):
 		self.symVariables[instruction.data[0]] = instruction.data[1] + " " + instruction.data[2] +  " " + instruction.data[3]
 		if self.precondition == "":
 			self.precondition = "(" + instruction.data[0] + " = " + self.symVariables[instruction.data[0]] + ")"
+			#self.precondition = instruction.data[0] + " = " + self.symVariables[instruction.data[0]] 
 		else:
 			self.precondition += " ^ (" + instruction.data[0] + " = " + self.symVariables[instruction.data[0]] + ")"
-		print("Path Condition: %s") % (self.precondition)
+			#self.precondition += ", " + instruction.data[0] + " = " + self.symVariables[instruction.data[0]]
+		#print("Path Condition: %s") % (self.precondition)
 
 		programCounter += 1
 		return programCounter
@@ -96,9 +104,11 @@ class SymbolicInterpreter(threading.Thread):
 		self.symVariables[instruction.data[0]] = instruction.data[1] + " " + instruction.data[2] +  " " + instruction.data[3]
 		if self.precondition == "":
 			self.precondition = "(" + instruction.data[0] + " = " + self.symVariables[instruction.data[0]] + ")"
+			#self.precondition =  instruction.data[0] + " = " + self.symVariables[instruction.data[0]] 
 		else:
 			self.precondition += " ^ (" + instruction.data[0] + " = " + self.symVariables[instruction.data[0]] + ")"
-		print("Path Condition: %s") % (self.precondition)
+			#self.precondition += ", " + instruction.data[0] + " = " + self.symVariables[instruction.data[0]]
+		#print("Path Condition: %s") % (self.precondition)
 		
 		programCounter += 1
 		return programCounter
@@ -108,9 +118,11 @@ class SymbolicInterpreter(threading.Thread):
 		self.symVariables[instruction.data[0]] = instruction.data[1]
 		if self.precondition == "":
 			self.precondition = "(" + instruction.data[0] + " = " + instruction.data[1] + ")"
+			#self.precondition = instruction.data[0] + " = " + instruction.data[1]
 		else:
 			self.precondition += " ^ (" + instruction.data[0] + " = " + instruction.data[1] + ")"
-		print("Path Condition: %s") % (self.precondition)
+			#self.precondition += ", " + instruction.data[0] + " = " + instruction.data[1]
+		#print("Path Condition: %s") % (self.precondition)
 
 		programCounter += 1
 		return programCounter
