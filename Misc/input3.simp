@@ -1,5 +1,6 @@
 var x := 1 + 2 + 1
 var y := 3 * 4 + x
+var z := x + y
 var z := get_input()
 var a := x + y - z
 var b := 0

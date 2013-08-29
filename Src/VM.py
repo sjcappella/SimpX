@@ -7,7 +7,7 @@ performSE = False
 taint = None
 
 # Function to run the virtual machine
-def run(instructions, symbolTable, l_performTaint, l_performSE):
+def run(instructions, symbolTable, l_performTaint, l_performSE, ):
 
 	# Will enable or disable taint analysis and symbolic execution
 	global performTaint, performSE
@@ -23,7 +23,7 @@ def run(instructions, symbolTable, l_performTaint, l_performSE):
 
 	print("\n::======= EXECUTE LOOP STARTED =======::\n")
 	while True:
-		# Execute the next instruction and return the updated progarm state
+		# Execute the next instruction and return the updated program state
 		programState = __execute(instructions, programCounter, symbolTable, memory)
 		
 		# Next instruction to execute, update symbol table, updated memory contents

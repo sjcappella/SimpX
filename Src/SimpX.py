@@ -2,6 +2,7 @@ import sys
 import Parser as Parser
 import Normalizer as Normalizer
 import VM as VM
+import SymbolicExecution as SymbolicExecution
 
 # Function to perform lexical analysis and parsing of source code
 def lexAndParse(source_path):
@@ -45,6 +46,9 @@ def main(argv):
       instructions = Instructions_and_Symbols[0]
       symbols = Instructions_and_Symbols[1]
       symbols = VM.run(instructions, symbols, True, True)
+      si = SymbolicExecution.SymbolicInterpreter(instructions, 0, symbols, None, "")
+      si.run()
+
       
 # Check for main function call      
 if __name__ == "__main__":
