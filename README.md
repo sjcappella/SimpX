@@ -13,14 +13,15 @@ More options will be added later.
 
 ### Input Language Specification:
 #### Grammar
+Terms that are encased with `<>` non-terminals. Everything else is a terminal. The standard grammar rules in BNF apply. Please note that `<mulop>` non-terminal does in fact have a `|` term. It is made slightly unclear by the other possible productions. The non-terminal `ID` refers to a variable name while the non-terminal `32_BIT_USIGN_INT` refers to a positive 32-bit constant. This does not mean the language and interpreter can not handle negative numbers. Constants and variables can be negated and variables can hold negative values. The intial parsing actions, however, will just handle the negations of constant numbers as a mutliplication operation on the positive value of the constant. Note that the maximimum value for a constant is `4,294,967,295`. Any value greater than this will be evaluated as modulus the max.
 
 	<program> 			::= <statement_list>
 	
 	<statement_list> 	::= <statement_list> <statement>
 					     |  <statement>
 	
-	<statement> 		::= VAR <id>	
-				 		 |	VAR <id> := <expression
+	<statement> 		::= var <id>	
+				 		 |	var <id> := <expression
 				 		 |  <id> := <expression>
 				 		 |  store( <expression> , <expression> )
 				 		 |  goto <expression>
