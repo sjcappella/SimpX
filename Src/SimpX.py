@@ -45,8 +45,9 @@ def main(argv):
       Instructions_and_Symbols = Normalizer.normalize(ASTs)
       instructions = Instructions_and_Symbols[0]
       symbols = Instructions_and_Symbols[1]
+      symVars = symbols.copy()
       symbols = VM.run(instructions, symbols, True, True)
-      si = SymbolicExecution.SymbolicInterpreter(instructions, 0, symbols, None, "", 0)
+      si = SymbolicExecution.SymbolicInterpreter(instructions, 0, symVars, None, "", 0)
       si.run()
 
       

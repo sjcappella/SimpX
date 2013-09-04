@@ -90,7 +90,8 @@ def statementNodes(ASTNode):
 		convertToIRRec(ASTNode.children[3])
 		var_id = "var_" + ASTNode.children[1].value
 		code += ("\t" + var_id + " := " + temp_val + "\n")
-		symbolTable[var_id] = temp_val
+		#symbolTable[var_id] = temp_val
+		symbolTable[var_id] = ''
 		instructions.append(VMInstruction.Instruction("ASSIGN", (var_id, temp_val))) 
 	
 	# Generate code for printing statements

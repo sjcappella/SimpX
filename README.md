@@ -12,6 +12,12 @@ Running this platform should be relatively easy. Clone the project onto your loc
 More options will be added later. 
 
 ### Input Language Specification:
+#### Grammar:
+
+	<program> ::= <statement_list>
+	<statement_list> ::= <statement_list> <statement>
+					  |	 <statement>
+	<statement> ::= __VAR__ <id>	
 #### Variables:
 All variables that are used but have not been initialized/declared will be evaluated to be 0 by the interpreter.
 

@@ -1,5 +1,6 @@
 import threading
 import time
+import sys
 
 # Extend the thread class for the symbolic interpreter
 class SymbolicInterpreter(threading.Thread):
@@ -22,13 +23,29 @@ class SymbolicInterpreter(threading.Thread):
 		while True:
 			programCounter = self.__execute(programCounter)
 
+			self.precondition = ""
+			first = True
+			print("Path Condition")
+			for key, value in self.symVariables.items():
+				if str(value) != '':		
+					#sys.stdout.write("(" + key + " = " + str(value) + ") ^ ")
+					predicate = "("+ key + " = " + str(value) + ")"
+					if (first != True):
+						self.precondition += " ^ " + predicate
+					else:
+						first = False
+						self.precondition = predicate
+				
+			print(self.precondition)
+			sys.stdout.write("\n")
 			# Check
 			if programCounter == -2:
 				break
 
-		print("Path Condition:")
-		self.precondition = "(" + self.precondition + ")"
-		print(self.precondition)
+		#print("Path Condition:")
+		#self.precondition = "(" + self.precondition + ")"
+		#print(self.precondition)
+
 
 
 	def __execute(self, programCounter):
