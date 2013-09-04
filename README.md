@@ -1,7 +1,7 @@
 # SimpX
 
 
-### Description:
+### Description
 This projects aims to demonstrate how virtual machines, dynamic taint analysis, and symbolic execution engines work.
 
 ### Instructions:
@@ -11,7 +11,7 @@ Running this platform should be relatively easy. Clone the project onto your loc
 
 More options will be added later. 
 
-### Input Language Specification:
+### Input Language Specification
 #### Grammar
 Terms that are encased with `<>` are non-terminals. Everything else is a terminal. The standard grammar rules in BNF apply. Please note that `<mulop>` non-terminal does in fact have a `|` term. It is made slightly unclear by the other possible productions. The non-terminal `ID` refers to a variable name while the non-terminal `32_BIT_USIGN_INT` refers to a positive 32-bit constant. This does not mean the language and interpreter can not handle negative numbers. Constants and variables can be negated and variables can hold negative values. The intial parsing actions, however, will just handle the negations of constant numbers as a mutliplication operation on the positive value of the constant. Note that the maximimum value for a constant is `4,294,967,295`. Any value greater than this will be evaluated as modulus the max.
 
@@ -76,7 +76,7 @@ Each operation will consult the interpreter's dynamic memory and retrieve the va
 
 ### Dynamic Taint Analysis
 #### Taint Introduction and Propagatation
-Currently, taint is introduced via the `get_input()` system call. Since this is the only source of external data, there is no other way to introduce taint. Taint will propagate via defined operations int the `Src/TaintAnalysis.py` file. Both variables and memory addresses can be tainted. Right now, the taint process is inclined to over taint. Constant functions (such as XOR) should remove taint in some cases. Right now this does not happen.
+Currently, taint is introduced via the `get_input()` system call. Since this is the only source of external data, there is no other way to introduce taint. Taint will propagate via defined operations in the `Src/TaintAnalysis.py` file. Both variables and memory addresses can be tainted. Right now, the taint process is inclined to over taint. Constant functions (such as XOR) should remove taint in some cases. Right now this does not happen.
 
 #### Taint Check
 The system is currently designed to display a warning when an jump target is tainted. This happens when the jump target is conditional and that condition has been tainted. In turn, this means that the jump target can be influenced directly by external user input.
