@@ -12,13 +12,48 @@ Running this platform should be relatively easy. Clone the project onto your loc
 More options will be added later. 
 
 ### Input Language Specification:
-#### Grammar:
+#### Grammar
 
-	<program> ::= <statement_list>
-	<statement_list> ::= <statement_list> <statement>
-					  |	 <statement>
-	<statement> ::= __VAR__ <id>	
-#### Variables:
+	<program> 			::= <statement_list>
+	
+	<statement_list> 	::= <statement_list> <statement>
+					     |  <statement>
+	
+	<statement> 		::= VAR <id>	
+				 		 |	VAR <id> := <expression
+				 		 |  <id> := <expression>
+				 		 |  store( <expression> , <expression> )
+				 		 |  goto <expression>
+				 		 |  assert <bool_expression>
+				 		 |  if( <bool_expression> ) then goto <expression> else goto <expression>
+				 		 |  print_output( <expression> )
+	
+	<expression> 		::= <expression> <add_op> <term>
+				  		 |	<term>
+	
+	<add_op> 			::= + | -
+	
+	<term> 				::= <term> <mulop> <factor>
+						 |  <term>
+	
+	<mulop> 			::= * | / | % | ^ | | | &
+	
+	<factor> 			::= <unary_op> <factor>
+			  			 |  ( <expression> )
+			  			 |  32_BIT_USIGN_INT
+			  			 |  ID
+			  			 |  get_input()
+			  			 |  load( <expression> )
+	
+	<id> 				::= ID
+	
+	<bool_expression> 	::= <expression> <rel_op> <expression>
+	
+	<rel_op> 			::= == | != | < | > | <= | >=
+	
+	<unary_op> 			::= + | - | ++ | -- | &
+
+#### Variables
 All variables that are used but have not been initialized/declared will be evaluated to be 0 by the interpreter.
 
 #### Using Memory
