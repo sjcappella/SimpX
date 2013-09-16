@@ -45,6 +45,9 @@ class SymbolicInterpreter(threading.Thread):
 		#print("Path Condition:")
 		#self.precondition = "(" + self.precondition + ")"
 		#print(self.precondition)
+		print("\n::VARIABLES::")
+		for key, value in self.symVariables.items():
+			print("%s = %s") % (key, value)
 
 
 

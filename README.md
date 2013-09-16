@@ -4,6 +4,9 @@
 ### Description
 This projects aims to demonstrate how virtual machines, dynamic taint analysis, and symbolic execution engines work.
 
+## Note
+Primarily, this project was used as a personal learning tool. I have read a lot about dynamic taint analysis and symbolic execution and wanted to write my own tools. After a couple weeks worth of work I have found a pretty serious mistake in my implementation. During the normalization phase during compilation, the IR code is not put in true static single assignement (SSA) form. I knew this but did not anticipate this being too much of an issue due to the simplicity of the language. This does become an issue during symbolic execution, however. You can have circular dependencies when a variable becomes re-assigned. This makes it impossible for the solver to solve. Because of this error, I do not know if/when I will go back and fix this. Conceptually, I should be able to just change the normalizer to output true SSA IR code but this is not a trivial alteration. Also, I don't know what the overall impact will be to the dynamic taint analysis component or the sections I have implemented for symbolic execution. As such, this project may sit in its current state indefinitely.
+
 ### Instructions
 Running this platform should be relatively easy. Clone the project onto your local machine and move into the directory. Create an example source code file (at least one should be provided when checking out the project) and feed it into the program via the following command: 
 	
